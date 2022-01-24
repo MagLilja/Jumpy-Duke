@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class DukeGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	
+	/// Rayan test commit
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
