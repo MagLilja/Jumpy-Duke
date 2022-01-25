@@ -16,7 +16,7 @@ public class MenuScreen extends ScreenAdapter {
     public MenuScreen(SpriteBatch batch, DukeGame dukeGame) {
         this.batch = batch;
         this.dukeGame = dukeGame;
-        bg = new Texture("bg.bmp");
+        bg = new Texture("Background_scale_600x800.png");
     }
 
     public void handleInput() {
