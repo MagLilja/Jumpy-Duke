@@ -21,16 +21,12 @@ public class MenuScreen extends ScreenAdapter {
 
     public void handleInput() {
         if (Gdx.input.justTouched()) {
+            //To be used
         }
     }
 
     public void update() {
-
-    }
-
-    @Override
-    public void show() {
-        super.show();
+        //To be used
     }
 
     @Override
