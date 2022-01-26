@@ -21,8 +21,9 @@ class DukeGameTest extends Game {
     public void testCreateDukeGameObjectNotNull() {
         assertNotNull(dukeGame);
     }
-//    Probably gradle needs pointing to correct working directory
-//    Not yet working
+
+//      Gdx.gl is null during testing, like all other Gdx fields.
+//    Not working
 //    @Test
 //    public void testCreateMenuScreenObjectNotNull(){
 //        assertNotNull(new MenuScreen(sb, dukeGame));

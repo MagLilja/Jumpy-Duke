@@ -10,13 +10,11 @@ public class DukeGame extends Game {
     public static final int WIDTH = 600;
     public static final int HEIGHT = 800;
 
-    private SpriteBatch batch;
     private MenuScreen menuScreen;
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
-        menuScreen = new MenuScreen(batch, this);
+        menuScreen = new MenuScreen(this);
         setMenuScreen();
     }
 
@@ -26,6 +24,6 @@ public class DukeGame extends Game {
 
     @Override
     public void dispose() {
-        batch.dispose();
+
     }
 }
