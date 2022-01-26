@@ -3,6 +3,7 @@ package se.yrgo.jumpyduke;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.screens.MenuScreen;
 
 
@@ -15,6 +16,7 @@ public class DukeGame extends Game {
     @Override
     public void create() {
         menuScreen = new MenuScreen(this);
+        Assets.loadAssets();
         setMenuScreen();
     }
 

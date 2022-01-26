@@ -10,14 +10,9 @@ import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.assets.Assets;
 
 public class MenuScreen extends ScreenAdapter {
-
-    private SpriteBatch batch;
-    private TextureRegion bg;
     private DukeGame dukeGame;
 
     public MenuScreen(DukeGame dukeGame) {
-        Assets.loadAssets();
-        this.batch = Assets.batch;
         this.dukeGame = dukeGame;
     }
 
@@ -34,9 +29,9 @@ public class MenuScreen extends ScreenAdapter {
     @Override
     public void render(float deltaTime) {
         ScreenUtils.clear(1, 0, 0, 1);
-        batch.begin();
-        batch.draw(Assets.background, 0, 0);
-        batch.end();
+        Assets.batch.begin();
+        Assets.batch.draw(Assets.background, 0, 0);
+        Assets.batch.end();
         update();
     }
 
