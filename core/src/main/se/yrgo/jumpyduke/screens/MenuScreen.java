@@ -31,6 +31,7 @@ public class MenuScreen extends ScreenAdapter {
         ScreenUtils.clear(1, 0, 0, 1);
         Assets.batch.begin();
         Assets.batch.draw(Assets.background, 0, 0);
+        Assets.batch.draw(Assets.duke,0,0);
         Assets.batch.end();
         update();
     }
