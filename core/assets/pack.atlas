@@ -1,3 +1,4 @@
+
 pack.png
 size: 1024, 1024
 format: RGBA8888
@@ -36,5 +37,25 @@ Pipe_upper_croped
   xy: 788, 184
   size: 182, 801
   orig: 182, 801
+  offset: 0, 0
+  index: -1
+
+pack2.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Clouds_upper-1_601x338
+  rotate: false
+  xy: 2, 342
+  size: 601, 338
+  orig: 601, 338
+  offset: 0, 0
+  index: -1
+Clouds_upper-2_601x338
+  rotate: false
+  xy: 2, 2
+  size: 601, 338
+  orig: 601, 338
   offset: 0, 0
   index: -1
