@@ -17,28 +17,17 @@ public class MenuScreen extends ScreenAdapter {
         this.dukeGame = dukeGame;
     }
 
-    public void handleInput() {
-        if (Gdx.input.justTouched()) {
-            //To be used
-        }
-    }
-
-    public void update() {
-        //To be used
-    }
-
     @Override
     public void render(float deltaTime) {
         ScreenUtils.clear(1, 0, 0, 1);
         Assets.batch.begin();
         Assets.batch.draw(Assets.background, 0, 0);
-        Assets.batch.draw(Assets.duke, DukeGame.WIDTH / 2, DukeGame.HEIGHT / 2);
+        Assets.batch.draw(Assets.duke, DukeGame.WIDTH / 2 - Assets.duke.getRegionWidth() / 2, DukeGame.HEIGHT / 2);
         Assets.batch.end();
-        update();
     }
 
     @Override
     public void dispose() {
-//        bg.dispose();
+        Assets.dispose();
     }
 }

@@ -18,4 +18,8 @@ public class Assets {
 
     }
 
+    public static void dispose() {
+        batch.dispose();
+        textureAtlas.dispose();
+    }
 }
