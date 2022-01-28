@@ -14,7 +14,7 @@ public class Assets {
         batch = new SpriteBatch();
         textureAtlas = new TextureAtlas("pack.atlas");
         background = textureAtlas.findRegion("Background_scale_600x800");
-        duke = textureAtlas.findRegion("Duke_scale_76x60.png");
+        duke = textureAtlas.findRegion("Duke_scale_76x60");
 
     }
 

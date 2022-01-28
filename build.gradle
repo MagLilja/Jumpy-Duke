@@ -1,4 +1,4 @@
-defaultTasks 'test','run'
+defaultTasks 'test', 'run'
 
 buildscript {
 
@@ -38,6 +38,7 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
+
 }
 
 project(":desktop") {

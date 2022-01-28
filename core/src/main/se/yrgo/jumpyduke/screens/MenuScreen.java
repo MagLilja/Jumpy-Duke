@@ -5,6 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.assets.Assets;
@@ -31,7 +32,7 @@ public class MenuScreen extends ScreenAdapter {
         ScreenUtils.clear(1, 0, 0, 1);
         Assets.batch.begin();
         Assets.batch.draw(Assets.background, 0, 0);
-        Assets.batch.draw(Assets.duke,0,0);
+        Assets.batch.draw(Assets.duke, DukeGame.WIDTH / 2, DukeGame.HEIGHT / 2);
         Assets.batch.end();
         update();
     }
