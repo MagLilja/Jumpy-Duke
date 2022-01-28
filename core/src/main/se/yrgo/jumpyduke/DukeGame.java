@@ -26,6 +26,6 @@ public class DukeGame extends Game {
 
     @Override
     public void dispose() {
-
+        Assets.dispose();
     }
 }

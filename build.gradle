@@ -39,6 +39,7 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
 
+
 }
 
 project(":desktop") {
@@ -73,26 +74,56 @@ project(":core") {
 
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-
     }
 }
 
-//project(":test") {
-//
-//    apply plugin: "java-library"
-//
-//    test {
-//        workingDir= new File("../core/assets")
-//    }
-//
-//    dependencies {
-//        implementation project(":core")
-//
-//        testImplementation(platform('org.junit:junit-bom:5.8.1'))
-//        testImplementation('org.junit.jupiter:junit-jupiter')
-//
-//    }
-//}
+project(":tests") {
+    apply plugin: "java"
+
+    sourceSets.test.java.srcDirs = ["src/"]
+
+    dependencies {
+
+        /**
+         * If you do have some classes to test in os specific code you may want to uncomment
+         * some of these lines.
+         *
+         * BUT: I recommend to create seperate test sub projects for each platform. Trust me :)
+         *
+         */
+
+//        compile project(":android")
+//        compile project(":html")
+//        compile project(":desktop")
+        compile project(path: ':desktop', configuration: 'default')
+
+
+//        if(System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0) {
+//        	compile project(":ios")
+//        }
+
+//        compile project(":core")
+        compile project(path: ':core', configuration: 'default')
+
+        compile "junit:junit:4.+"
+        compile "org.mockito:mockito-all:1.9.+"
+
+        compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+//        testCompile 'junit:junit:4.+'
+        testCompile(platform('org.junit:junit-bom:5.8.1'))
+        testCompile('org.junit.jupiter:junit-jupiter')
+        testCompile 'org.mockito:mockito-all:1.10.19'
+
+
+        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    }
+}
+
+
 
 
 
