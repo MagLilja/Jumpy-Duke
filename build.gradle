@@ -62,15 +62,15 @@ project(":desktop") {
 project(":core") {
     apply plugin: "java-library"
 
-    test {
-
-        useJUnitPlatform()
-
-    }
+//    test {
+//
+//        useJUnitPlatform()
+//
+//    }
 
     dependencies {
-        testImplementation(platform('org.junit:junit-bom:5.8.1'))
-        testImplementation('org.junit.jupiter:junit-jupiter')
+//        testImplementation(platform('org.junit:junit-bom:5.8.1'))
+//        testImplementation('org.junit.jupiter:junit-jupiter')
 
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
@@ -105,8 +105,9 @@ project(":tests") {
 //        compile project(":core")
         compile project(path: ':core', configuration: 'default')
 
-        compile "junit:junit:4.+"
-        compile "org.mockito:mockito-all:1.9.+"
+//        compile "junit:junit:4.+"
+        compile 'org.junit.vintage:junit-vintage-engine:5.8.2'
+        compile "org.mockito:mockito-all:1.10.19"
 
         compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -114,7 +115,11 @@ project(":tests") {
 //        testCompile 'junit:junit:4.+'
         testCompile(platform('org.junit:junit-bom:5.8.1'))
         testCompile('org.junit.jupiter:junit-jupiter')
+        testCompile 'org.junit.vintage:junit-vintage-engine:5.8.2'
+
         testCompile 'org.mockito:mockito-all:1.10.19'
+
+
 
 
         testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
