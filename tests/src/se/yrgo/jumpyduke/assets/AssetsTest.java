@@ -3,44 +3,44 @@ package se.yrgo.jumpyduke.assets;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
-import org.junit.Test;
+
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.runner.RunWith;
+
 
 import com.badlogic.gdx.Gdx;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import se.yrgo.jumpyduke.GdxTestRunner;
 
 import static org.junit.jupiter.api.Assertions.*;
-@RunWith(GdxTestRunner.class)
-public class AssetsTest {
+import static org.mockito.BDDMockito.given;
 
+@RunWith(GdxTestRunner.class)
+class AssetsTest {
 
     @Test
-    public void loadAssetsTest() {
-        // given
+    void textureAtlasIsNotEmptyTest() {
         Assets.loadAssets();
         // when
+        boolean hasTextures = Assets.textureAtlas.getTextures().notEmpty();
         // then
-        assertNotNull(Assets.duke.getRegionWidth());
+        assertTrue(hasTextures);
 
-    }
-
-    @Test
-    public void badlogicLogoFileDoesNotExists() {
-        Assert.assertFalse("This test will only pass when the badlogic.jpg file coming with a new project setup has not been deleted.", Gdx.files
-                .internal("../android/assets/badlogic.jpg").exists());
     }
 
 
     @Test
-    public void dispose() {
+//    @Disabled
+    void shoulDisposeTextureAtlasTest() {
         // given
+        Assets.loadAssets();
+        Assets.dispose();
 
         // when
-
+        boolean hasTextures = Assets.textureAtlas.getTextures().notEmpty();
         // then
+        assertFalse(hasTextures);
     }
-
-
 }

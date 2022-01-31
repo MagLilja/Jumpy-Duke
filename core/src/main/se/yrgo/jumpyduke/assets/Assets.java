@@ -23,6 +23,17 @@ public class Assets {
     }
 
     public static void dispose() {
+        if (batch != null) {
+            disposeSpriteBatch();
+        }
+        disposeTextureAtlas();
+    }
+
+    private static void disposeTextureAtlas() {
         textureAtlas.dispose();
+    }
+
+    private static void disposeSpriteBatch() {
+        batch.dispose();
     }
 }

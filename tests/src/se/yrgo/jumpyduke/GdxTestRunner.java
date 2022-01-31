@@ -35,12 +35,11 @@ import static org.mockito.Mockito.mock;
 
 public class GdxTestRunner extends BlockJUnit4ClassRunner implements ApplicationListener {
 
-	private Map<FrameworkMethod, RunNotifier> invokeInRender = new HashMap<FrameworkMethod, RunNotifier>();
+	private Map<FrameworkMethod, RunNotifier> invokeInRender = new HashMap<>();
 
 	public GdxTestRunner(Class<?> klass) throws InitializationError {
 		super(klass);
 		HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
-
 		new HeadlessApplication(this, conf);
 		Gdx.gl = mock(GL20.class);
 	}

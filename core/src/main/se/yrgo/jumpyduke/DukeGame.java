@@ -15,14 +15,9 @@ public class DukeGame extends Game {
 
     @Override
     public void create() {
-
-        menuScreen = new MenuScreen(this);
         Assets.loadAssets();
+        menuScreen = new MenuScreen();
         Assets.loadSpriteBatch();
-        setMenuScreen();
-    }
-
-    private void setMenuScreen() {
         setScreen(menuScreen);
     }
 

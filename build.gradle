@@ -62,11 +62,11 @@ project(":desktop") {
 project(":core") {
     apply plugin: "java-library"
 
-//    test {
-//
-//        useJUnitPlatform()
-//
-//    }
+    test {
+
+        useJUnitPlatform()
+
+    }
 
     dependencies {
 //        testImplementation(platform('org.junit:junit-bom:5.8.1'))
@@ -81,6 +81,12 @@ project(":tests") {
     apply plugin: "java"
 
     sourceSets.test.java.srcDirs = ["src/"]
+
+    test {
+
+        useJUnitPlatform()
+
+    }
 
     dependencies {
 

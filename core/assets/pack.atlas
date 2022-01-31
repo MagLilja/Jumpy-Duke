@@ -11,7 +11,7 @@ Background_scale_600x800
   orig: 600, 800
   offset: 0, 0
   index: -1
-Clouds_lower
+Clouds_lower_600x181
   rotate: false
   xy: 2, 2
   size: 600, 181
@@ -25,14 +25,14 @@ Duke_scale_76x60
   orig: 76, 60
   offset: 0, 0
   index: -1
-Pipe_lower_croped
+Pipe_bottom_182x801
   rotate: false
   xy: 604, 184
   size: 182, 801
   orig: 182, 801
   offset: 0, 0
   index: -1
-Pipe_upper_croped
+Pipe_top_182x801
   rotate: false
   xy: 788, 184
   size: 182, 801
