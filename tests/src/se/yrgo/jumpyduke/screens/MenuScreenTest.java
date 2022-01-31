@@ -21,8 +21,10 @@ class MenuScreenTest {
         MenuScreen menuScreen = new MenuScreen();
         Vector2 v = menuScreen.getDukeStartingPostition();
         float yExpected = DukeGame.HEIGHT / 2;
+        float xExpected = DukeGame.WIDTH / 2 - 38;
         // when
         assertEquals(yExpected, v.y);
+        assertEquals(xExpected, v.x);
         // then
     }
 }
