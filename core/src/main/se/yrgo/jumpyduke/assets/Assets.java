@@ -9,13 +9,16 @@ public class Assets {
     public static TextureAtlas textureAtlas;
     public static TextureRegion background;
     public static TextureRegion duke;/// The duke
+    public static TextureRegion cloudLower;
     public static SpriteBatch batch;
+
 
 
     public static void loadAssets() {
         textureAtlas = new TextureAtlas("pack.atlas");
         background = textureAtlas.findRegion("Background_scale_600x800");
         duke = textureAtlas.findRegion("Duke_scale_76x60");
+        cloudLower = textureAtlas.findRegion("Clouds_lower_600x181");
     }
 
     public static void loadSpriteBatch() {

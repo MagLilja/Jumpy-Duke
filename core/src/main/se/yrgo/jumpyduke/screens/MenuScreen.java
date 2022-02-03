@@ -23,6 +23,7 @@ public class MenuScreen extends ScreenAdapter {
         Assets.batch.begin();
         Assets.batch.draw(Assets.background, 0, 0);
         Assets.batch.draw(Assets.duke, dukeStartingPostition.x, dukeStartingPostition.y);
+        Assets.batch.draw(Assets.cloudLower, 0, 0);
         Assets.batch.end();
     }
 
