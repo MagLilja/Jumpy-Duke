@@ -13,7 +13,6 @@ public class Assets {
     public static SpriteBatch batch;
 
 
-
     public static void loadAssets() {
         textureAtlas = new TextureAtlas("pack.atlas");
         background = textureAtlas.findRegion("Background_scale_600x800");

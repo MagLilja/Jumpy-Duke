@@ -1,11 +1,11 @@
 package se.yrgo.jumpyduke;
 
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.screens.MenuScreen;
 
+import java.util.Scanner;
 
 public class DukeGame extends Game {
     public static final int WIDTH = 600;
@@ -24,6 +24,5 @@ public class DukeGame extends Game {
     @Override
     public void dispose() {
         Assets.dispose();
-
     }
 }
