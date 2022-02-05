@@ -1,5 +1,5 @@
 # Jumpy-Duke
-Repository for AM22 group project Jumpy Duke.
+Repository for AM22 group project Jumpy Duke.n
 <h2>Installation in your IDE:</h2>
 
 - Clone repository
