@@ -15,6 +15,4 @@ public class Configurations {
             GAME_HEIGHT / 2);
 
     public static Vector2 cloudLowerPosition = new Vector2(0, 0);
-
-
 }
