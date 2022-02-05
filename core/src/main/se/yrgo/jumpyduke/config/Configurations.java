@@ -16,4 +16,5 @@ public class Configurations {
 
     public static Vector2 cloudLowerPosition = new Vector2(0, 0);
 
+
 }
