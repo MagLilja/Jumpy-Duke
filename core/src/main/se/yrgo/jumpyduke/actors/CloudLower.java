@@ -4,13 +4,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import se.yrgo.jumpyduke.assets.Assets;
+import se.yrgo.jumpyduke.config.Configurations;
 
 public class CloudLower extends Actor {
     private TextureRegion cloudRegion;
 
     public CloudLower() {
         cloudRegion = new TextureRegion(Assets.cloudLower);
-        setPosition(0,0);
+        setPosition(Configurations.cloudLowerPosition.x,Configurations.cloudLowerPosition.y);
     }
 
     @Override
@@ -18,8 +19,4 @@ public class CloudLower extends Actor {
         batch.draw(cloudRegion, getX(), getY());
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-    }
 }

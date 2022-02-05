@@ -4,23 +4,26 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.assets.Assets;
+import se.yrgo.jumpyduke.config.Configurations;
 
 public class Duke extends Actor {
-    private static final float GRAVITY = -30f;
+
     private TextureRegion dukeRegion;
-    public static Vector2 dukeStartingPostition;
+
     private Vector2 dukeVelocity;
     private Vector2 dukeAcceleration;
 
     public Duke() {
         this.dukeRegion = new TextureRegion(Assets.duke);
-        dukeStartingPostition = new Vector2(DukeGame.WIDTH / 2 -
-                Assets.duke.getRegionWidth() / 2, DukeGame.HEIGHT / 2);
-        setPosition(dukeStartingPostition.x, dukeStartingPostition.y);
-        dukeVelocity = new Vector2(0, 0);
-        dukeAcceleration = new Vector2(0, GRAVITY);
+
+        setDukeStartingPosition();
+        dukeVelocity = new Vector2();
+        dukeAcceleration = new Vector2(0, Configurations.DUKE_GRAVITY);
+    }
+
+    private void setDukeStartingPosition() {
+        setPosition(Configurations.dukeStartingPostition.x, Configurations.dukeStartingPostition.y);
     }
 
     @Override
@@ -36,6 +39,6 @@ public class Duke extends Actor {
     }
 
     public Vector2 getDukeStartingPostition() {
-        return dukeStartingPostition;
+        return Configurations.dukeStartingPostition;
     }
 }

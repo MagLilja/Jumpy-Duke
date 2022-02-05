@@ -8,8 +8,6 @@ import se.yrgo.jumpyduke.screens.MenuScreen;
 import java.util.Scanner;
 
 public class DukeGame extends Game {
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = 800;
 
     private MenuScreen menuScreen;
 
