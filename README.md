@@ -1,11 +1,9 @@
 # Jumpy-Duke
-Repository for AM22 group project Jumpy Duke.n
-<h2>Installation in your IDE:</h2>
+Repository for AM22 group project Jumpy Duke.
+<h2>Build project:</h2>
 
-- Clone repository
-- run gradlew
+- `gradlew build`
 
-<h2>Run game from jar-file</h2>
+<h2>Run game:</h2>
 
-- 
-- 
+- `gradlew run` 
