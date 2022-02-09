@@ -4,15 +4,27 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
 public class Duke extends Actor {
+    private DukeState dukeState;
 
     private TextureRegion dukeRegion;
 
     private Vector2 dukeVelocity;
     private Vector2 dukeAcceleration;
+
+    private void belowClouds(){
+        if (getY() <= Configurations.LOWER_DEAD_LEVEL){
+            dukeState = DukeState.DEAD;
+        }
+    }
+
+    public void setDukeJump() {
+        this.dukeVelocity.y = Configurations.DUKE_JUMP_VELOCITY;
+    }
 
     public Duke() {
         this.dukeRegion = new TextureRegion(Assets.duke);
@@ -20,6 +32,11 @@ public class Duke extends Actor {
         setDukeStartingPosition();
         dukeVelocity = new Vector2();
         dukeAcceleration = new Vector2(0, Configurations.DUKE_GRAVITY);
+        dukeState =DukeState.ALIVE;
+    }
+
+    public DukeState getDukeState() {
+        return dukeState;
     }
 
     private void setDukeStartingPosition() {
@@ -36,6 +53,7 @@ public class Duke extends Actor {
         super.act(delta);
         dukeVelocity.add(0, dukeAcceleration.y * delta);
         setY(getY() + dukeVelocity.y * delta);
+        belowClouds();
     }
 
     public Vector2 getDukeStartingPostition() {
