@@ -13,6 +13,8 @@ import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.actors.Duke;
+import se.yrgo.jumpyduke.actors.Pipe;
+import se.yrgo.jumpyduke.actors.PipeManager;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
@@ -23,6 +25,15 @@ public class PlayScreen extends ScreenAdapter {
     private Stage playStage;
     private OrthographicCamera cam;
     private CloudLower cloudLower;
+    private Pipe bottomPipe;
+    private Pipe bottomPipe2;
+    private Pipe bottomPipe3;
+    private Pipe topPipe;
+    private Pipe topPipe2;
+    private Pipe topPipe3;
+    private PipeManager pipeManager;
+    private PipeManager pipeManager2;
+    private PipeManager pipeManager3;
 
 
     public PlayScreen(DukeGame dukeGame) {
@@ -33,13 +44,39 @@ public class PlayScreen extends ScreenAdapter {
         cloudLower2 = new CloudLower();
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
-
+        initPipeActors();
 
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
         playStage.addActor(new Image(Assets.background));
         playStage.addActor(duke);
+        addPipeActors();
+
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
+    }
+
+    private void initPipeActors() {
+        bottomPipe = new Pipe();
+        bottomPipe2 = new Pipe();
+        bottomPipe3 = new Pipe();
+        topPipe = new Pipe();
+        topPipe2 = new Pipe();
+        topPipe3 = new Pipe();
+        pipeManager = new PipeManager(bottomPipe, topPipe);
+        pipeManager.initFirstPair();
+        pipeManager2 = new PipeManager(bottomPipe2, topPipe2);
+        pipeManager2.initSecondPair();
+        pipeManager3 = new PipeManager(bottomPipe3, topPipe3);
+        pipeManager3.initThirdPair();
+    }
+
+    private void addPipeActors() {
+        playStage.addActor(pipeManager.getTopPipe());
+        playStage.addActor((pipeManager2.getTopPipe()));
+        playStage.addActor((pipeManager3.getTopPipe()));
+        playStage.addActor(pipeManager.getBottomPipe());
+        playStage.addActor(pipeManager2.getBottomPipe());
+        playStage.addActor(pipeManager3.getBottomPipe());
     }
 
     @Override
@@ -84,6 +121,9 @@ public class PlayScreen extends ScreenAdapter {
         ScreenUtils.clear(1, 0, 0, 1);
         playStage.act();
         playStage.draw();
+        pipeManager.reInitialize();
+        pipeManager2.reInitialize();
+        pipeManager3.reInitialize();
     }
 
     @Override

@@ -31,7 +31,6 @@ public class CloudLower extends Actor {
     private void reInitialize() {
         if (getX() <= -getWidth()) {
             setX(getX() + getWidth() * 2);
-
         }
     }
 

@@ -11,6 +11,7 @@ public class Assets {
     public static TextureRegion duke;/// The duke
     public static TextureRegion cloudLower;
     public static SpriteBatch batch;
+    public static TextureRegion pipe;
 
 
     public static void loadAssets() {
@@ -18,6 +19,9 @@ public class Assets {
         background = textureAtlas.findRegion("Background_scale_600x800");
         duke = textureAtlas.findRegion("Duke_scale_76x60");
         cloudLower = textureAtlas.findRegion("Clouds_lower_600x181");
+        pipe = textureAtlas.findRegion("Pipe_182x801");
+
+
     }
 
     public static void loadSpriteBatch() {
