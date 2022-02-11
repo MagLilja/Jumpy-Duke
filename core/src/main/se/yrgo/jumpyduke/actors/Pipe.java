@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
+import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
@@ -17,13 +18,17 @@ public class Pipe extends Actor {
         pipeRegion = new TextureRegion(Assets.pipe);
         setWidth(pipeRegion.getRegionWidth() * 0.65f);
         setHeight(pipeRegion.getRegionHeight() * 0.65f);
-        pipeVelocity = new Vector2(Configurations.PIPE_VELOCITY, 0);
+        pipeVelocity = new Vector2(Configurations.PIPE_VELOCITY_ALIVE, 0);
         setOrigin(Align.center);
     }
 
     @Override
     public void act(float delta) {
-        setX(getX() + pipeVelocity.x * delta);
+        if (Duke.getDukeState() == DukeState.ALIVE) {
+            setX(getX() + pipeVelocity.x * delta);
+
+
+        }
     }
 
     @Override

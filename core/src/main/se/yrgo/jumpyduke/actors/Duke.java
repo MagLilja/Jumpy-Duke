@@ -9,15 +9,24 @@ import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
 public class Duke extends Actor {
-    private DukeState dukeState;
+    private static DukeState dukeState;
 
     private TextureRegion dukeRegion;
 
     private Vector2 dukeVelocity;
     private Vector2 dukeAcceleration;
 
-    private void belowClouds(){
-        if (getY() <= Configurations.LOWER_DEAD_LEVEL){
+    public Duke() {
+        this.dukeRegion = new TextureRegion(Assets.duke);
+
+        setDukeStartingPosition();
+        dukeVelocity = new Vector2();
+        dukeAcceleration = new Vector2(0, Configurations.DUKE_GRAVITY);
+        dukeState = DukeState.ALIVE;
+    }
+
+    private void belowClouds() {
+        if (getY() <= Configurations.LOWER_DEAD_LEVEL) {
             dukeState = DukeState.DEAD;
         }
     }
@@ -26,16 +35,8 @@ public class Duke extends Actor {
         this.dukeVelocity.y = Configurations.DUKE_JUMP_VELOCITY;
     }
 
-    public Duke() {
-        this.dukeRegion = new TextureRegion(Assets.duke);
 
-        setDukeStartingPosition();
-        dukeVelocity = new Vector2();
-        dukeAcceleration = new Vector2(0, Configurations.DUKE_GRAVITY);
-        dukeState =DukeState.ALIVE;
-    }
-
-    public DukeState getDukeState() {
+    public static DukeState getDukeState() {
         return dukeState;
     }
 
