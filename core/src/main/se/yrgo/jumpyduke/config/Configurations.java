@@ -6,9 +6,9 @@ import se.yrgo.jumpyduke.assets.Assets;
 public class Configurations {
 
     public static final float DUKE_GRAVITY = -900f;
-    public static final float DUKE_JUMP_VELOCITY = 300f;
+    public static final float DUKE_JUMP_VELOCITY = 600f;
     public static final float LOWER_CLOUD_VELOCITY_ALIVE = -120f;
-    public static final float LOWER_CLOUD_VELOCITY_DEAD = -60f;
+    public static final float LOWER_CLOUD_VELOCITY_DEAD = -20f;
     public static final int GAME_WIDTH = 600;
     public static final int GAME_HEIGHT = 800;
     public static final int LOWER_DEAD_LEVEL = 100;

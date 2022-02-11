@@ -64,7 +64,7 @@ public class Duke extends Actor {
         setY(getY() + dukeVelocity.y * delta);
         belowClouds();
         dukeRectangle.setPosition(getX(), getY());
-        System.out.println(dukeRectangle.getHeight());
+
     }
 
     public static void setDukeState(DukeState dukeState) {

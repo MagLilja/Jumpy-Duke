@@ -31,6 +31,8 @@ public class MenuScreen extends ScreenAdapter {
     private Label title;
     private Label titleLabel;
 
+
+
     public MenuScreen(DukeGame dukeGame) {
         this.dukeGame = dukeGame;
         playScreen = new PlayScreen(this.dukeGame);
@@ -40,12 +42,11 @@ public class MenuScreen extends ScreenAdapter {
         cloudLower2 = new CloudLower();
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
-        BitmapFont bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
-//        Label.LabelStyle labelStyle = new Label.LabelStyle();
-//        title = new Label("HEj", labelStyle);
 
-        titleLabel = new Label("Jumpy Duke - Press Space To Play!", new Label.LabelStyle(bitmapFont, Color.WHITE));
+        titleLabel = new Label("Jumpy Duke - Press Space To Play!", new Label.LabelStyle(Assets.bitmapFont, Color.WHITE));
         titleLabel.setPosition(Configurations.GAME_WIDTH/2,Configurations.GAME_HEIGHT/2, Align.center);
+
+
 
         menuStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
         menuStage.addActor(new Image(Assets.background));

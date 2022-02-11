@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import se.yrgo.jumpyduke.DukeGame;
@@ -40,16 +43,20 @@ public class PlayScreen extends ScreenAdapter {
     private PipeManager pipeManager2;
     private PipeManager pipeManager3;
     private List<Pipe> listOfPipes;
+    private Label restartLabel;
+    private float playTime;
 
 
     public PlayScreen(DukeGame dukeGame) {
         cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
-
+        this.dukeGame = dukeGame;
         duke = new Duke();
+
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
+
         initPipeActors();
 
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
@@ -59,6 +66,10 @@ public class PlayScreen extends ScreenAdapter {
 
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
+
+        restartLabel = new Label("Press F2 To Play Again!", new Label.LabelStyle(Assets.bitmapFont, Color.WHITE));
+        restartLabel.setPosition(Configurations.GAME_WIDTH/2,Configurations.GAME_HEIGHT/2, Align.center);
+
     }
     private void collisionWithPipe() {
         for(Pipe pipe : listOfPipes){
@@ -119,8 +130,14 @@ public class PlayScreen extends ScreenAdapter {
                     ifAliveJump();
                     System.out.println("Spacebar!");
                 }
+                if (keycode == Input.Keys.F2 && duke.getDukeState() == DukeState.DEAD) {
+                    dukeGame.setScreen(new PlayScreen(dukeGame));
+                    System.out.println("Spacebar!");
+                }
                 return true;
             }
+
+
         });
 
     }
@@ -136,12 +153,21 @@ public class PlayScreen extends ScreenAdapter {
     @Override
     public void render(float deltaTime) {
         ScreenUtils.clear(1, 0, 0, 1);
+        collisionWithPipe();
+        restartOptionIfDead();
+        playTime += deltaTime;
+        System.out.println(playTime);
         playStage.act();
         playStage.draw();
         pipeManager.reInitialize();
         pipeManager2.reInitialize();
         pipeManager3.reInitialize();
-        collisionWithPipe();
+    }
+
+    private void restartOptionIfDead() {
+        if (duke.getDukeState() == DukeState.DEAD){
+            playStage.addActor(restartLabel);
+        }
     }
 
     @Override
