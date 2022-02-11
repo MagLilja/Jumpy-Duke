@@ -18,6 +18,11 @@ import se.yrgo.jumpyduke.actors.PipeManager;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
 public class PlayScreen extends ScreenAdapter {
     private CloudLower cloudLower2;
     private DukeGame dukeGame;
@@ -34,6 +39,7 @@ public class PlayScreen extends ScreenAdapter {
     private PipeManager pipeManager;
     private PipeManager pipeManager2;
     private PipeManager pipeManager3;
+    private List<Pipe> listOfPipes;
 
 
     public PlayScreen(DukeGame dukeGame) {
@@ -54,7 +60,16 @@ public class PlayScreen extends ScreenAdapter {
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
     }
+    private void collisionWithPipe() {
+        for(Pipe pipe : listOfPipes){
 
+            if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
+                duke.setDukeState(DukeState.DEAD);
+                System.out.println();
+
+            }
+        }
+    }
     private void initPipeActors() {
         bottomPipe = new Pipe();
         bottomPipe2 = new Pipe();
@@ -62,6 +77,8 @@ public class PlayScreen extends ScreenAdapter {
         topPipe = new Pipe();
         topPipe2 = new Pipe();
         topPipe3 = new Pipe();
+        listOfPipes = new ArrayList<>();
+        Collections.addAll(listOfPipes,bottomPipe,bottomPipe2,bottomPipe3,topPipe,topPipe2,topPipe3);
         pipeManager = new PipeManager(bottomPipe, topPipe);
         pipeManager.initFirstPair();
         pipeManager2 = new PipeManager(bottomPipe2, topPipe2);
@@ -124,6 +141,7 @@ public class PlayScreen extends ScreenAdapter {
         pipeManager.reInitialize();
         pipeManager2.reInitialize();
         pipeManager3.reInitialize();
+        collisionWithPipe();
     }
 
     @Override

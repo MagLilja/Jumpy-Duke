@@ -2,6 +2,7 @@ package se.yrgo.jumpyduke.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import se.yrgo.jumpyduke.DukeState;
@@ -12,17 +13,24 @@ public class Duke extends Actor {
     private static DukeState dukeState;
 
     private TextureRegion dukeRegion;
+    private Rectangle dukeRectangle;
 
     private Vector2 dukeVelocity;
     private Vector2 dukeAcceleration;
 
     public Duke() {
         this.dukeRegion = new TextureRegion(Assets.duke);
-
+        setWidth(dukeRegion.getRegionWidth());
+        setHeight(dukeRegion.getRegionHeight());
         setDukeStartingPosition();
+        dukeRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
         dukeVelocity = new Vector2();
         dukeAcceleration = new Vector2(0, Configurations.DUKE_GRAVITY);
         dukeState = DukeState.ALIVE;
+    }
+
+    public Rectangle getDukeRectangle() {
+        return dukeRectangle;
     }
 
     private void belowClouds() {
@@ -30,6 +38,7 @@ public class Duke extends Actor {
             dukeState = DukeState.DEAD;
         }
     }
+
 
     public void setDukeJump() {
         this.dukeVelocity.y = Configurations.DUKE_JUMP_VELOCITY;
@@ -51,13 +60,19 @@ public class Duke extends Actor {
 
     @Override
     public void act(float delta) {
-        super.act(delta);
         dukeVelocity.add(0, dukeAcceleration.y * delta);
         setY(getY() + dukeVelocity.y * delta);
         belowClouds();
+        dukeRectangle.setPosition(getX(), getY());
+        System.out.println(dukeRectangle.getHeight());
+    }
+
+    public static void setDukeState(DukeState dukeState) {
+        Duke.dukeState = dukeState;
     }
 
     public Vector2 getDukeStartingPostition() {
         return Configurations.dukeStartingPostition;
     }
+
 }
