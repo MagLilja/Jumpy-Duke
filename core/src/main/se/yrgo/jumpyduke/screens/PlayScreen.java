@@ -17,12 +17,11 @@ import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.actors.Duke;
 import se.yrgo.jumpyduke.actors.Pipe;
-import se.yrgo.jumpyduke.actors.PipeManager;
+import se.yrgo.jumpyduke.actors.PipeDuo;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -33,23 +32,16 @@ public class PlayScreen extends ScreenAdapter {
     private Stage playStage;
     private OrthographicCamera cam;
     private CloudLower cloudLower;
-    private Pipe bottomPipe;
-    private Pipe bottomPipe2;
-    private Pipe bottomPipe3;
-    private Pipe topPipe;
-    private Pipe topPipe2;
-    private Pipe topPipe3;
-    private PipeManager pipeManager;
-    private PipeManager pipeManager2;
-    private PipeManager pipeManager3;
+
     private List<Pipe> listOfPipes;
     private Label restartLabel;
     private float playTime;
+    private List<PipeDuo> listOfPipeDuos;
 
 
     public PlayScreen(DukeGame dukeGame) {
-        cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
         this.dukeGame = dukeGame;
+        cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
         duke = new Duke();
 
         cloudLower = new CloudLower();
@@ -57,55 +49,22 @@ public class PlayScreen extends ScreenAdapter {
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
 
+        listOfPipes = new ArrayList<>();
+        listOfPipeDuos = new ArrayList<>();
         initPipeActors();
 
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
         playStage.addActor(new Image(Assets.background));
         playStage.addActor(duke);
         addPipeActors();
-
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
 
         restartLabel = new Label("Press F2 To Play Again!", new Label.LabelStyle(Assets.bitmapFont, Color.WHITE));
-        restartLabel.setPosition(Configurations.GAME_WIDTH/2,Configurations.GAME_HEIGHT/2, Align.center);
+        restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
 
     }
-    private void collisionWithPipe() {
-        for(Pipe pipe : listOfPipes){
 
-            if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
-                duke.setDukeState(DukeState.DEAD);
-                System.out.println();
-
-            }
-        }
-    }
-    private void initPipeActors() {
-        bottomPipe = new Pipe();
-        bottomPipe2 = new Pipe();
-        bottomPipe3 = new Pipe();
-        topPipe = new Pipe();
-        topPipe2 = new Pipe();
-        topPipe3 = new Pipe();
-        listOfPipes = new ArrayList<>();
-        Collections.addAll(listOfPipes,bottomPipe,bottomPipe2,bottomPipe3,topPipe,topPipe2,topPipe3);
-        pipeManager = new PipeManager(bottomPipe, topPipe);
-        pipeManager.initFirstPair();
-        pipeManager2 = new PipeManager(bottomPipe2, topPipe2);
-        pipeManager2.initSecondPair();
-        pipeManager3 = new PipeManager(bottomPipe3, topPipe3);
-        pipeManager3.initThirdPair();
-    }
-
-    private void addPipeActors() {
-        playStage.addActor(pipeManager.getTopPipe());
-        playStage.addActor((pipeManager2.getTopPipe()));
-        playStage.addActor((pipeManager3.getTopPipe()));
-        playStage.addActor(pipeManager.getBottomPipe());
-        playStage.addActor(pipeManager2.getBottomPipe());
-        playStage.addActor(pipeManager3.getBottomPipe());
-    }
 
     @Override
     public void show() {
@@ -121,7 +80,6 @@ public class PlayScreen extends ScreenAdapter {
                     System.out.println("Mouse click!");
                 }
                 return true;
-
             }
 
             @Override
@@ -136,8 +94,6 @@ public class PlayScreen extends ScreenAdapter {
                 }
                 return true;
             }
-
-
         });
 
     }
@@ -159,13 +115,49 @@ public class PlayScreen extends ScreenAdapter {
         System.out.println(playTime);
         playStage.act();
         playStage.draw();
-        pipeManager.reInitialize();
-        pipeManager2.reInitialize();
-        pipeManager3.reInitialize();
+        reInitPipeDuosOnScreen();
     }
 
+    private void initPipeActors() {
+
+        for (int i = 0; i < 4; ++i) {
+            listOfPipes.add(new Pipe());
+            listOfPipes.add(new Pipe());
+        }
+        for (int i = 0; i < 6; i = i + 2) {
+            listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1)));
+        }
+
+        listOfPipeDuos.get(0).initFirstPair();
+        listOfPipeDuos.get(1).initSecondPair();
+        listOfPipeDuos.get(2).initThirdPair();
+    }
+
+    private void addPipeActors() {
+        for (int i = 0; i < 3; ++i) {
+            playStage.addActor(listOfPipeDuos.get(i).getTopPipe());
+            playStage.addActor(listOfPipeDuos.get(i).getBottomPipe());
+        }
+
+    }
+
+    private void reInitPipeDuosOnScreen() {
+        listOfPipeDuos.stream().forEach(pipeDuo -> pipeDuo.reInitialize());
+    }
+    private void collisionWithPipe() {
+        for (Pipe pipe : listOfPipes) {
+
+            if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
+                duke.setDukeState(DukeState.DEAD);
+                System.out.println();
+
+            }
+        }
+    }
+
+
     private void restartOptionIfDead() {
-        if (duke.getDukeState() == DukeState.DEAD){
+        if (duke.getDukeState() == DukeState.DEAD) {
             playStage.addActor(restartLabel);
         }
     }

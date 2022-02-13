@@ -5,12 +5,12 @@ import se.yrgo.jumpyduke.config.Configurations;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class PipeManager {
+public class PipeDuo {
     private Pipe bottomPipe;
     private Pipe topPipe;
     private double randomPipePlacement;
 
-    public PipeManager(Pipe bottomPipe, Pipe topPipe) {
+    public PipeDuo(Pipe bottomPipe, Pipe topPipe) {
         this.bottomPipe = bottomPipe;
         this.topPipe = topPipe;
     }
