@@ -2,7 +2,6 @@ defaultTasks 'test', 'run'
 
 buildscript {
 
-
     repositories {
         mavenLocal()
         mavenCentral()
