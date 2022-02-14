@@ -7,17 +7,23 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.player.Player;
 
 public class MenuScreen extends ScreenAdapter {
     private CloudLower cloudLower2;
@@ -28,31 +34,55 @@ public class MenuScreen extends ScreenAdapter {
     private OrthographicCamera cam;
     private CloudLower cloudLower;
 
-    private Label title;
     private Label titleLabel;
+    private Label name;
+    private TextField nameField;
+    private Skin skin;
+
+    private MenuScreenTextInputListener menuScreenTextInputListener;
 
 
 
     public MenuScreen(DukeGame dukeGame) {
         this.dukeGame = dukeGame;
         playScreen = new PlayScreen(this.dukeGame);
-        cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
+        cam = new OrthographicCamera(); //Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT
+        menuScreenTextInputListener = new MenuScreenTextInputListener();
+        menuStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
+
+        Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
+
 
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
 
-        titleLabel = new Label("Jumpy Duke - Press Space To Play!", new Label.LabelStyle(Assets.bitmapFont, Color.WHITE));
+        skin =new Skin(Gdx.files.internal("skin/mySkin.json"));
+//        skin.get("font-label", BitmapFont.class).getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        titleLabel = new Label("Jumpy Duke - Press Space To Play!", skin);
         titleLabel.setPosition(Configurations.GAME_WIDTH/2,Configurations.GAME_HEIGHT/2, Align.center);
+//
+//        playerLabel = new Label("Jumpy Duke - Press Space To Play!", new Label.LabelStyle(Assets.bitmapFont, Color.WHITE));
+//        playerLabel.setPosition(Configurations.GAME_WIDTH/2,Configurations.GAME_HEIGHT/2, Align.center);
+//
+//        name = new Label("NAME : ", skin);
+//        nameField =new TextField("", skin);
 
+//        Table table=new Table();
+//        table.defaults().pad(10);
+//        table.setPosition(300,400);
+//        table.row();
+//        table.add(name).left();
+//        table.add(nameField).width(300);
 
-
-        menuStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
         menuStage.addActor(new Image(Assets.background));
         menuStage.addActor(cloudLower2);
         menuStage.addActor(titleLabel);
         menuStage.addActor(cloudLower);
+
+//        menuStage.addActor(table);
     }
 
     @Override
