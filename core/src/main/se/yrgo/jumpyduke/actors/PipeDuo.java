@@ -49,7 +49,7 @@ public class PipeDuo {
             topPipe.getPipeRegion().flip(true, true);
             randomPipePlacement = ThreadLocalRandom.current().
                     nextDouble(Configurations.PIPE_GAP_BOTTOM_LEVEL, Configurations.PIPE_GAP_TOP_LEVEL);
-            initializePair(Configurations.GAP_SIZE + 140 + Configurations.GAME_WIDTH);
+            initializePair((int) (Configurations.PIPE_SPACING * 3 + topPipe.getX()));
         }
     }
 

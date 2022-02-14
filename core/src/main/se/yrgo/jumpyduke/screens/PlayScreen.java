@@ -89,7 +89,7 @@ public class PlayScreen extends ScreenAdapter {
                     System.out.println("Spacebar!");
                 }
                 if (keycode == Input.Keys.F2 && duke.getDukeState() == DukeState.DEAD) {
-                    dukeGame.setScreen(new PlayScreen(dukeGame));
+                    dukeGame.setScreen(new MenuScreen(dukeGame));
                     System.out.println("Spacebar!");
                 }
                 return true;
