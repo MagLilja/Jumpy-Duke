@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Assets {
 
@@ -15,6 +16,7 @@ public class Assets {
     public static SpriteBatch batch;
     public static TextureRegion pipe;
     public static BitmapFont bitmapFont;
+    public static Skin skin;
 
 
     public static void loadAssets() {
@@ -24,7 +26,7 @@ public class Assets {
         cloudLower = textureAtlas.findRegion("Clouds_lower_600x181");
         pipe = textureAtlas.findRegion("Pipe_182x801");
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
-
+        skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
 
 
     }

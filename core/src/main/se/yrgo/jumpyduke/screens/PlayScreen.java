@@ -20,6 +20,7 @@ import se.yrgo.jumpyduke.actors.Pipe;
 import se.yrgo.jumpyduke.actors.PipeDuo;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,17 @@ public class PlayScreen extends ScreenAdapter {
     private CloudLower cloudLower2;
     private DukeGame dukeGame;
     private Duke duke;
+
+    private Stage guiStage;
     private Stage playStage;
+
     private OrthographicCamera cam;
     private CloudLower cloudLower;
 
     private List<Pipe> listOfPipes;
     private Label restartLabel;
+    private Label playerNameLabel;
+    private Label playerScoreLabel;
     private float playTime;
     private List<PipeDuo> listOfPipeDuos;
 
@@ -43,6 +49,8 @@ public class PlayScreen extends ScreenAdapter {
         this.dukeGame = dukeGame;
         cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
         duke = new Duke();
+        playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
+        guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
 
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
@@ -53,16 +61,19 @@ public class PlayScreen extends ScreenAdapter {
         listOfPipeDuos = new ArrayList<>();
         initPipeActors();
 
-        playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
         playStage.addActor(new Image(Assets.background));
         playStage.addActor(duke);
         addPipeActors();
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
 
-        restartLabel = new Label("Press F2 To Play Again!", new Label.LabelStyle(Assets.bitmapFont, Color.WHITE));
+        restartLabel = new Label("Press F2 To Play Again!", Assets.skin);
         restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
 
+
+        playerNameLabel = new Label(Player.getUserName(), Assets.skin);
+        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.85), Align.center);
+        guiStage.addActor(playerNameLabel);
     }
 
 
@@ -86,11 +97,9 @@ public class PlayScreen extends ScreenAdapter {
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.SPACE) {
                     ifAliveJump();
-                    System.out.println("Spacebar!");
                 }
                 if (keycode == Input.Keys.F2 && duke.getDukeState() == DukeState.DEAD) {
                     dukeGame.setScreen(new MenuScreen(dukeGame));
-                    System.out.println("Spacebar!");
                 }
                 return true;
             }
@@ -115,6 +124,9 @@ public class PlayScreen extends ScreenAdapter {
         System.out.println(playTime);
         playStage.act();
         playStage.draw();
+
+        guiStage.act();
+        guiStage.draw();
         reInitPipeDuosOnScreen();
     }
 
