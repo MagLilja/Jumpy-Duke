@@ -20,6 +20,8 @@ public class Configurations {
     public static final int PIPE_SPACING = 350;
 
 
+
+
     public static Vector2 dukeStartingPostition = new Vector2(
             GAME_WIDTH / 2 - Assets.duke.getRegionWidth() / 2,
             GAME_HEIGHT / 2);

@@ -10,7 +10,7 @@ import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
 public class Duke extends Actor {
-    private static DukeState dukeState;
+    private static DukeState dukeState = DukeState.ALIVE;
 
     private TextureRegion dukeRegion;
     private Rectangle dukeRectangle;
@@ -26,7 +26,6 @@ public class Duke extends Actor {
         dukeRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
         dukeVelocity = new Vector2();
         dukeAcceleration = new Vector2(0, Configurations.DUKE_GRAVITY);
-        dukeState = DukeState.ALIVE;
     }
 
     public Rectangle getDukeRectangle() {
@@ -35,7 +34,7 @@ public class Duke extends Actor {
 
     private void belowClouds() {
         if (getY() <= Configurations.LOWER_DEAD_LEVEL) {
-            dukeState = DukeState.DEAD;
+            setDukeState(DukeState.DEAD);
         }
     }
 

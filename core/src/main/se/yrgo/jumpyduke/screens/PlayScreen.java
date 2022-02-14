@@ -40,7 +40,6 @@ public class PlayScreen extends ScreenAdapter {
     private List<Pipe> listOfPipes;
     private Label restartLabel;
     private Label playerNameLabel;
-    private Label playerScoreLabel;
     private float playTime;
     private List<PipeDuo> listOfPipeDuos;
 
@@ -88,7 +87,6 @@ public class PlayScreen extends ScreenAdapter {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 if (button == Input.Buttons.LEFT) {
                     ifAliveJump();
-                    System.out.println("Mouse click!");
                 }
                 return true;
             }
@@ -98,7 +96,7 @@ public class PlayScreen extends ScreenAdapter {
                 if (keycode == Input.Keys.SPACE) {
                     ifAliveJump();
                 }
-                if (keycode == Input.Keys.F2 && duke.getDukeState() == DukeState.DEAD) {
+                if (keycode == Input.Keys.F2 && Duke.getDukeState() == DukeState.DEAD) {
                     dukeGame.setScreen(new MenuScreen(dukeGame));
                 }
                 return true;
@@ -108,10 +106,9 @@ public class PlayScreen extends ScreenAdapter {
     }
 
     private void ifAliveJump() {
-        if (duke.getDukeState() == DukeState.ALIVE) {
+        if (Duke.getDukeState() == DukeState.ALIVE) {
             duke.setDukeJump();
         }
-        System.out.println(duke.getDukeState());
     }
 
 
@@ -154,22 +151,20 @@ public class PlayScreen extends ScreenAdapter {
     }
 
     private void reInitPipeDuosOnScreen() {
-        listOfPipeDuos.stream().forEach(pipeDuo -> pipeDuo.reInitialize());
+        listOfPipeDuos.forEach(PipeDuo::reInitialize);
     }
     private void collisionWithPipe() {
         for (Pipe pipe : listOfPipes) {
 
             if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
-                duke.setDukeState(DukeState.DEAD);
-                System.out.println();
-
+                Duke.setDukeState(DukeState.DEAD);
             }
         }
     }
 
 
     private void restartOptionIfDead() {
-        if (duke.getDukeState() == DukeState.DEAD) {
+        if (Duke.getDukeState() == DukeState.DEAD) {
             playStage.addActor(restartLabel);
         }
     }

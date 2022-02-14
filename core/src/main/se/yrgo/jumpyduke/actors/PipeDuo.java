@@ -36,12 +36,12 @@ public class PipeDuo {
         initializePair(xPlacement);
     }
 
-    private void initializePair(int gameWidth) {
+    private void initializePair(float gameWidth) {
         topPipe.getPipeRegion().flip(true, true);
         topPipe.setPosition(gameWidth, (float) (randomPipePlacement +
-                (Configurations.GAP_SIZE / 2)), Align.bottomLeft);
+                        (Configurations.GAP_SIZE / 2)), Align.bottomLeft);
         bottomPipe.setPosition(gameWidth, (float) (randomPipePlacement -
-                (Configurations.GAP_SIZE / 2)), Align.topLeft);
+                        (Configurations.GAP_SIZE / 2)), Align.topLeft);
     }
 
     public void reInitialize() {

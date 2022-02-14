@@ -18,6 +18,8 @@ public class Assets {
     public static BitmapFont bitmapFont;
     public static Skin skin;
 
+    private Assets() {
+    }
 
     public static void loadAssets() {
         textureAtlas = new TextureAtlas("pack.atlas");

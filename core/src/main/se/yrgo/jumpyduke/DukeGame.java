@@ -10,12 +10,10 @@ import se.yrgo.jumpyduke.screens.PlayScreen;
 public class DukeGame extends Game {
 
     private MenuScreen menuScreen;
-    private MenuScreenTextInputListener menuScreenTextInputListener;
 
     @Override
     public void create() {
         Assets.loadAssets();
-//        Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
         menuScreen = new MenuScreen(this);
         Assets.loadSpriteBatch();
         setScreen(menuScreen);
