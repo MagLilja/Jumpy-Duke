@@ -18,6 +18,13 @@ Clouds_lower_600x181
   orig: 600, 181
   offset: 0, 0
   index: -1
+Duke_multi
+  rotate: false
+  xy: 746, 925
+  size: 267, 60
+  orig: 267, 60
+  offset: 0, 0
+  index: -1
 Duke_scale_76x60
   rotate: false
   xy: 604, 122
@@ -25,18 +32,11 @@ Duke_scale_76x60
   orig: 76, 60
   offset: 0, 0
   index: -1
-Pipe_182x801
+Pipe_bottom_new_140x801
   rotate: false
   xy: 604, 184
-  size: 182, 801
-  orig: 182, 801
-  offset: 0, 0
-  index: -1
-Pipe_top_182x801
-  rotate: false
-  xy: 788, 184
-  size: 182, 801
-  orig: 182, 801
+  size: 140, 801
+  orig: 140, 801
   offset: 0, 0
   index: -1
 
