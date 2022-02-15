@@ -26,7 +26,7 @@ public class Assets {
         background = textureAtlas.findRegion("Background_scale_600x800");
         duke = textureAtlas.findRegion("Duke_scale_76x60");
         cloudLower = textureAtlas.findRegion("Clouds_lower_600x181");
-        pipe = textureAtlas.findRegion("Pipe_182x801");
+        pipe = textureAtlas.findRegion("Pipe_bottom_new_140x801");
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
 

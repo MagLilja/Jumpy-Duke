@@ -118,10 +118,10 @@ public class PlayScreen extends ScreenAdapter {
         collisionWithPipe();
         restartOptionIfDead();
         playTime += deltaTime;
-        System.out.println(playTime);
+//        System.out.println(playTime);
         playStage.act();
         playStage.draw();
-
+        System.out.println(Duke.getDukeState());
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
@@ -158,6 +158,7 @@ public class PlayScreen extends ScreenAdapter {
 
             if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
                 Duke.setDukeState(DukeState.DEAD);
+                System.out.println(DukeState.DEAD);
             }
         }
     }

@@ -10,7 +10,7 @@ import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
 public class Duke extends Actor {
-    private static DukeState dukeState = DukeState.ALIVE;
+    private static DukeState dukeState;// = DukeState.ALIVE;
 
     private TextureRegion dukeRegion;
     private Rectangle dukeRectangle;
@@ -20,6 +20,7 @@ public class Duke extends Actor {
 
     public Duke() {
         this.dukeRegion = new TextureRegion(Assets.duke);
+        dukeState = DukeState.ALIVE;
         setWidth(dukeRegion.getRegionWidth());
         setHeight(dukeRegion.getRegionHeight());
         setDukeStartingPosition();
