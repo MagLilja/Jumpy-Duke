@@ -19,7 +19,7 @@ public class Player {
     private int rounds;
 
 
-    public Player() throws IOException {
+    public Player()  {
         rounds = 0;
     }
 

@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import se.yrgo.jumpyduke.actors.Bugg;
+import se.yrgo.jumpyduke.player.PLayerManager;
+
+import java.io.IOException;
 
 public class Assets {
 
@@ -33,6 +36,11 @@ public class Assets {
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
         bugg = textureAtlas.findRegion("Bugg");
+        try {
+            PLayerManager.loadDataFromJson("players.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void loadSpriteBatch() {

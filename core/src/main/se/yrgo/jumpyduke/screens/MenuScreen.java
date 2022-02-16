@@ -36,7 +36,7 @@ public class MenuScreen extends ScreenAdapter {
     public MenuScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
         this.player = player;
-        menuScreenTextInputListener = new MenuScreenTextInputListener(this);
+        menuScreenTextInputListener = new MenuScreenTextInputListener(player);
         if (this.player.getUserName() == null) {
             Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
         }

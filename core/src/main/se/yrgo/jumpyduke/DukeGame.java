@@ -17,16 +17,8 @@ public class DukeGame extends Game {
 
     @Override
     public void create() {
-
-
-        try {
-            player = new Player();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
         Assets.loadAssets();
+        player = new Player();
         menuScreen = new MenuScreen(this, player);
         Assets.loadSpriteBatch();
         setScreen(menuScreen);
