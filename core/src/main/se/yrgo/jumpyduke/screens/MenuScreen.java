@@ -3,18 +3,11 @@ package se.yrgo.jumpyduke.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -33,17 +26,20 @@ public class MenuScreen extends ScreenAdapter {
     private CloudLower cloudLower;
 
     private Label titleLabel;
+    private Label lastScore;
+    private Label highScore;
     private MenuScreenTextInputListener menuScreenTextInputListener;
 
     private Player player;
 
 
-    public MenuScreen(DukeGame dukeGame) {
+    public MenuScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
-        player = new Player();
+        this.player = player;
         menuScreenTextInputListener = new MenuScreenTextInputListener(this);
-        Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
-
+        if (this.player.getUserName() == null) {
+            Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
+        }
         cam = new OrthographicCamera(); //Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT
         menuStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
 
@@ -52,18 +48,25 @@ public class MenuScreen extends ScreenAdapter {
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
 
-        titleLabel = new Label("Jumpy Duke - Press Space To Play!" + player.getUserName(), Assets.skin);
+        titleLabel = new Label("Jumpy Duke - Press Space To Play!", Assets.skin);
         titleLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
+
+        lastScore = new Label("Last score - " + player.getLastScore(), Assets.skin);
+        lastScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.4f, Align.center);
+
+        highScore = new Label("High score - " + player.getHighScore(), Assets.skin);
+        highScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.35f, Align.center);
 
         menuStage.addActor(new Image(Assets.background));
         menuStage.addActor(cloudLower2);
         menuStage.addActor(titleLabel);
+        menuStage.addActor(lastScore);
+        menuStage.addActor(highScore);
         menuStage.addActor(cloudLower);
     }
 
     public void setPlayerName(String name) {
         player.setUserName(name);
-
     }
 
     @Override

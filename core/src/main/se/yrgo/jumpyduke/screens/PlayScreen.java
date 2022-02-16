@@ -26,7 +26,6 @@ public class PlayScreen extends ScreenAdapter {
     private CloudLower cloudLower2;
     private DukeGame dukeGame;
     private Duke duke;
-    private Bugg bugg;
 
     private Stage guiStage;
     private Stage playStage;
@@ -40,19 +39,25 @@ public class PlayScreen extends ScreenAdapter {
     private float playTime;
     private List<PipeDuo> listOfPipeDuos;
     private Player player;
+    private int score;
+    private Label scoreLabel;
 
 
     public PlayScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
         this.player = player;
+        score = 0;
+        player.setLastScore(0);
         cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
         duke = new Duke();
-        bugg = new Bugg();
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
 
         playerNameLabel = new Label(player.getUserName(), Assets.skin);
-        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.85), Align.center);
+        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.90), Align.center);
+
+        scoreLabel = new Label(String.valueOf(score), Assets.skin);
+        scoreLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.95), Align.center);
 
 
         cloudLower = new CloudLower();
@@ -65,17 +70,16 @@ public class PlayScreen extends ScreenAdapter {
         initPipes();
 
         playStage.addActor(new Image(Assets.background));
-        playStage.addActor(playerNameLabel);
-        playStage.addActor(bugg);
+
         playStage.addActor(duke);
         addPipeActors();
+        playStage.addActor(playerNameLabel);
+        playStage.addActor(scoreLabel);
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
 
         restartLabel = new Label("Press F2 To Play Again!", Assets.skin);
         restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
-
-
 
     }
 
@@ -101,7 +105,7 @@ public class PlayScreen extends ScreenAdapter {
                     ifAliveJump();
                 }
                 if (keycode == Input.Keys.F2 && Duke.getDukeState() == DukeState.DEAD) {
-                    dukeGame.setScreen(new MenuScreen(dukeGame));
+                    dukeGame.setScreen(new MenuScreen(dukeGame, player));
                 }
                 return true;
             }
@@ -120,6 +124,7 @@ public class PlayScreen extends ScreenAdapter {
     public void render(float deltaTime) {
         ScreenUtils.clear(1, 0, 0, 1);
         collisionWithPipe();
+        collisionWithBugg();
         restartOptionIfDead();
         playTime += deltaTime;
 //        System.out.println(playTime);
@@ -160,7 +165,6 @@ public class PlayScreen extends ScreenAdapter {
     }
     private void collisionWithPipe() {
         for (Pipe pipe : listOfPipes) {
-
             if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
                 Duke.setDukeState(DukeState.DEAD);
                 System.out.println(DukeState.DEAD);
@@ -168,6 +172,17 @@ public class PlayScreen extends ScreenAdapter {
         }
     }
 
+    private void collisionWithBugg() {
+        for (PipeDuo pipeDuo : listOfPipeDuos) {
+            if(duke.getDukeRectangle().overlaps(pipeDuo.getBugg().getBuggRectangle())) {
+                pipeDuo.getBugg().moveBy(0, 5000);
+                score++;
+                scoreLabel.setText(score);
+                System.out.println(score);
+                player.setLastScore(score);
+            }
+        }
+    }
 
     private void restartOptionIfDead() {
         if (Duke.getDukeState() == DukeState.DEAD) {

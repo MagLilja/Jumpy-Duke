@@ -20,13 +20,14 @@ public class Bugg extends Actor {
         setWidth(buggTextureRegion.getRegionWidth());
         setHeight(buggTextureRegion.getRegionHeight());
         buggVelocity = new Vector2(Configurations.PIPE_VELOCITY_ALIVE, 0);
+        buggRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
     public void act(float delta) {
         if (Duke.getDukeState() == DukeState.ALIVE) {
             setX(getX() + buggVelocity.x * delta);
-           // buggRectangle.setPosition(getX(), getY());
+            buggRectangle.setPosition(getX(), getY());
         }
     }
 
@@ -35,5 +36,9 @@ public class Bugg extends Actor {
         batch.draw(buggTextureRegion, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
+    }
+
+    public Rectangle getBuggRectangle() {
+        return buggRectangle;
     }
 }

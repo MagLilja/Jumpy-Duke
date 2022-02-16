@@ -19,13 +19,16 @@ public class Player {
 
     public void setLastScore(int lastScore) {
         this.lastScore = lastScore;
+        setHighScore();
     }
 
     public int getHighScore() {
         return highScore;
     }
 
-    public void setHighScore(int highScore) {
-        this.highScore = highScore;
+    private void setHighScore() {
+        if (lastScore > this.highScore) {
+            highScore = lastScore;
+        }
     }
 }
