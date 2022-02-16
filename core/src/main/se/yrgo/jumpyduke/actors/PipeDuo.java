@@ -9,10 +9,12 @@ public class PipeDuo {
     private Pipe bottomPipe;
     private Pipe topPipe;
     private double randomPipePlacement;
+    private Bugg bugg;
 
-    public PipeDuo(Pipe bottomPipe, Pipe topPipe) {
+    public PipeDuo(Pipe bottomPipe, Pipe topPipe, Bugg bugg) {
         this.bottomPipe = bottomPipe;
         this.topPipe = topPipe;
+        this.bugg = bugg;
     }
 
     public void initFirstPair() {
@@ -42,6 +44,12 @@ public class PipeDuo {
                         (Configurations.GAP_SIZE / 2)), Align.bottomLeft);
         bottomPipe.setPosition(gameWidth, (float) (randomPipePlacement -
                         (Configurations.GAP_SIZE / 2)), Align.topLeft);
+        bugg.setPosition(bottomPipe.getX(Align.center) + Configurations.PIPE_SPACING / 2, (float) getBuggRandomYDisPlacement(), Align.center);
+    }
+
+    private double getBuggRandomYDisPlacement() {
+        return ThreadLocalRandom.current().
+                nextDouble(Configurations.BUGG_BOTTOM_LEVEL, Configurations.BUGG_TOP_LEVEL);
     }
 
     public void reInitialize() {
@@ -59,5 +67,9 @@ public class PipeDuo {
 
     public Pipe getTopPipe() {
         return topPipe;
+    }
+
+    public Bugg getBugg() {
+        return bugg;
     }
 }

@@ -13,10 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.DukeState;
-import se.yrgo.jumpyduke.actors.CloudLower;
-import se.yrgo.jumpyduke.actors.Duke;
-import se.yrgo.jumpyduke.actors.Pipe;
-import se.yrgo.jumpyduke.actors.PipeDuo;
+import se.yrgo.jumpyduke.actors.*;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.player.Player;
@@ -29,6 +26,7 @@ public class PlayScreen extends ScreenAdapter {
     private CloudLower cloudLower2;
     private DukeGame dukeGame;
     private Duke duke;
+    private Bugg bugg;
 
     private Stage guiStage;
     private Stage playStage;
@@ -49,12 +47,13 @@ public class PlayScreen extends ScreenAdapter {
         this.player = player;
         cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
         duke = new Duke();
+        bugg = new Bugg();
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
 
         playerNameLabel = new Label(player.getUserName(), Assets.skin);
         playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.85), Align.center);
-        playStage.addActor(playerNameLabel);
+
 
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
@@ -63,9 +62,11 @@ public class PlayScreen extends ScreenAdapter {
 
         listOfPipes = new ArrayList<>();
         listOfPipeDuos = new ArrayList<>();
-        initPipeActors();
+        initPipes();
 
         playStage.addActor(new Image(Assets.background));
+        playStage.addActor(playerNameLabel);
+        playStage.addActor(bugg);
         playStage.addActor(duke);
         addPipeActors();
         playStage.addActor(cloudLower2);
@@ -130,14 +131,14 @@ public class PlayScreen extends ScreenAdapter {
         reInitPipeDuosOnScreen();
     }
 
-    private void initPipeActors() {
+    private void initPipes() {
 
         for (int i = 0; i < 4; ++i) {
             listOfPipes.add(new Pipe());
             listOfPipes.add(new Pipe());
         }
         for (int i = 0; i < 6; i = i + 2) {
-            listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1)));
+            listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1), new Bugg()));
         }
 
         listOfPipeDuos.get(0).initFirstPair();
@@ -149,6 +150,7 @@ public class PlayScreen extends ScreenAdapter {
         for (int i = 0; i < 3; ++i) {
             playStage.addActor(listOfPipeDuos.get(i).getTopPipe());
             playStage.addActor(listOfPipeDuos.get(i).getBottomPipe());
+            playStage.addActor(listOfPipeDuos.get(i).getBugg());
         }
 
     }

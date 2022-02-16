@@ -18,8 +18,8 @@ public class Configurations {
     public static final double PIPE_GAP_TOP_LEVEL = GAME_HEIGHT * 0.75f;
     public static final double PIPE_GAP_BOTTOM_LEVEL = GAME_HEIGHT * 0.25f;
     public static final int PIPE_SPACING = 350;
-
-
+    public static final double BUGG_TOP_LEVEL = GAME_HEIGHT * 0.65f;
+    public static final double BUGG_BOTTOM_LEVEL = GAME_HEIGHT * 0.35f;
 
 
     public static Vector2 dukeStartingPostition = new Vector2(

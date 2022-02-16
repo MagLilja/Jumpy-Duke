@@ -33,8 +33,6 @@ public class Pipe extends Actor {
         if (Duke.getDukeState() == DukeState.ALIVE) {
             setX(getX() + pipeVelocity.x * delta);
             pipeRectangle.setPosition(getX(), getY());
-
-
         }
     }
 
