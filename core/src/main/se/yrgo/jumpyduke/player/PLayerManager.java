@@ -34,8 +34,19 @@ public class PLayerManager {
         return new Gson().fromJson(json, listType);
     }
 
+    private static boolean isPlayerInList(String inputUserName) {
+        return PLayerManager.getListOfPLayers().stream()
+                .map(player -> player.getUserName())
+                .anyMatch(username -> username.toLowerCase().equals(inputUserName.toLowerCase()));
+    }
+
     public static void updateDataFile() throws IOException {
         Gson gson = new Gson();
         gson.toJson(listOfPLayers, new FileWriter(fileName));
+    }
+
+    public static Player getPlayer() {
+//        if(isPlayerInList())
+        return getPlayer();
     }
 }

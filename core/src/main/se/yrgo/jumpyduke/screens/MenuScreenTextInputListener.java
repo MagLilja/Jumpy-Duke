@@ -14,17 +14,14 @@ public class MenuScreenTextInputListener implements Input.TextInputListener {
 
     @Override
     public void input(String inputUserName) {
-        if (isPlayerInList(inputUserName))
-            player.setUserName("Already in data");
-        else player.setUserName(inputUserName);
+//        if (isPlayerInList(inputUserName))
+//            player.setUserName("Already in data");
+//        else
+            player.setUserName(inputUserName);
 
     }
 
-    private boolean isPlayerInList(String inputUserName) {
-        return PLayerManager.getListOfPLayers().stream()
-                .map(player -> player.getUserName())
-                .anyMatch(username -> username.toLowerCase().equals(inputUserName.toLowerCase()));
-    }
+
 
     @Override
     public void canceled() {

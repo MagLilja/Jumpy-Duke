@@ -33,7 +33,7 @@ public class MenuScreen extends ScreenAdapter {
     private Label instructionLabel;
     private Label lastScore;
     private Label top3Label;
-    private MenuScreenTextInputListener menuScreenTextInputListener;
+
 
     private Player player;
 
@@ -41,10 +41,7 @@ public class MenuScreen extends ScreenAdapter {
     public MenuScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
         this.player = player;
-        menuScreenTextInputListener = new MenuScreenTextInputListener(player);
-        if (this.player.getUserName() == null) {
-            Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
-        }
+
         cam = new OrthographicCamera(); //Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT
 
         initStages();
@@ -75,11 +72,12 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void initTop3Label() {
-        top3Label = new Label("Top 3 \n -------- \n" + PLayerManager.getListOfPLayers().stream()
+        String top3String = PLayerManager.getListOfPLayers().stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
                 .limit(3)
                 .map(player -> String.format("%s - %d", player.getUserName(), player.getHighScore()))
-                .collect(Collectors.joining("\n")), Assets.skin);
+                .collect(Collectors.joining("\n"));
+        top3Label = new Label("Top 3 \n -------- \n" + top3String, Assets.skin);
         top3Label.setAlignment(Align.center);
         top3Label.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.8f, Align.center);
 
