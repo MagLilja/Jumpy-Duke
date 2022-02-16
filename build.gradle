@@ -73,6 +73,12 @@ project(":core") {
 
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+        implementation 'com.google.guava:guava:31.0.1-jre'
+        implementation 'commons-io:commons-io:2.11.0'
+
+
+
     }
 }
 

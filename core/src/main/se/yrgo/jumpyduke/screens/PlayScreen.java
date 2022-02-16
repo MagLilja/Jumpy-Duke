@@ -16,8 +16,10 @@ import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.actors.*;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.player.PLayerManager;
 import se.yrgo.jumpyduke.player.Player;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,14 +35,16 @@ public class PlayScreen extends ScreenAdapter {
     private OrthographicCamera cam;
     private CloudLower cloudLower;
 
-    private List<Pipe> listOfPipes;
     private Label restartLabel;
     private Label playerNameLabel;
+    private Label scoreLabel;
+
     private float playTime;
+
+    private List<Pipe> listOfPipes;
     private List<PipeDuo> listOfPipeDuos;
     private Player player;
     private int score;
-    private Label scoreLabel;
 
 
     public PlayScreen(DukeGame dukeGame, Player player) {
@@ -48,6 +52,7 @@ public class PlayScreen extends ScreenAdapter {
         this.player = player;
         score = 0;
         player.setLastScore(0);
+
         cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
         duke = new Duke();
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
@@ -80,7 +85,7 @@ public class PlayScreen extends ScreenAdapter {
 
         restartLabel = new Label("Press F2 To Play Again!", Assets.skin);
         restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
-
+        player.incrementRounds();
     }
 
 
@@ -106,6 +111,7 @@ public class PlayScreen extends ScreenAdapter {
                 }
                 if (keycode == Input.Keys.F2 && Duke.getDukeState() == DukeState.DEAD) {
                     dukeGame.setScreen(new MenuScreen(dukeGame, player));
+
                 }
                 return true;
             }
@@ -130,7 +136,23 @@ public class PlayScreen extends ScreenAdapter {
 //        System.out.println(playTime);
         playStage.act();
         playStage.draw();
-        System.out.println(player.getUserName());
+
+        try {
+            System.out.println("" +
+                    " Play time: " + playTime +
+                    " Player name: " + player.getUserName() +
+                    " Rounds: " + player.getRounds() +
+                    " Score: " + player.getLastScore() +
+                    " High score: " + player.getHighScore() +
+                    " State: " + Duke.getDukeState()
+                  +  " " + PLayerManager.getListOfPlayers().get(0).getUserName()
+//                  +  " " + player.isPlayerInList()
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
@@ -163,26 +185,26 @@ public class PlayScreen extends ScreenAdapter {
     private void reInitPipeDuosOnScreen() {
         listOfPipeDuos.forEach(PipeDuo::reInitialize);
     }
+
     private void collisionWithPipe() {
         for (Pipe pipe : listOfPipes) {
             if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
                 Duke.setDukeState(DukeState.DEAD);
-                System.out.println(DukeState.DEAD);
             }
         }
     }
 
     private void collisionWithBugg() {
         for (PipeDuo pipeDuo : listOfPipeDuos) {
-            if(duke.getDukeRectangle().overlaps(pipeDuo.getBugg().getBuggRectangle())) {
+            if (duke.getDukeRectangle().overlaps(pipeDuo.getBugg().getBuggRectangle())) {
                 pipeDuo.getBugg().moveBy(0, 5000);
                 score++;
                 scoreLabel.setText(score);
-                System.out.println(score);
                 player.setLastScore(score);
             }
         }
     }
+
 
     private void restartOptionIfDead() {
         if (Duke.getDukeState() == DukeState.DEAD) {

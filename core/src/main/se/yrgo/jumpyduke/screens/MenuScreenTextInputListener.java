@@ -12,8 +12,15 @@ public class MenuScreenTextInputListener implements Input.TextInputListener {
 
     @Override
     public void input(String inputUserName) {
-      menuScreen.setPlayerName(inputUserName);
+
+
+
+        menuScreen.setPlayerName(inputUserName);
     }
+
+//    private boolean isPlayerInList() {
+//        listOfPlayers.stream().map(player -> player.getUserName()).filter()
+//    }
 
     @Override
     public void canceled() {

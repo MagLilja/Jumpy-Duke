@@ -8,6 +8,8 @@ import se.yrgo.jumpyduke.screens.MenuScreen;
 import se.yrgo.jumpyduke.screens.MenuScreenTextInputListener;
 import se.yrgo.jumpyduke.screens.PlayScreen;
 
+import java.io.IOException;
+
 public class DukeGame extends Game {
 
     private MenuScreen menuScreen;
@@ -15,7 +17,15 @@ public class DukeGame extends Game {
 
     @Override
     public void create() {
-        player = new Player();
+
+
+        try {
+            player = new Player();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         Assets.loadAssets();
         menuScreen = new MenuScreen(this, player);
         Assets.loadSpriteBatch();

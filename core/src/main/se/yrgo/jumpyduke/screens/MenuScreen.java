@@ -51,17 +51,24 @@ public class MenuScreen extends ScreenAdapter {
         titleLabel = new Label("Jumpy Duke - Press Space To Play!", Assets.skin);
         titleLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
 
-        lastScore = new Label("Last score - " + player.getLastScore(), Assets.skin);
+        lastScore = new Label(
+                "Rounds - " + player.getRounds() +
+                        "\n Last score - " + player.getLastScore() +
+                        "\n High score - " + player.getHighScore(),
+                Assets.skin);
+        lastScore.setAlignment(Align.center);
         lastScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.4f, Align.center);
-
-        highScore = new Label("High score - " + player.getHighScore(), Assets.skin);
-        highScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.35f, Align.center);
+//
+//        highScore = new Label("High score - " + player.getHighScore(), Assets.skin);
+//        highScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.35f, Align.center);
 
         menuStage.addActor(new Image(Assets.background));
         menuStage.addActor(cloudLower2);
         menuStage.addActor(titleLabel);
-        menuStage.addActor(lastScore);
-        menuStage.addActor(highScore);
+        if (player.getRounds() > 0) {
+            menuStage.addActor(lastScore);
+//            menuStage.addActor(highScore);
+        }
         menuStage.addActor(cloudLower);
     }
 
