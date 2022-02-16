@@ -1,6 +1,7 @@
 package se.yrgo.jumpyduke.assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,6 +18,7 @@ public class Assets {
     public static TextureRegion pipe;
     public static BitmapFont bitmapFont;
     public static Skin skin;
+    public static Texture bugg;
 
     private Assets() {
     }
@@ -29,8 +31,7 @@ public class Assets {
         pipe = textureAtlas.findRegion("Pipe_bottom_new_140x801");
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
-
-
+        bugg = new Texture("bugg.png");
     }
 
     public static void loadSpriteBatch() {

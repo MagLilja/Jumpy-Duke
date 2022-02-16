@@ -22,6 +22,7 @@ import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.player.Player;
 
 public class MenuScreen extends ScreenAdapter {
     private CloudLower cloudLower2;
@@ -34,30 +35,25 @@ public class MenuScreen extends ScreenAdapter {
     private Label titleLabel;
     private MenuScreenTextInputListener menuScreenTextInputListener;
 
-
+    private Player player;
 
 
     public MenuScreen(DukeGame dukeGame) {
         this.dukeGame = dukeGame;
-        menuScreenTextInputListener = new MenuScreenTextInputListener();
+        player = new Player();
+        menuScreenTextInputListener = new MenuScreenTextInputListener(this);
         Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
-        playScreen = new PlayScreen(this.dukeGame);
+
         cam = new OrthographicCamera(); //Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT
         menuStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
-
-
-
 
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
 
-
-
-        titleLabel = new Label("Jumpy Duke - Press Space To Play!", Assets.skin);
+        titleLabel = new Label("Jumpy Duke - Press Space To Play!" + player.getUserName(), Assets.skin);
         titleLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
-
 
         menuStage.addActor(new Image(Assets.background));
         menuStage.addActor(cloudLower2);
@@ -65,18 +61,24 @@ public class MenuScreen extends ScreenAdapter {
         menuStage.addActor(cloudLower);
     }
 
-    @Override
-    public void show() {
-        inputlistener();
+    public void setPlayerName(String name) {
+        player.setUserName(name);
+
     }
 
-    private void inputlistener() {
+    @Override
+    public void show() {
+        inputlistener(this.dukeGame);
+    }
+
+    private void inputlistener(DukeGame dukeGame) {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.SPACE) {
-                    dukeGame.setScreen(playScreen);
+                    playScreen = new PlayScreen(dukeGame, player);
+                    MenuScreen.this.dukeGame.setScreen(playScreen);
                     System.out.println("Start!");
                 }
                 return true;

@@ -1,31 +1,31 @@
 package se.yrgo.jumpyduke.player;
 
 public class Player {
-    private static String userName;
-    private static int lastScore;
-    private static int highScore;
+    private String userName;
+    private int lastScore;
+    private int highScore;
 
-    public static void setUserName(String userName) {
-        Player.userName = userName;
-    }
-
-    public static void setLastScore(int lastScore) {
-        Player.lastScore = lastScore;
-    }
-
-    public static void setHighScore(int highScore) {
-        Player.highScore = highScore;
-    }
-
-    public static String getUserName() {
+    public String getUserName() {
         return userName;
     }
 
-    public static int getLastScore() {
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public int getLastScore() {
         return lastScore;
     }
 
-    public static int getHighScore() {
+    public void setLastScore(int lastScore) {
+        this.lastScore = lastScore;
+    }
+
+    public int getHighScore() {
         return highScore;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
     }
 }

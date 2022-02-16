@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -42,14 +41,20 @@ public class PlayScreen extends ScreenAdapter {
     private Label playerNameLabel;
     private float playTime;
     private List<PipeDuo> listOfPipeDuos;
+    private Player player;
 
 
-    public PlayScreen(DukeGame dukeGame) {
+    public PlayScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
+        this.player = player;
         cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
         duke = new Duke();
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
+
+        playerNameLabel = new Label(player.getUserName(), Assets.skin);
+        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.85), Align.center);
+        playStage.addActor(playerNameLabel);
 
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
@@ -70,9 +75,7 @@ public class PlayScreen extends ScreenAdapter {
         restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
 
 
-        playerNameLabel = new Label(Player.getUserName(), Assets.skin);
-        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.85), Align.center);
-        guiStage.addActor(playerNameLabel);
+
     }
 
 
@@ -121,7 +124,7 @@ public class PlayScreen extends ScreenAdapter {
 //        System.out.println(playTime);
         playStage.act();
         playStage.draw();
-        System.out.println(Duke.getDukeState());
+        System.out.println(player.getUserName());
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
@@ -167,6 +170,7 @@ public class PlayScreen extends ScreenAdapter {
     private void restartOptionIfDead() {
         if (Duke.getDukeState() == DukeState.DEAD) {
             playStage.addActor(restartLabel);
+
         }
     }
 

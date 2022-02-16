@@ -4,9 +4,15 @@ import com.badlogic.gdx.Input;
 import se.yrgo.jumpyduke.player.Player;
 
 public class MenuScreenTextInputListener implements Input.TextInputListener {
+    private MenuScreen menuScreen;
+
+    public MenuScreenTextInputListener(MenuScreen menuScreen) {
+        this.menuScreen = menuScreen;
+    }
+
     @Override
     public void input(String inputUserName) {
-      Player.setUserName(inputUserName);
+      menuScreen.setPlayerName(inputUserName);
     }
 
     @Override
