@@ -2,7 +2,19 @@
   {
     "userName": "Magnus",
     "lastScore": 8,
-    "highScore": 5,
+    "highScore": 15,
+    "rounds": 12
+  },
+  {
+    "userName": "Wille",
+    "lastScore": 8,
+    "highScore": 25,
+    "rounds": 12
+  },
+  {
+    "userName": "Rayan",
+    "lastScore": 8,
+    "highScore": 3,
     "rounds": 12
   }
 ]

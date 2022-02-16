@@ -15,19 +15,24 @@ import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.player.PLayerManager;
 import se.yrgo.jumpyduke.player.Player;
+
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class MenuScreen extends ScreenAdapter {
     private CloudLower cloudLower2;
     private DukeGame dukeGame;
     private PlayScreen playScreen;
     private Stage menuStage;
+    private Stage guiStage;
     private OrthographicCamera cam;
     private CloudLower cloudLower;
 
-    private Label titleLabel;
+    private Label instructionLabel;
     private Label lastScore;
-    private Label highScore;
+    private Label top3Label;
     private MenuScreenTextInputListener menuScreenTextInputListener;
 
     private Player player;
@@ -41,39 +46,72 @@ public class MenuScreen extends ScreenAdapter {
             Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
         }
         cam = new OrthographicCamera(); //Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT
-        menuStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
 
+        initStages();
+        initLabels(player);
+        initClouds();
+
+        addActorsToMenuStage();
+        addActorsToGuiStage(player);
+    }
+
+    private void initStages() {
+        menuStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
+        guiStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
+    }
+
+
+    private void initClouds() {
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
+    }
 
-        titleLabel = new Label("Jumpy Duke - Press Space To Play!", Assets.skin);
-        titleLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
+    private void initLabels(Player player) {
+        initInstructionLabel();
+        initLastAndHighScoreLabel(player);
+        initTop3Label();
+    }
 
+    private void initTop3Label() {
+        top3Label = new Label("Top 3 \n -------- \n" + PLayerManager.getListOfPLayers().stream()
+                .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
+                .limit(3)
+                .map(player -> String.format("%s - %d", player.getUserName(), player.getHighScore()))
+                .collect(Collectors.joining("\n")), Assets.skin);
+        top3Label.setAlignment(Align.center);
+        top3Label.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.8f, Align.center);
+
+    }
+
+    private void initLastAndHighScoreLabel(Player player) {
         lastScore = new Label(
                 "Rounds - " + player.getRounds() +
                         "\n Last score - " + player.getLastScore() +
                         "\n High score - " + player.getHighScore(),
                 Assets.skin);
         lastScore.setAlignment(Align.center);
-        lastScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.4f, Align.center);
-//
-//        highScore = new Label("High score - " + player.getHighScore(), Assets.skin);
-//        highScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.35f, Align.center);
+        lastScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.3f, Align.center);
+    }
 
+    private void initInstructionLabel() {
+        instructionLabel = new Label("Jumpy Duke - Press Space To Play!", Assets.skin);
+        instructionLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.4f, Align.center);
+    }
+
+    private void addActorsToMenuStage() {
         menuStage.addActor(new Image(Assets.background));
         menuStage.addActor(cloudLower2);
-        menuStage.addActor(titleLabel);
-        if (player.getRounds() > 0) {
-            menuStage.addActor(lastScore);
-//            menuStage.addActor(highScore);
-        }
         menuStage.addActor(cloudLower);
     }
 
-    public void setPlayerName(String name) {
-        player.setUserName(name);
+    private void addActorsToGuiStage(Player player) {
+        guiStage.addActor(instructionLabel);
+        guiStage.addActor(top3Label);
+        if (player.getRounds() > 0) {
+            guiStage.addActor(lastScore);
+        }
     }
 
     @Override
@@ -102,7 +140,9 @@ public class MenuScreen extends ScreenAdapter {
     public void render(float deltaTime) {
         ScreenUtils.clear(1, 0, 0, 1);
         menuStage.act();
+        guiStage.act();
         menuStage.draw();
+        guiStage.draw();
     }
 
     @Override

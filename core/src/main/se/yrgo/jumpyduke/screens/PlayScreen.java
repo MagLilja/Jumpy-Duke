@@ -145,7 +145,7 @@ public class PlayScreen extends ScreenAdapter {
                     " Score: " + player.getLastScore() +
                     " High score: " + player.getHighScore() +
                     " State: " + Duke.getDukeState()
-                  +  " " + PLayerManager.getListOfPlayers().get(0).getUserName()
+                  +  " " + PLayerManager.getDataFromJson().get(0).getUserName()
 //                  +  " " + player.isPlayerInList()
             );
         } catch (IOException e) {
