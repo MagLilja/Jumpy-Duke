@@ -22,6 +22,10 @@ public class PLayerManager {
         listOfPLayers = getDataFromJson();
     }
 
+    public static String getFileName() {
+        return fileName;
+    }
+
     public static List<Player> getListOfPLayers() {
         return listOfPLayers;
     }
@@ -42,7 +46,8 @@ public class PLayerManager {
 
     public static void updateDataFile() throws IOException {
         Gson gson = new Gson();
-        gson.toJson(listOfPLayers, new FileWriter(fileName));
+        String toJson = gson.toJson(listOfPLayers);
+
     }
 
     public static Player getPlayer() {

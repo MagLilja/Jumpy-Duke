@@ -24,6 +24,7 @@ public class Assets {
     public static Skin skin;
     public static TextureRegion bugg;
 
+
     private Assets() {
     }
 
@@ -36,6 +37,7 @@ public class Assets {
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
         bugg = textureAtlas.findRegion("Bugg");
+
         try {
             PLayerManager.loadDataFromJson("players.json");
         } catch (IOException e) {
