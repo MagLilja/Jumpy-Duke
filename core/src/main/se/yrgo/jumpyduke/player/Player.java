@@ -1,18 +1,13 @@
 package se.yrgo.jumpyduke.player;
 
-import com.google.common.io.Resources;
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import org.apache.commons.io.IOUtils;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
+@Entity
 public class Player {
+    @Id
+    private int playerId;
     private String userName;
     private int lastScore;
     private int highScore;
