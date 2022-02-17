@@ -137,6 +137,15 @@ public class PlayScreen extends ScreenAdapter {
         playStage.act();
         playStage.draw();
 
+        loggingToSystemOut();
+
+
+        guiStage.act();
+        guiStage.draw();
+        reInitPipeDuosOnScreen();
+    }
+
+    private void loggingToSystemOut() {
         try {
             System.out.println("" +
                     " Play time: " + playTime +
@@ -151,18 +160,13 @@ public class PlayScreen extends ScreenAdapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        guiStage.act();
-        guiStage.draw();
-        reInitPipeDuosOnScreen();
     }
 
     private void initPipes() {
 
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 6; ++i) {
             listOfPipes.add(new Pipe());
-            listOfPipes.add(new Pipe());
+        //    listOfPipes.add(new Pipe());
         }
         for (int i = 0; i < 6; i = i + 2) {
             listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1), new Bugg()));
