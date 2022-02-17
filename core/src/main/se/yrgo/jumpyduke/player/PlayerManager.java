@@ -69,4 +69,9 @@ public class PlayerManager {
 //        if(isPlayerInList())
         return getPlayer();
     }
+
+    public void savePlayerToDatabase(){
+
+    }
+
 }
