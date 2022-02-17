@@ -49,4 +49,9 @@ public class PLayerManager {
 //        if(isPlayerInList())
         return getPlayer();
     }
+
+    public void savePlayerToDatabase(){
+
+    }
+
 }
