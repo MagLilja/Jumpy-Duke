@@ -13,7 +13,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.DukeState;
-import se.yrgo.jumpyduke.actors.*;
+import se.yrgo.jumpyduke.actors.Bugg;
+import se.yrgo.jumpyduke.actors.CloudLower;
+import se.yrgo.jumpyduke.actors.Duke;
+import se.yrgo.jumpyduke.actors.Pipe;
+import se.yrgo.jumpyduke.actors.PipeDuo;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.player.PLayerManager;
@@ -40,6 +44,7 @@ public class PlayScreen extends ScreenAdapter {
     private Label scoreLabel;
 
     private float playTime;
+    private float deadTime;
 
     private List<Pipe> listOfPipes;
     private List<PipeDuo> listOfPipeDuos;
@@ -83,14 +88,18 @@ public class PlayScreen extends ScreenAdapter {
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
 
-        restartLabel = new Label("Press F2 To Play Again!", Assets.skin);
+        restartLabel = new Label(Configurations.RESTART_TEXT_STRING, Assets.skin);
         restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
         player.incrementRounds();
+
+
     }
 
 
     @Override
     public void show() {
+
+
         inputlistener();
     }
 
@@ -106,12 +115,18 @@ public class PlayScreen extends ScreenAdapter {
 
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.SPACE) {
-                    ifAliveJump();
-                }
-                if (keycode == Input.Keys.F2 && Duke.getDukeState() == DukeState.DEAD) {
-                    dukeGame.setScreen(new MenuScreen(dukeGame, player));
+                if (keycode == Input.Keys.SPACE && Duke.getDukeState()== DukeState.ALIVE) {
+                                            ifAliveJump();
 
+                }
+                if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.DEAD) {
+                    if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD)
+                    dukeGame.setScreen(new MenuScreen(dukeGame, player));
+//                    try {
+//                        PLayerManager.updateDataFile();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
                 }
                 return true;
             }
@@ -155,6 +170,7 @@ public class PlayScreen extends ScreenAdapter {
                     " High score: " + player.getHighScore() +
                     " State: " + Duke.getDukeState()
                   +  " " + PLayerManager.getDataFromJson().get(0).getUserName()
+                  +  "Dead time: " + deadTime
 //                  +  " " + player.isPlayerInList()
             );
         } catch (IOException e) {
@@ -194,6 +210,9 @@ public class PlayScreen extends ScreenAdapter {
         for (Pipe pipe : listOfPipes) {
             if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
                 Duke.setDukeState(DukeState.DEAD);
+                if (deadTime == 0)
+                    deadTime = playTime;
+
             }
         }
     }
@@ -211,7 +230,7 @@ public class PlayScreen extends ScreenAdapter {
 
 
     private void restartOptionIfDead() {
-        if (Duke.getDukeState() == DukeState.DEAD) {
+        if (Duke.getDukeState() == DukeState.DEAD && (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD)) {
             playStage.addActor(restartLabel);
 
         }

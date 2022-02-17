@@ -4,7 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 import se.yrgo.jumpyduke.assets.Assets;
 
 public class Configurations {
-
+    /**
+     * ############## Numerical constants for configuration ##############
+     */
     public static final float DUKE_GRAVITY = -900f;
     public static final float DUKE_JUMP_VELOCITY = 300f;
     public static final float LOWER_CLOUD_VELOCITY_ALIVE = -120f;
@@ -20,6 +22,12 @@ public class Configurations {
     public static final int PIPE_SPACING = 350;
     public static final double BUGG_TOP_LEVEL = GAME_HEIGHT * 0.65f;
     public static final double BUGG_BOTTOM_LEVEL = GAME_HEIGHT * 0.35f;
+    public static final float RESTART_WAIT_TIME_AFTER_DEAD = 3;
+
+    /**
+     * ############## Screen text labels and strings ##############
+     */
+    public static final String RESTART_TEXT_STRING = "Press space To Play Again!";
 
 
     public static Vector2 dukeStartingPostition = new Vector2(
