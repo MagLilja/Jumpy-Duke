@@ -115,18 +115,14 @@ public class PlayScreen extends ScreenAdapter {
 
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.SPACE && Duke.getDukeState()== DukeState.ALIVE) {
-                                            ifAliveJump();
+                if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.ALIVE) {
+                    ifAliveJump();
 
                 }
                 if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.DEAD) {
-                    try {
-                        PLayerManager.updateDataFile(player);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
                     if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD)
-                    dukeGame.setScreen(new MenuScreen(dukeGame, player));
+                        dukeGame.setScreen(new MenuScreen(dukeGame, player));
                 }
                 return true;
             }
@@ -163,14 +159,14 @@ public class PlayScreen extends ScreenAdapter {
     private void loggingToSystemOut() {
         try {
             System.out.println("" +
-                    " Play time: " + playTime +
-                    " Player name: " + player.getUserName() +
-                    " Rounds: " + player.getRounds() +
-                    " Score: " + player.getLastScore() +
-                    " High score: " + player.getHighScore() +
-                    " State: " + Duke.getDukeState()
-                  +  " " + PLayerManager.getDataFromJson().get(0).getUserName()
-                  +  "Dead time: " + deadTime
+                            " Play time: " + playTime +
+                            " Player name: " + player.getUserName() +
+                            " Rounds: " + player.getRounds() +
+                            " Score: " + player.getLastScore() +
+                            " High score: " + player.getHighScore() +
+                            " State: " + Duke.getDukeState()
+                            + " " + PLayerManager.getDataFromJson().get(0).getUserName()
+                            + "Dead time: " + deadTime
 //                  +  " " + player.isPlayerInList()
             );
         } catch (IOException e) {
@@ -210,9 +206,14 @@ public class PlayScreen extends ScreenAdapter {
         for (Pipe pipe : listOfPipes) {
             if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
                 Duke.setDukeState(DukeState.DEAD);
-                if (deadTime == 0)
+                if (deadTime == 0) {
                     deadTime = playTime;
-
+                    try {
+                        PLayerManager.updateDataFile(player);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
@@ -230,9 +231,13 @@ public class PlayScreen extends ScreenAdapter {
 
 
     private void restartOptionIfDead() {
-        if (Duke.getDukeState() == DukeState.DEAD && (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD)) {
-            playStage.addActor(restartLabel);
+        if (Duke.getDukeState() == DukeState.DEAD) {
 
+
+
+            if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD) {
+                playStage.addActor(restartLabel);
+            }
         }
     }
 

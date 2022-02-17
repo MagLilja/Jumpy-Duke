@@ -12,8 +12,12 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PLayerManager {
     private static List<Player> listOfPLayers;
@@ -33,6 +37,7 @@ public class PLayerManager {
     }
 
     public static List<Player> getDataFromJson() throws IOException {
+
         InputStream inputStream = Resources.getResource(fileName).openStream();
         String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         Type listType = new TypeToken<ArrayList<Player>>() {
@@ -48,8 +53,12 @@ public class PLayerManager {
 
     public static void updateDataFile(Player player) throws IOException {
         listOfPLayers.add(player);
+        List<Player> sortedListOfPlayersLimitedTo30 = listOfPLayers.stream()
+                .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
+                .limit(30)
+                .collect(Collectors.toList());
         try (Writer writer = new FileWriter("players.json")) {
-            new Gson().toJson(listOfPLayers, writer);
+            new Gson().toJson(sortedListOfPlayersLimitedTo30, writer);
         }
 
     }
