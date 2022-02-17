@@ -52,6 +52,9 @@ public class PLayerManager {
     }
 
     public static void updateDataFile(Player player) throws IOException {
+        if (listOfPLayers.contains(player)){
+            listOfPLayers.remove(player);
+        }
         listOfPLayers.add(player);
         List<Player> sortedListOfPlayersLimitedTo30 = listOfPLayers.stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())

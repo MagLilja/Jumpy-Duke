@@ -98,8 +98,6 @@ public class PlayScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-
-
         inputlistener();
     }
 
@@ -140,38 +138,33 @@ public class PlayScreen extends ScreenAdapter {
     @Override
     public void render(float deltaTime) {
         ScreenUtils.clear(1, 0, 0, 1);
+
         collisionWithPipe();
         collisionWithBugg();
         restartOptionIfDead();
+
         playTime += deltaTime;
-//        System.out.println(playTime);
         playStage.act();
         playStage.draw();
-
         loggingToSystemOut();
-
-
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
     }
 
     private void loggingToSystemOut() {
-        try {
-            System.out.println("" +
-                            " Play time: " + playTime +
-                            " Player name: " + player.getUserName() +
-                            " Rounds: " + player.getRounds() +
-                            " Score: " + player.getLastScore() +
-                            " High score: " + player.getHighScore() +
-                            " State: " + Duke.getDukeState()
-                            + " " + PLayerManager.getDataFromJson().get(0).getUserName()
-                            + "Dead time: " + deadTime
-//                  +  " " + player.isPlayerInList()
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        System.out.println("" +
+                " Play time: " + playTime +
+                " Player name: " + player.getUserName() +
+                " Rounds: " + player.getRounds() +
+                " Score: " + player.getLastScore() +
+                " High score: " + player.getHighScore() +
+                " State: " + Duke.getDukeState()
+                + " Dead time: " + deadTime
+
+        );
+
     }
 
     private void initPipes() {
@@ -232,7 +225,6 @@ public class PlayScreen extends ScreenAdapter {
 
     private void restartOptionIfDead() {
         if (Duke.getDukeState() == DukeState.DEAD) {
-
 
 
             if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD) {
