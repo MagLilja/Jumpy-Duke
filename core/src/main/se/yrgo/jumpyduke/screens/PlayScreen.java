@@ -120,13 +120,13 @@ public class PlayScreen extends ScreenAdapter {
 
                 }
                 if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.DEAD) {
+                    try {
+                        PLayerManager.updateDataFile(player);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD)
                     dukeGame.setScreen(new MenuScreen(dukeGame, player));
-//                    try {
-//                        PLayerManager.updateDataFile();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
                 }
                 return true;
             }
@@ -182,7 +182,7 @@ public class PlayScreen extends ScreenAdapter {
 
         for (int i = 0; i < 6; ++i) {
             listOfPipes.add(new Pipe());
-        //    listOfPipes.add(new Pipe());
+
         }
         for (int i = 0; i < 6; i = i + 2) {
             listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1), new Bugg()));

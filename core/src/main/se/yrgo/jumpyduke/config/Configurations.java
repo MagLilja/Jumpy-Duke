@@ -24,6 +24,9 @@ public class Configurations {
     public static final double BUGG_BOTTOM_LEVEL = GAME_HEIGHT * 0.35f;
     public static final float RESTART_WAIT_TIME_AFTER_DEAD = 3;
 
+    public static float gameModeModifier = getModifier();
+
+
     /**
      * ############## Screen text labels and strings ##############
      */
@@ -35,4 +38,7 @@ public class Configurations {
             GAME_HEIGHT / 2);
 
     public static Vector2 cloudLowerPosition = new Vector2(0, 0);
+    private static float getModifier() {
+        return 1;
+    }
 }

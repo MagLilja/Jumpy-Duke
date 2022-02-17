@@ -8,6 +8,8 @@ import org.apache.commons.io.IOUtils;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -44,9 +46,11 @@ public class PLayerManager {
                 .anyMatch(username -> username.toLowerCase().equals(inputUserName.toLowerCase()));
     }
 
-    public static void updateDataFile() throws IOException {
-        Gson gson = new Gson();
-        String toJson = gson.toJson(listOfPLayers);
+    public static void updateDataFile(Player player) throws IOException {
+        listOfPLayers.add(player);
+        try (Writer writer = new FileWriter("players.json")) {
+            new Gson().toJson(listOfPLayers, writer);
+        }
 
     }
 
