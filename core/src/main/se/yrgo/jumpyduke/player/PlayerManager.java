@@ -9,18 +9,15 @@ import se.yrgo.jumpyduke.config.Configurations;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PLayerManager {
+public class PlayerManager {
     private static List<Player> listOfPLayers;
     private static String fileName;
 
@@ -46,7 +43,7 @@ public class PLayerManager {
     }
 
     private static boolean isPlayerInList(String inputUserName) {
-        return PLayerManager.getListOfPLayers().stream()
+        return PlayerManager.getListOfPLayers().stream()
                 .map(player -> player.getUserName())
                 .anyMatch(username -> username.toLowerCase().equals(inputUserName.toLowerCase()));
     }

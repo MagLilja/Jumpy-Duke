@@ -20,6 +20,7 @@ public class Duke extends Actor {
 
     public Duke() {
         this.dukeRegion = new TextureRegion(Assets.duke);
+        ///dukeRegion = Assets.dukeAnimated.getKeyFrame(1f);
         dukeState = DukeState.ALIVE;
         setWidth(dukeRegion.getRegionWidth());
         setHeight(dukeRegion.getRegionHeight());

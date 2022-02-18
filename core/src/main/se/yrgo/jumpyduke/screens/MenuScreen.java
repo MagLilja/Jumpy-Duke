@@ -15,7 +15,7 @@ import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
-import se.yrgo.jumpyduke.player.PLayerManager;
+import se.yrgo.jumpyduke.player.PlayerManager;
 import se.yrgo.jumpyduke.player.Player;
 
 import java.util.Comparator;
@@ -72,7 +72,7 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void initTop3Label() {
-        String top3String = PLayerManager.getListOfPLayers().stream()
+        String top3String = PlayerManager.getListOfPLayers().stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
                 .limit(Configurations.SHOW_HIGH_SCORE_LIMIT)
                 .map(player -> String.format("%s - %d", player.getUserName(), player.getHighScore()))

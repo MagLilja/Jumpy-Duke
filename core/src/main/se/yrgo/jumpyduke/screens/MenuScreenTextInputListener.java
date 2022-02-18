@@ -1,7 +1,6 @@
 package se.yrgo.jumpyduke.screens;
 
 import com.badlogic.gdx.Input;
-import se.yrgo.jumpyduke.player.PLayerManager;
 import se.yrgo.jumpyduke.player.Player;
 
 public class MenuScreenTextInputListener implements Input.TextInputListener {

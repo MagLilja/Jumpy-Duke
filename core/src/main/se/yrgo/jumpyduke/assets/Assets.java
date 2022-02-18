@@ -1,14 +1,9 @@
 package se.yrgo.jumpyduke.assets;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import se.yrgo.jumpyduke.actors.Bugg;
-import se.yrgo.jumpyduke.player.PLayerManager;
+import se.yrgo.jumpyduke.player.PlayerManager;
 
 import java.io.IOException;
 
@@ -23,6 +18,10 @@ public class Assets {
     public static BitmapFont bitmapFont;
     public static Skin skin;
     public static TextureRegion bugg;
+    public static TextureRegion dukeAnimatedOne;
+    public static TextureRegion dukeAnimatedTwo;
+    public static TextureRegion dukeAnimatedThree;
+    public static Animation dukeAnimated;
 
 
     private Assets() {
@@ -37,9 +36,15 @@ public class Assets {
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
         bugg = textureAtlas.findRegion("Bugg");
+        /// Duke animation
+        dukeAnimatedOne = textureAtlas.findRegion("");
+        dukeAnimatedTwo = textureAtlas.findRegion("");
+        dukeAnimatedThree = textureAtlas.findRegion("");
+        dukeAnimated = new Animation(0.2f,dukeAnimatedOne,dukeAnimatedTwo,dukeAnimatedThree);
+        dukeAnimated.setPlayMode(Animation.PlayMode.LOOP);
 
         try {
-            PLayerManager.loadDataFromJson("players.json");
+            PlayerManager.loadDataFromJson("players.json");
         } catch (IOException e) {
             e.printStackTrace();
         }
