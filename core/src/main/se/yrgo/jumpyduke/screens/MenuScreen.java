@@ -15,6 +15,7 @@ import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.config.GameModeManager;
 import se.yrgo.jumpyduke.player.PlayerManager;
 import se.yrgo.jumpyduke.player.Player;
 
@@ -33,6 +34,8 @@ public class MenuScreen extends ScreenAdapter {
     private Label instructionLabel;
     private Label lastScore;
     private Label top3Label;
+    private Label showGameMode;
+    private Label gameModeOption;
 
 
     private Player player;
@@ -69,6 +72,17 @@ public class MenuScreen extends ScreenAdapter {
         initInstructionLabel();
         initLastAndHighScoreLabel(player);
         initTop3Label();
+        initGameModeLabel();
+
+    }
+
+    private void initGameModeLabel() {
+        showGameMode = new Label("Game Mode\n" + GameModeManager.GameModeState.EASY.toString(), Assets.skin);
+        showGameMode.setAlignment(Align.center);
+        showGameMode.setPosition(Configurations.GAME_WIDTH / 2,Configurations.GAME_HEIGHT * 0.55f, Align.center);
+
+        gameModeOption = new Label("(1) EASY (2) NORMAL (3) HARD ", Assets.skin);
+        gameModeOption.setPosition(Configurations.GAME_WIDTH / 2,Configurations.GAME_HEIGHT * 0.3f, Align.center);
     }
 
     private void initTop3Label() {
@@ -106,6 +120,8 @@ public class MenuScreen extends ScreenAdapter {
     private void addActorsToGuiStage(Player player) {
         guiStage.addActor(instructionLabel);
         guiStage.addActor(top3Label);
+        guiStage.addActor(showGameMode);
+        guiStage.addActor(gameModeOption);
         if (player.getRounds() > 0) {
             guiStage.addActor(lastScore);
         }
