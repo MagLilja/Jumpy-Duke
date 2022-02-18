@@ -80,7 +80,6 @@ public class MenuScreen extends ScreenAdapter {
         top3Label = new Label("Top 3 \n -------- \n" + top3String, Assets.skin);
         top3Label.setAlignment(Align.center);
         top3Label.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.8f, Align.center);
-
     }
 
     private void initLastAndHighScoreLabel(Player player) {

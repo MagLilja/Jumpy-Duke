@@ -1,0 +1,89 @@
+
+pack.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Background_scale_600x800
+  rotate: false
+  xy: 2, 221
+  size: 600, 800
+  orig: 600, 800
+  offset: 0, 0
+  index: -1
+Bugg
+  rotate: false
+  xy: 2, 2
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+Clouds_lower_600x181
+  rotate: false
+  xy: 2, 38
+  size: 600, 181
+  orig: 600, 181
+  offset: 0, 0
+  index: -1
+DukeOne
+  rotate: false
+  xy: 604, 158
+  size: 89, 60
+  orig: 89, 60
+  offset: 0, 0
+  index: -1
+DukeThree
+  rotate: false
+  xy: 746, 899
+  size: 89, 60
+  orig: 89, 60
+  offset: 0, 0
+  index: -1
+DukeTwo
+  rotate: false
+  xy: 604, 96
+  size: 89, 60
+  orig: 89, 60
+  offset: 0, 0
+  index: -1
+Duke_multi
+  rotate: false
+  xy: 746, 961
+  size: 267, 60
+  orig: 267, 60
+  offset: 0, 0
+  index: -1
+Duke_scale_76x60
+  rotate: false
+  xy: 746, 837
+  size: 89, 60
+  orig: 89, 60
+  offset: 0, 0
+  index: -1
+Pipe_bottom_new_140x801
+  rotate: false
+  xy: 604, 220
+  size: 140, 801
+  orig: 140, 801
+  offset: 0, 0
+  index: -1
+
+pack2.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Clouds_upper-1_601x338
+  rotate: false
+  xy: 2, 342
+  size: 601, 338
+  orig: 601, 338
+  offset: 0, 0
+  index: -1
+Clouds_upper-2_601x338
+  rotate: false
+  xy: 2, 2
+  size: 601, 338
+  orig: 601, 338
+  offset: 0, 0
+  index: -1

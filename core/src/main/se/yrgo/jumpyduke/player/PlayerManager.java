@@ -1,5 +1,6 @@
 package se.yrgo.jumpyduke.player;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.google.common.io.Resources;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -24,6 +25,7 @@ public class PlayerManager {
     public static void loadDataFromJson(String dataFile) throws IOException {
         fileName = dataFile;
         listOfPLayers = getDataFromJson();
+
     }
 
     public static String getFileName() {
