@@ -21,7 +21,9 @@ public class Assets {
     public static TextureRegion dukeAnimatedOne;
     public static TextureRegion dukeAnimatedTwo;
     public static TextureRegion dukeAnimatedThree;
-    public static Animation dukeAnimated;
+    public static Animation <TextureRegion> dukeAnimated;
+
+    public static TextureRegion[] dukeAnimatedArray = {dukeAnimatedOne,dukeAnimatedTwo,dukeAnimatedThree};
 
 
     private Assets() {
@@ -37,10 +39,10 @@ public class Assets {
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
         bugg = textureAtlas.findRegion("Bugg");
         /// Duke animation
-        dukeAnimatedOne = textureAtlas.findRegion("");
-        dukeAnimatedTwo = textureAtlas.findRegion("");
-        dukeAnimatedThree = textureAtlas.findRegion("");
-        dukeAnimated = new Animation(0.2f,dukeAnimatedOne,dukeAnimatedTwo,dukeAnimatedThree);
+        dukeAnimatedOne = textureAtlas.findRegion("DukeOne");
+        dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
+        dukeAnimatedThree = textureAtlas.findRegion("DukeThree");
+        dukeAnimated = new Animation(0.1f,dukeAnimatedArray);
         dukeAnimated.setPlayMode(Animation.PlayMode.LOOP);
 
         try {

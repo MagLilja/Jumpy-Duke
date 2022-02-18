@@ -17,10 +17,11 @@ public class Duke extends Actor {
 
     private Vector2 dukeVelocity;
     private Vector2 dukeAcceleration;
+    private float time;
 
     public Duke() {
         this.dukeRegion = new TextureRegion(Assets.duke);
-        ///dukeRegion = Assets.dukeAnimated.getKeyFrame(1f);
+
         dukeState = DukeState.ALIVE;
         setWidth(dukeRegion.getRegionWidth());
         setHeight(dukeRegion.getRegionHeight());
@@ -61,10 +62,16 @@ public class Duke extends Actor {
 
     @Override
     public void act(float delta) {
+        time += delta;
+
+        dukeRegion = Assets.dukeAnimated.getKeyFrame(time);
+
+        System.out.println(Assets.dukeAnimated.getKeyFrame(time));
         dukeVelocity.add(0, dukeAcceleration.y * delta);
         setY(getY() + dukeVelocity.y * delta);
         belowClouds();
         dukeRectangle.setPosition(getX(), getY());
+
 
     }
 
