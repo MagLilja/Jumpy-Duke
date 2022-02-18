@@ -21,12 +21,14 @@ public class Assets {
     public static TextureRegion dukeAnimatedOne;
     public static TextureRegion dukeAnimatedTwo;
     public static TextureRegion dukeAnimatedThree;
-    public static Animation <TextureRegion> dukeAnimated;
-
-    public static TextureRegion[] dukeAnimatedArray = {dukeAnimatedOne,dukeAnimatedTwo,dukeAnimatedThree};
+    public static Animation<TextureRegion> dukeAnimated;
 
 
     private Assets() {
+    }
+
+    public static Animation<TextureRegion> getDukeAnimated() {
+        return dukeAnimated;
     }
 
     public static void loadAssets() {
@@ -42,8 +44,9 @@ public class Assets {
         dukeAnimatedOne = textureAtlas.findRegion("DukeOne");
         dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
         dukeAnimatedThree = textureAtlas.findRegion("DukeThree");
-        dukeAnimated = new Animation(0.1f,dukeAnimatedArray);
-        dukeAnimated.setPlayMode(Animation.PlayMode.LOOP);
+        TextureRegion[] dukeAnimatedArray = {dukeAnimatedOne, dukeAnimatedTwo, dukeAnimatedThree};
+        dukeAnimated = new Animation(0.1f, dukeAnimatedArray, Animation.PlayMode.NORMAL);
+
 
         try {
             PlayerManager.loadDataFromJson("players.json");

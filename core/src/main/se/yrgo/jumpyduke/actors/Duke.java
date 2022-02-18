@@ -10,9 +10,9 @@ import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
 public class Duke extends Actor {
-    private static DukeState dukeState;// = DukeState.ALIVE;
+    private static DukeState dukeState;
 
-    private TextureRegion dukeRegion;
+    private TextureRegion dukeRegion = new TextureRegion(Assets.dukeAnimatedOne);;
     private Rectangle dukeRectangle;
 
     private Vector2 dukeVelocity;
@@ -20,7 +20,6 @@ public class Duke extends Actor {
     private float time;
 
     public Duke() {
-        this.dukeRegion = new TextureRegion(Assets.duke);
 
         dukeState = DukeState.ALIVE;
         setWidth(dukeRegion.getRegionWidth());
@@ -57,16 +56,22 @@ public class Duke extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(dukeRegion, getX(), getY());
+
+        batch.draw(dukeRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(),
+                getScaleY(), getRotation());
     }
 
     @Override
     public void act(float delta) {
         time += delta;
 
-        dukeRegion = Assets.dukeAnimated.getKeyFrame(time);
+        System.out.println(Assets.dukeAnimated.getPlayMode());
+        System.out.println(Assets.dukeAnimated.getFrameDuration());
+        System.out.println(Assets.dukeAnimated.getKeyFrames());
+        System.out.println(Assets.dukeAnimated.getKeyFrameIndex(time));
+        dukeRegion = Assets.getDukeAnimated()
+                .getKeyFrame(time, true);
 
-        System.out.println(Assets.dukeAnimated.getKeyFrame(time));
         dukeVelocity.add(0, dukeAcceleration.y * delta);
         setY(getY() + dukeVelocity.y * delta);
         belowClouds();
