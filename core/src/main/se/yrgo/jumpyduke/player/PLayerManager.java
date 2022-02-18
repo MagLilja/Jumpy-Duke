@@ -4,6 +4,7 @@ import com.google.common.io.Resources;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
+import se.yrgo.jumpyduke.config.Configurations;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,7 +38,6 @@ public class PLayerManager {
     }
 
     public static List<Player> getDataFromJson() throws IOException {
-
         InputStream inputStream = Resources.getResource(fileName).openStream();
         String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         Type listType = new TypeToken<ArrayList<Player>>() {
@@ -56,12 +56,12 @@ public class PLayerManager {
             listOfPLayers.remove(player);
         }
         listOfPLayers.add(player);
-        List<Player> sortedListOfPlayersLimitedTo30 = listOfPLayers.stream()
+        List<Player> sortedLimitedListOfPlayers = listOfPLayers.stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
-                .limit(30)
+                .limit(Configurations.LIMIT_OUTPUT_LIST_TO)
                 .collect(Collectors.toList());
         try (Writer writer = new FileWriter("players.json")) {
-            new Gson().toJson(sortedListOfPlayersLimitedTo30, writer);
+            new Gson().toJson(sortedLimitedListOfPlayers, writer);
         }
 
     }

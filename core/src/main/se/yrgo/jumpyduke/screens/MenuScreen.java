@@ -74,7 +74,7 @@ public class MenuScreen extends ScreenAdapter {
     private void initTop3Label() {
         String top3String = PLayerManager.getListOfPLayers().stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
-                .limit(3)
+                .limit(Configurations.SHOW_HIGH_SCORE_LIMIT)
                 .map(player -> String.format("%s - %d", player.getUserName(), player.getHighScore()))
                 .collect(Collectors.joining("\n"));
         top3Label = new Label("Top 3 \n -------- \n" + top3String, Assets.skin);

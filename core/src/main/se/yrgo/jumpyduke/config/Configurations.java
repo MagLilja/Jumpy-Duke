@@ -23,6 +23,8 @@ public class Configurations {
     public static final double BUGG_TOP_LEVEL = GAME_HEIGHT * 0.65f;
     public static final double BUGG_BOTTOM_LEVEL = GAME_HEIGHT * 0.35f;
     public static final float RESTART_WAIT_TIME_AFTER_DEAD = 3;
+    public static final long SHOW_HIGH_SCORE_LIMIT = 5;
+    public static final long LIMIT_OUTPUT_LIST_TO = 20;
 
     public static float gameModeModifier = getModifier();
 
