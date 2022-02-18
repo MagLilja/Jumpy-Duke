@@ -22,6 +22,7 @@ public class Assets {
     public static TextureRegion dukeAnimatedTwo;
     public static TextureRegion dukeAnimatedThree;
     public static Animation<TextureRegion> dukeAnimated;
+    public static TextureRegion[] dukeAnimatedArray;
 
 
     private Assets() {
@@ -40,12 +41,14 @@ public class Assets {
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
         bugg = textureAtlas.findRegion("Bugg");
-        /// Duke animation
+
         dukeAnimatedOne = textureAtlas.findRegion("DukeOne");
         dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
         dukeAnimatedThree = textureAtlas.findRegion("DukeThree");
-        TextureRegion[] dukeAnimatedArray = {dukeAnimatedOne, dukeAnimatedTwo, dukeAnimatedThree};
-        dukeAnimated = new Animation(0.1f, dukeAnimatedArray, Animation.PlayMode.NORMAL);
+        dukeAnimatedArray = new TextureRegion[] {dukeAnimatedOne,dukeAnimatedTwo,dukeAnimatedThree};
+        dukeAnimated = new Animation(0.1f,dukeAnimatedArray);
+        dukeAnimated.setPlayMode(Animation.PlayMode.LOOP);
+
 
 
         try {
