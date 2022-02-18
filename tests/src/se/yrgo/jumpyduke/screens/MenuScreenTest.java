@@ -22,7 +22,7 @@ class MenuScreenTest {
         Duke duke = new Duke();
         Vector2 v = Configurations.dukeStartingPostition;
         float yExpected = Configurations.GAME_HEIGHT / 2;
-        float xExpected = Configurations.GAME_WIDTH / 2 - 38;
+        float xExpected = Configurations.GAME_WIDTH / 2 - 44;
         // when
         assertEquals(yExpected, v.y);
         assertEquals(xExpected, v.x);

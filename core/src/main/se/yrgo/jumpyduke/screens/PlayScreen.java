@@ -20,6 +20,7 @@ import se.yrgo.jumpyduke.actors.Pipe;
 import se.yrgo.jumpyduke.actors.PipeDuo;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.config.GameModeManager;
 import se.yrgo.jumpyduke.player.PlayerManager;
 import se.yrgo.jumpyduke.player.Player;
 
@@ -50,6 +51,9 @@ public class PlayScreen extends ScreenAdapter {
     private List<PipeDuo> listOfPipeDuos;
     private Player player;
     private int score;
+    private Label gameMode;
+
+
 
 
     public PlayScreen(DukeGame dukeGame, Player player) {
@@ -69,6 +73,10 @@ public class PlayScreen extends ScreenAdapter {
         scoreLabel = new Label(String.valueOf(score), Assets.skin);
         scoreLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.95), Align.center);
 
+        gameMode = new Label(MenuScreen.currentGameMode.toString(),Assets.skin);
+        gameMode.setPosition(Configurations.GAME_WIDTH * 0.05f,Configurations.GAME_HEIGHT * 0.93f);
+        Configurations.setGameModeConfigurations();
+
 
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
@@ -84,6 +92,7 @@ public class PlayScreen extends ScreenAdapter {
         playStage.addActor(duke);
         addPipeActors();
         playStage.addActor(playerNameLabel);
+        playStage.addActor(gameMode);
         playStage.addActor(scoreLabel);
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);

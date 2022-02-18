@@ -24,7 +24,7 @@ public class Pipe extends Actor {
         setWidth(pipeRegion.getRegionWidth());
         setHeight(pipeRegion.getRegionHeight());
         pipeRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
-        pipeVelocity = new Vector2(Configurations.PIPE_VELOCITY_ALIVE, 0);
+        pipeVelocity = new Vector2(Configurations.pipe_velocity_alive, 0);
         setOrigin(Align.center);
     }
 

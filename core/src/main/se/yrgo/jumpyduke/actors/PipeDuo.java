@@ -27,24 +27,24 @@ public class PipeDuo {
     public void initSecondPair() {
         randomPipePlacement = ThreadLocalRandom.current().
                 nextDouble(Configurations.PIPE_GAP_BOTTOM_LEVEL, Configurations.PIPE_GAP_TOP_LEVEL);
-        int xPlacement = Configurations.GAME_WIDTH + Configurations.PIPE_SPACING;
+        int xPlacement = Configurations.GAME_WIDTH + Configurations.pipe_spacing;
         initializePair(xPlacement);
     }
 
     public void initThirdPair() {
         randomPipePlacement = ThreadLocalRandom.current().
                 nextDouble(Configurations.PIPE_GAP_BOTTOM_LEVEL, Configurations.PIPE_GAP_TOP_LEVEL);
-        int xPlacement = Configurations.GAME_WIDTH + (Configurations.PIPE_SPACING * 2);
+        int xPlacement = Configurations.GAME_WIDTH + (Configurations.pipe_spacing * 2);
         initializePair(xPlacement);
     }
 
     private void initializePair(float gameWidth) {
         topPipe.getPipeRegion().flip(true, true);
         topPipe.setPosition(gameWidth, (float) (randomPipePlacement +
-                        (Configurations.GAP_SIZE / 2)), Align.bottomLeft);
+                        (Configurations.gap_size / 2)), Align.bottomLeft);
         bottomPipe.setPosition(gameWidth, (float) (randomPipePlacement -
-                        (Configurations.GAP_SIZE / 2)), Align.topLeft);
-        bugg.setPosition(bottomPipe.getX(Align.center) + Configurations.PIPE_SPACING / 2, (float) getBuggRandomYDisPlacement(), Align.center);
+                        (Configurations.gap_size / 2)), Align.topLeft);
+        bugg.setPosition(bottomPipe.getX(Align.center) + Configurations.pipe_spacing / 2, (float) getBuggRandomYDisPlacement(), Align.center);
     }
 
     private double getBuggRandomYDisPlacement() {
@@ -57,7 +57,7 @@ public class PipeDuo {
             topPipe.getPipeRegion().flip(true, true);
             randomPipePlacement = ThreadLocalRandom.current().
                     nextDouble(Configurations.PIPE_GAP_BOTTOM_LEVEL, Configurations.PIPE_GAP_TOP_LEVEL);
-            initializePair((int) (Configurations.PIPE_SPACING * 3 + topPipe.getX()));
+            initializePair((int) (Configurations.pipe_spacing * 3 + topPipe.getX()));
         }
     }
 

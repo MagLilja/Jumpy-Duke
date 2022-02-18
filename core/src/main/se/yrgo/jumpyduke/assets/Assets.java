@@ -46,8 +46,8 @@ public class Assets {
         dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
         dukeAnimatedThree = textureAtlas.findRegion("DukeThree");
         dukeAnimatedArray = new TextureRegion[] {dukeAnimatedOne,dukeAnimatedTwo,dukeAnimatedThree};
-        dukeAnimated = new Animation(0.1f,dukeAnimatedArray);
-        dukeAnimated.setPlayMode(Animation.PlayMode.LOOP);
+        dukeAnimated = new Animation(0.70f,dukeAnimatedArray);
+        dukeAnimated.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
 
 

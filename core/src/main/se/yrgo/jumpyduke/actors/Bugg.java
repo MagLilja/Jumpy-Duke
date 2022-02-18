@@ -19,7 +19,7 @@ public class Bugg extends Actor {
         this.buggTextureRegion = Assets.bugg;
         setWidth(buggTextureRegion.getRegionWidth());
         setHeight(buggTextureRegion.getRegionHeight());
-        buggVelocity = new Vector2(Configurations.PIPE_VELOCITY_ALIVE, 0);
+        buggVelocity = new Vector2(Configurations.pipe_velocity_alive, 0);
         buggRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 

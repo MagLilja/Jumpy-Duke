@@ -40,12 +40,17 @@ public class MenuScreen extends ScreenAdapter {
 
     private Player player;
 
+    public static GameModeManager.GameModeState currentGameMode;
+
 
     public MenuScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
         this.player = player;
 
         cam = new OrthographicCamera(); //Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT
+        currentGameMode = GameModeManager.GameModeState.NORMAL;
+
+
 
         initStages();
         initLabels(player);
@@ -54,6 +59,7 @@ public class MenuScreen extends ScreenAdapter {
         addActorsToMenuStage();
         addActorsToGuiStage(player);
     }
+
 
     private void initStages() {
         menuStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
@@ -77,12 +83,12 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void initGameModeLabel() {
-        showGameMode = new Label("Game Mode\n" + GameModeManager.GameModeState.EASY.toString(), Assets.skin);
+        showGameMode = new Label("Game Mode\n" + currentGameMode.toString(), Assets.skin);
         showGameMode.setAlignment(Align.center);
         showGameMode.setPosition(Configurations.GAME_WIDTH / 2,Configurations.GAME_HEIGHT * 0.55f, Align.center);
 
         gameModeOption = new Label("(1) EASY (2) NORMAL (3) HARD ", Assets.skin);
-        gameModeOption.setPosition(Configurations.GAME_WIDTH / 2,Configurations.GAME_HEIGHT * 0.3f, Align.center);
+        gameModeOption.setPosition(Configurations.GAME_WIDTH / 2,Configurations.GAME_HEIGHT * 0.45f, Align.center);
     }
 
     private void initTop3Label() {
@@ -132,6 +138,10 @@ public class MenuScreen extends ScreenAdapter {
         inputlistener(this.dukeGame);
     }
 
+    public void changeGameModeLabel(){
+        showGameMode.setText("Game Mode\n" + currentGameMode.toString());
+    }
+
     private void inputlistener(DukeGame dukeGame) {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -141,6 +151,18 @@ public class MenuScreen extends ScreenAdapter {
                     playScreen = new PlayScreen(dukeGame, player);
                     MenuScreen.this.dukeGame.setScreen(playScreen);
                     System.out.println("Start!");
+                }
+                if (keycode == Input.Keys.NUM_1) {
+                    currentGameMode = GameModeManager.GameModeState.EASY;
+                    changeGameModeLabel();
+                }
+                if (keycode == Input.Keys.NUM_2) {
+                    currentGameMode = GameModeManager.GameModeState.NORMAL;
+                    changeGameModeLabel();
+                }
+                if (keycode == Input.Keys.NUM_3) {
+                    currentGameMode = GameModeManager.GameModeState.HARD;
+                    changeGameModeLabel();
                 }
                 return true;
             }
