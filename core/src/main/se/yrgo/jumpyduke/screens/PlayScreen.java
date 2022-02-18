@@ -67,28 +67,72 @@ public class PlayScreen extends ScreenAdapter {
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
 
-        playerNameLabel = new Label(player.getUserName(), Assets.skin);
-        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.90), Align.center);
-
-        scoreLabel = new Label(String.valueOf(score), Assets.skin);
-        scoreLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.95), Align.center);
 
         gameMode = new Label(MenuScreen.currentGameMode.toString(),Assets.skin);
         gameMode.setPosition(Configurations.GAME_WIDTH * 0.05f,Configurations.GAME_HEIGHT * 0.93f);
         Configurations.setGameModeConfigurations();
 
 
+        initLabels(player);
+        initClouds();
+        initPipes();
+
+        addActors();
+
+
+
+    }
+
+    private void initLabels(Player player) {
+        playerNameLabel = new Label(player.getUserName(), Assets.skin);
+        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.90), Align.center);
+
+        scoreLabel = new Label(String.valueOf(score), Assets.skin);
+        scoreLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.95), Align.center);
+
+        restartLabel = new Label(Configurations.RESTART_TEXT_STRING, Assets.skin);
+        restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
+        player.incrementRounds();
+    }
+
+    private void initPipes() {
+        listOfPipes = new ArrayList<>();
+        listOfPipeDuos = new ArrayList<>();
+
+        for (int i = 0; i < 6; ++i) {
+            listOfPipes.add(new Pipe());
+
+        }
+        for (int i = 0; i < 6; i = i + 2) {
+            listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1), new Bugg()));
+        }
+
+        listOfPipeDuos.get(0).initFirstPair();
+        listOfPipeDuos.get(1).initSecondPair();
+        listOfPipeDuos.get(2).initThirdPair();
+    }
+
+    private void addPipeActors() {
+        for (int i = 0; i < 3; ++i) {
+            playStage.addActor(listOfPipeDuos.get(i).getTopPipe());
+            playStage.addActor(listOfPipeDuos.get(i).getBottomPipe());
+            playStage.addActor(listOfPipeDuos.get(i).getBugg());
+        }
+
+    }
+
+    private void reInitPipeDuosOnScreen() {
+        listOfPipeDuos.forEach(PipeDuo::reInitialize);
+    }
+    private void initClouds() {
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
+    }
 
-        listOfPipes = new ArrayList<>();
-        listOfPipeDuos = new ArrayList<>();
-        initPipes();
-
+    private void addActors() {
         playStage.addActor(new Image(Assets.background));
-
         playStage.addActor(duke);
         addPipeActors();
         playStage.addActor(playerNameLabel);
@@ -96,12 +140,6 @@ public class PlayScreen extends ScreenAdapter {
         playStage.addActor(scoreLabel);
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
-
-        restartLabel = new Label(Configurations.RESTART_TEXT_STRING, Assets.skin);
-        restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
-        player.incrementRounds();
-
-
     }
 
 
@@ -176,33 +214,6 @@ public class PlayScreen extends ScreenAdapter {
 
     }
 
-    private void initPipes() {
-
-        for (int i = 0; i < 6; ++i) {
-            listOfPipes.add(new Pipe());
-
-        }
-        for (int i = 0; i < 6; i = i + 2) {
-            listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1), new Bugg()));
-        }
-
-        listOfPipeDuos.get(0).initFirstPair();
-        listOfPipeDuos.get(1).initSecondPair();
-        listOfPipeDuos.get(2).initThirdPair();
-    }
-
-    private void addPipeActors() {
-        for (int i = 0; i < 3; ++i) {
-            playStage.addActor(listOfPipeDuos.get(i).getTopPipe());
-            playStage.addActor(listOfPipeDuos.get(i).getBottomPipe());
-            playStage.addActor(listOfPipeDuos.get(i).getBugg());
-        }
-
-    }
-
-    private void reInitPipeDuosOnScreen() {
-        listOfPipeDuos.forEach(PipeDuo::reInitialize);
-    }
 
     private void collisionWithPipe() {
         for (Pipe pipe : listOfPipes) {
