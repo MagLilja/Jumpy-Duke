@@ -1,5 +1,6 @@
 ## Java
 /core/assets/players.json
+core/assets/players.json
 
 *.class
 *.war
