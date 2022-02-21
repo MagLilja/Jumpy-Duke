@@ -12,7 +12,7 @@ class PLayerManagerTest {
     @Test
     void getDataFromJsonTest() throws IOException {
         // given
-        PlayerManager.loadDataFromJson("players.json");
+        PlayerManager.loadPlayerData("players.json");
         List<Player> dataFromJson = PlayerManager.getDataFromJson();
         // when
 

@@ -16,4 +16,6 @@ public class DatabaseService {
         Session session = sessionFactory.openSession();
         return session;
     }
+
+
 }

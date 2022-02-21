@@ -3,6 +3,8 @@ package se.yrgo.jumpyduke.assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import org.hibernate.service.spi.ServiceException;
+import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.player.PlayerManager;
 
 import java.io.IOException;
@@ -32,7 +34,7 @@ public class Assets {
         return dukeAnimated;
     }
 
-    public static void loadAssets() {
+    public static void loadAssets() throws IOException {
         textureAtlas = new TextureAtlas("pack.atlas");
         background = textureAtlas.findRegion("Background_scale_600x800");
         duke = textureAtlas.findRegion("Duke_scale_76x60");
@@ -45,17 +47,13 @@ public class Assets {
         dukeAnimatedOne = textureAtlas.findRegion("DukeOne");
         dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
         dukeAnimatedThree = textureAtlas.findRegion("DukeThree");
-        dukeAnimatedArray = new TextureRegion[] {dukeAnimatedOne,dukeAnimatedTwo,dukeAnimatedThree};
-        dukeAnimated = new Animation(0.20f,dukeAnimatedArray);
+        dukeAnimatedArray = new TextureRegion[]{dukeAnimatedOne, dukeAnimatedTwo, dukeAnimatedThree};
+        dukeAnimated = new Animation(0.20f, dukeAnimatedArray);
         dukeAnimated.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
 
+        PlayerManager.loadPlayerData("players.json");
 
-        try {
-            PlayerManager.loadDataFromJson("players.json");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void loadSpriteBatch() {

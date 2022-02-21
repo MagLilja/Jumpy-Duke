@@ -26,10 +26,13 @@ public class PlayerManager {
     private static List<Player> listOfPlayers;
     private static String fileName;
 
-    public static void loadDataFromJson(String dataFile) throws IOException {
+    public static void loadPlayerData(String dataFile) throws IOException {
         fileName = dataFile;
-        //listOfPLayers = getDataFromJson();
-        listOfPlayers = getDataFromDb();
+        if (Configurations.hasDatabase) {
+            listOfPlayers = getDataFromDb();
+        } else {
+            listOfPlayers = getDataFromJson();
+        }
     }
 
     public static String getFileName() {
