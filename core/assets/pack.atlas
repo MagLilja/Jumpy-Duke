@@ -27,35 +27,28 @@ Clouds_lower_600x181
   index: -1
 DukeOne
   rotate: false
-  xy: 604, 158
+  xy: 746, 961
   size: 89, 60
   orig: 89, 60
   offset: 0, 0
   index: -1
 DukeThree
   rotate: false
-  xy: 746, 899
+  xy: 604, 158
   size: 89, 60
   orig: 89, 60
   offset: 0, 0
   index: -1
 DukeTwo
   rotate: false
-  xy: 604, 96
+  xy: 746, 899
   size: 89, 60
   orig: 89, 60
   offset: 0, 0
   index: -1
-Duke_multi
-  rotate: false
-  xy: 746, 961
-  size: 267, 60
-  orig: 267, 60
-  offset: 0, 0
-  index: -1
 Duke_scale_76x60
   rotate: false
-  xy: 746, 837
+  xy: 837, 961
   size: 89, 60
   orig: 89, 60
   offset: 0, 0
