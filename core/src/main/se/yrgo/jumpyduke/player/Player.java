@@ -1,12 +1,14 @@
 package se.yrgo.jumpyduke.player;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 
 @Entity
 public class Player {
     @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int playerId;
     private String userName;
     private int lastScore;

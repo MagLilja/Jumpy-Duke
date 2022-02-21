@@ -10,6 +10,8 @@ import org.hibernate.Transaction;
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.config.DatabaseService;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,8 +29,8 @@ public class PlayerManager {
 
     public static void loadDataFromJson(String dataFile) throws IOException {
         fileName = dataFile;
-        listOfPLayers = getDataFromJson();
-
+        //listOfPLayers = getDataFromJson();
+        listOfPLayers = getDataFromDb();
     }
 
     public static String getFileName() {
@@ -73,17 +75,26 @@ public class PlayerManager {
         return getPlayer();
     }
 
+    public static List<Player> getDataFromDb() {
+        Session session = DatabaseService.getCurrentSessionFromConfig();
+        Transaction transaction = session.beginTransaction();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Player> criteriaQuery = criteriaBuilder.createQuery(Player.class);
+        criteriaQuery.from(Player.class);
+        List<Player> resultList = session.createQuery(criteriaQuery).getResultList();
+        return resultList;
+    }
+
     public static void updateDataToDb() {
         Session session= DatabaseService.getCurrentSessionFromConfig();
-        session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
 
-        for (Player player: )
+        for (Player player: listOfPLayers) {
+            session.save(player);
+        }
 
+        transaction.commit();
+        session.close();
 
     }
-
-    public void savePlayerToDatabase(){
-
-    }
-
 }
