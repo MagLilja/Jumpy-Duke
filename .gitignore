@@ -1,7 +1,7 @@
 ## Java
 /core/assets/players.json
 core/assets/players.json
-
+players.json
 *.class
 *.war
 *.ear
