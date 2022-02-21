@@ -6,7 +6,6 @@ import org.hibernate.cfg.Configuration;
 
 public class DatabaseService {
 
-
     public static Session getCurrentSessionFromConfig() {
         // SessionFactory in Hibernate 5 example
         Configuration config = new Configuration()
@@ -14,7 +13,7 @@ public class DatabaseService {
         config.configure();
         // local SessionFactory bean created
         SessionFactory sessionFactory = config.buildSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         return session;
     }
 }

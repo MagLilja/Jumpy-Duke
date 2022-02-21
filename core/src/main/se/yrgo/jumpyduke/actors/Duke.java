@@ -65,10 +65,10 @@ public class Duke extends Actor {
     public void act(float delta) {
         time += delta;
 
-        System.out.println(Assets.dukeAnimated.getPlayMode());
-        System.out.println(Assets.dukeAnimated.getFrameDuration());
-        System.out.println(Assets.dukeAnimated.getKeyFrames());
-        System.out.println(Assets.dukeAnimated.getKeyFrameIndex(time));
+//        System.out.println(Assets.dukeAnimated.getPlayMode());
+//        System.out.println(Assets.dukeAnimated.getFrameDuration());
+//        System.out.println(Assets.dukeAnimated.getKeyFrames());
+//        System.out.println(Assets.dukeAnimated.getKeyFrameIndex(time));
         dukeRegion = Assets.getDukeAnimated()
                 .getKeyFrame(time, true);
 

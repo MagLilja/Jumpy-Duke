@@ -1,6 +1,5 @@
 package se.yrgo.jumpyduke.player;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.google.common.io.Resources;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -24,21 +23,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PlayerManager {
-    private static List<Player> listOfPLayers;
+    private static List<Player> listOfPlayers;
     private static String fileName;
 
     public static void loadDataFromJson(String dataFile) throws IOException {
         fileName = dataFile;
         //listOfPLayers = getDataFromJson();
-        listOfPLayers = getDataFromDb();
+        listOfPlayers = getDataFromDb();
     }
 
     public static String getFileName() {
         return fileName;
     }
 
-    public static List<Player> getListOfPLayers() {
-        return listOfPLayers;
+    public static List<Player> getListOfPlayers() {
+        return listOfPlayers;
     }
 
     public static List<Player> getDataFromJson() throws IOException {
@@ -50,23 +49,41 @@ public class PlayerManager {
     }
 
     private static boolean isPlayerInList(String inputUserName) {
-        return PlayerManager.getListOfPLayers().stream()
+        return PlayerManager.getListOfPlayers().stream()
                 .map(player -> player.getUserName())
                 .anyMatch(username -> username.toLowerCase().equals(inputUserName.toLowerCase()));
     }
 
-    public static void updateDataFile(Player player) throws IOException {
-        if (listOfPLayers.contains(player)){
-            listOfPLayers.remove(player);
+    public static void updateData(Player player) throws IOException {
+//        if (listOfPlayers.contains(player)) {
+//            listOfPlayers.remove(player);
+//        }
+
+        Player user;
+        listOfPlayers.add(player);
+        if (player.getPlayerId() == 0) {
+            user = player;
+        } else {
+            user = listOfPlayers.stream()
+                    .max(Comparator.comparingInt(Player::getPlayerId))
+                    .get();
         }
-        listOfPLayers.add(player);
-        List<Player> sortedLimitedListOfPlayers = listOfPLayers.stream()
-                .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
-                .limit(Configurations.LIMIT_OUTPUT_LIST_TO)
-                .collect(Collectors.toList());
-        try (Writer writer = new FileWriter("players.json")) {
-            new Gson().toJson(sortedLimitedListOfPlayers, writer);
+        System.out.println(user);
+
+        if (Configurations.hasDatabase) {
+            //       updateListOfDataToDb(newListOfPlayers);
+            postCurrentPlayerToDb(user);
+        } else {
+            List<Player> sortedLimitedListOfPlayers = listOfPlayers.stream()
+                    .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
+                    .limit(Configurations.LIMIT_OUTPUT_LIST_TO)
+                    .collect(Collectors.toList());
+            try (Writer writer = new FileWriter("players.json")) {
+                new Gson().toJson(sortedLimitedListOfPlayers, writer);
+            }
+
         }
+
 
     }
 
@@ -82,17 +99,27 @@ public class PlayerManager {
         CriteriaQuery<Player> criteriaQuery = criteriaBuilder.createQuery(Player.class);
         criteriaQuery.from(Player.class);
         List<Player> resultList = session.createQuery(criteriaQuery).getResultList();
+        session.close();
         return resultList;
     }
 
-    public static void updateDataToDb() {
-        Session session= DatabaseService.getCurrentSessionFromConfig();
+    public static void updateListOfDataToDb(List<Player> listOfPLayers) {
+        Session session = DatabaseService.getCurrentSessionFromConfig();
         Transaction transaction = session.beginTransaction();
 
-        for (Player player: listOfPLayers) {
+        for (Player player : PlayerManager.listOfPlayers) {
             session.save(player);
         }
 
+        transaction.commit();
+        session.close();
+
+    }
+
+    public static void postCurrentPlayerToDb(Player currentPlayer) {
+        Session session = DatabaseService.getCurrentSessionFromConfig();
+        Transaction transaction = session.beginTransaction();
+        session.save(currentPlayer);
         transaction.commit();
         session.close();
 

@@ -5,6 +5,12 @@ import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.screens.MenuScreen;
 
 public class Configurations {
+
+    /**
+     * ############## Data configuration ##############
+     */
+    public static boolean hasDatabase = true;
+
     /**
      * ############## Numerical constants for configuration ##############
      */

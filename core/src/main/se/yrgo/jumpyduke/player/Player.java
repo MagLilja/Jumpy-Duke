@@ -20,7 +20,20 @@ public class Player {
         rounds = 0;
     }
 
+    public int getPlayerId() {
+        return playerId;
+    }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerId=" + playerId +
+                ", userName='" + userName + '\'' +
+                ", lastScore=" + lastScore +
+                ", highScore=" + highScore +
+                ", rounds=" + rounds +
+                '}';
+    }
 
     public String getUserName() {
         return userName;

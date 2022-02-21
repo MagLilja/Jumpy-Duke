@@ -15,7 +15,7 @@
         <property name="connection.url">jdbc:mariadb://kannon.oderland.com:3306/thulinoh_am22</property>
 
         <property name="connection.username">thulinoh_grupp5</property>
-        <property name="connection.password">[FRÅGA MAGNUS]</property>
+        <property name="connection.password">[placeholder]</property>
         <property name="hibernate.current_session_context_class">thread</property>
 
         <!--property name="dialect">org.hibernate.dialect.MySQLDialect</property-->

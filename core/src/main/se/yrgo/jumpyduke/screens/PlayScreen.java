@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import org.hibernate.Session;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.actors.Bugg;
@@ -21,8 +20,6 @@ import se.yrgo.jumpyduke.actors.Pipe;
 import se.yrgo.jumpyduke.actors.PipeDuo;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
-import se.yrgo.jumpyduke.config.DatabaseService;
-import se.yrgo.jumpyduke.config.GameModeManager;
 import se.yrgo.jumpyduke.player.PlayerManager;
 import se.yrgo.jumpyduke.player.Player;
 
@@ -56,8 +53,6 @@ public class PlayScreen extends ScreenAdapter {
     private Label gameMode;
 
 
-
-
     public PlayScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
         this.player = player;
@@ -70,8 +65,8 @@ public class PlayScreen extends ScreenAdapter {
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
 
 
-        gameMode = new Label(MenuScreen.currentGameMode.toString(),Assets.skin);
-        gameMode.setPosition(Configurations.GAME_WIDTH * 0.05f,Configurations.GAME_HEIGHT * 0.93f);
+        gameMode = new Label(MenuScreen.currentGameMode.toString(), Assets.skin);
+        gameMode.setPosition(Configurations.GAME_WIDTH * 0.05f, Configurations.GAME_HEIGHT * 0.93f);
         Configurations.setGameModeConfigurations();
 
 
@@ -80,7 +75,6 @@ public class PlayScreen extends ScreenAdapter {
         initPipes();
 
         addActors();
-
 
 
     }
@@ -126,6 +120,7 @@ public class PlayScreen extends ScreenAdapter {
     private void reInitPipeDuosOnScreen() {
         listOfPipeDuos.forEach(PipeDuo::reInitialize);
     }
+
     private void initClouds() {
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
@@ -195,7 +190,7 @@ public class PlayScreen extends ScreenAdapter {
         playTime += deltaTime;
         playStage.act();
         playStage.draw();
-        loggingToSystemOut();
+//        loggingToSystemOut();
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
@@ -224,13 +219,10 @@ public class PlayScreen extends ScreenAdapter {
                 if (deadTime == 0) {
                     deadTime = playTime;
                     try {
-                        PlayerManager.updateDataFile(player);
+                        PlayerManager.updateData(player);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    PlayerManager.updateDataToDb();
-
-
                 }
             }
         }

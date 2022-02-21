@@ -92,7 +92,7 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void initTop3Label() {
-        String top3String = PlayerManager.getListOfPLayers().stream()
+        String top3String = PlayerManager.getListOfPlayers().stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
                 .limit(Configurations.SHOW_HIGH_SCORE_LIMIT)
                 .map(player -> String.format("%s - %d", player.getUserName(), player.getHighScore()))
