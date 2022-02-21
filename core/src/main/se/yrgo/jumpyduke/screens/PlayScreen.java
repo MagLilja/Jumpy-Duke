@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import org.hibernate.Session;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.actors.Bugg;
@@ -20,6 +21,7 @@ import se.yrgo.jumpyduke.actors.Pipe;
 import se.yrgo.jumpyduke.actors.PipeDuo;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.config.DatabaseService;
 import se.yrgo.jumpyduke.config.GameModeManager;
 import se.yrgo.jumpyduke.player.PlayerManager;
 import se.yrgo.jumpyduke.player.Player;
@@ -226,6 +228,9 @@ public class PlayScreen extends ScreenAdapter {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    PlayerManager.updateDataToDb();
+
+
                 }
             }
         }

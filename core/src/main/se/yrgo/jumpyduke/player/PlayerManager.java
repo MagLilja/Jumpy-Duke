@@ -5,7 +5,10 @@ import com.google.common.io.Resources;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.config.DatabaseService;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,6 +71,15 @@ public class PlayerManager {
     public static Player getPlayer() {
 //        if(isPlayerInList())
         return getPlayer();
+    }
+
+    public static void updateDataToDb() {
+        Session session= DatabaseService.getCurrentSessionFromConfig();
+        session.beginTransaction();
+
+        for (Player player: )
+
+
     }
 
     public void savePlayerToDatabase(){

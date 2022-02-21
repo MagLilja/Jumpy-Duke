@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import se.yrgo.jumpyduke.assets.Assets;
 
+import se.yrgo.jumpyduke.config.DatabaseService;
 import se.yrgo.jumpyduke.player.Player;
 import se.yrgo.jumpyduke.screens.MenuScreen;
 import se.yrgo.jumpyduke.screens.MenuScreenTextInputListener;
@@ -19,6 +20,7 @@ public class DukeGame extends Game {
 
         Assets.loadAssets();
         player = new Player();
+        DatabaseService.getCurrentSessionFromConfig();
         menuScreen = new MenuScreen(this, player);
         menuScreenTextInputListener = new MenuScreenTextInputListener(player);
         if (this.player.getUserName() == null) {
