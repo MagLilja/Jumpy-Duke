@@ -77,7 +77,8 @@ project(":core") {
         implementation 'com.google.guava:guava:31.0.1-jre'
         implementation 'commons-io:commons-io:2.11.0'
         implementation 'org.hibernate:hibernate-core:5.6.5.Final'
-        implementation 'mysql:mysql-connector-java:8.0.28'
+        //implementation 'mysql:mysql-connector-java:8.0.28'
+        implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.3'
 
 
 
@@ -131,8 +132,6 @@ project(":tests") {
         testCompile 'org.junit.vintage:junit-vintage-engine:5.8.2'
 
         testCompile 'org.mockito:mockito-all:1.10.19'
-
-
 
 
         testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
