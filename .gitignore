@@ -6,6 +6,7 @@ players.json
 *.war
 *.ear
 hs_err_pid*
+*.json
 
 ## Robovm
 /ios/robovm-build/
