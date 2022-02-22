@@ -22,12 +22,12 @@ public class DukeGame extends Game {
     @Override
     public void create() {
 
-        try {
-            DatabaseService.getCurrentSessionFromConfig();
-        } catch (ServiceException e) {
-            e.printStackTrace();
-            Configurations.hasDatabase = false;
-        }
+      //  try {
+        ///    DatabaseService.getCurrentSessionFromConfig();
+       //// } catch (ServiceException e) {
+           /// e.printStackTrace();
+           /// Configurations.hasDatabase = false;
+        ///}
         try {
             Assets.loadAssets();
         } catch (IOException e) {
