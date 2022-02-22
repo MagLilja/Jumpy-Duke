@@ -31,19 +31,19 @@ public class Configurations {
     public static void setGameModeConfigurations() {
         switch (MenuScreen.currentGameMode) {
             case EASY:
-                pipe_velocity_alive = -75f;
-                gap_size = 300;
-                pipe_spacing = 450;
+                pipe_velocity_alive = -100f;
+                gap_size = 250;
+                pipe_spacing = 400;
                 break;
             case NORMAL:
-                pipe_velocity_alive = -100f;
+                pipe_velocity_alive = -125f;
                 gap_size = 200;
                 pipe_spacing = 350;
                 break;
             case HARD:
-                pipe_velocity_alive = -125f;
-                gap_size = 150;
-                pipe_spacing = 300;
+                pipe_velocity_alive = -150f;
+                gap_size = 175;
+                pipe_spacing = 325;
                 break;
         }
     }

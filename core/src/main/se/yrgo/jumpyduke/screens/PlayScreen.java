@@ -178,6 +178,7 @@ public class PlayScreen extends ScreenAdapter {
     private void ifAliveJump() {
         if (Duke.getDukeState() == DukeState.ALIVE) {
             duke.setDukeJump();
+
         }
     }
 
@@ -222,6 +223,8 @@ public class PlayScreen extends ScreenAdapter {
          //   if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
             if (Intersector.overlaps(duke.getDukeCircle(), pipe.getPipeRectangle())) {
                 Duke.setDukeState(DukeState.DEAD);
+                duke.setOrigin(Align.center);
+                duke.rotateBy(5f);
                 if (deadTime == 0) {
                     deadTime = playTime;
                     try {
