@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -20,7 +21,6 @@ import se.yrgo.jumpyduke.actors.Pipe;
 import se.yrgo.jumpyduke.actors.PipeDuo;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
-import se.yrgo.jumpyduke.config.GameModeManager;
 import se.yrgo.jumpyduke.player.PlayerManager;
 import se.yrgo.jumpyduke.player.Player;
 
@@ -197,6 +197,8 @@ public class PlayScreen extends ScreenAdapter {
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
+        // Debug collision with pipes and bug
+       // duke.debugCircle();
     }
 
     private void loggingToSystemOut() {
@@ -217,7 +219,8 @@ public class PlayScreen extends ScreenAdapter {
 
     private void collisionWithPipe() {
         for (Pipe pipe : listOfPipes) {
-            if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
+         //   if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
+            if (Intersector.overlaps(duke.getDukeCircle(), pipe.getPipeRectangle())) {
                 Duke.setDukeState(DukeState.DEAD);
                 if (deadTime == 0) {
                     deadTime = playTime;
@@ -233,7 +236,8 @@ public class PlayScreen extends ScreenAdapter {
 
     private void collisionWithBugg() {
         for (PipeDuo pipeDuo : listOfPipeDuos) {
-            if (duke.getDukeRectangle().overlaps(pipeDuo.getBugg().getBuggRectangle())) {
+         //   if (duke.getDukeRectangle().overlaps(pipeDuo.getBugg().getBuggRectangle())) {
+            if (Intersector.overlaps(duke.getDukeCircle(), pipeDuo.getBugg().getBuggRectangle())) {
                 pipeDuo.getBugg().moveBy(0, 5000);
                 score++;
                 scoreLabel.setText(score);

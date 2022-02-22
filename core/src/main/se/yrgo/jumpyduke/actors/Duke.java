@@ -1,8 +1,10 @@
 package se.yrgo.jumpyduke.actors;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import se.yrgo.jumpyduke.DukeState;
@@ -13,11 +15,12 @@ public class Duke extends Actor {
     private static DukeState dukeState;
 
     private TextureRegion dukeRegion = new TextureRegion(Assets.dukeAnimatedOne);;
-    private Rectangle dukeRectangle;
+    private Circle dukeCircle;
 
     private Vector2 dukeVelocity;
     private Vector2 dukeAcceleration;
     private float time;
+    private ShapeRenderer debugCircle;
 
     public Duke() {
 
@@ -25,13 +28,15 @@ public class Duke extends Actor {
         setWidth(dukeRegion.getRegionWidth());
         setHeight(dukeRegion.getRegionHeight());
         setDukeStartingPosition();
-        dukeRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
+        dukeCircle = new Circle(getX()  , getY(), getWidth() / 3.5f);
         dukeVelocity = new Vector2();
         dukeAcceleration = new Vector2(0, Configurations.DUKE_GRAVITY);
+        debugCircle = new ShapeRenderer();
     }
 
-    public Rectangle getDukeRectangle() {
-        return dukeRectangle;
+
+    public Circle getDukeCircle() {
+        return dukeCircle;
     }
 
     private void belowClouds() {
@@ -53,12 +58,23 @@ public class Duke extends Actor {
     private void setDukeStartingPosition() {
         setPosition(Configurations.dukeStartingPostition.x, Configurations.dukeStartingPostition.y);
     }
+    public void debugCircle(){
+        debugCircle.begin(ShapeRenderer.ShapeType.Line);
+        debugCircle.setColor(Color.RED);
+        debugCircle.circle(dukeCircle.x,dukeCircle.y,dukeCircle.radius);
+        debugCircle.setAutoShapeType(true);
+        debugCircle.end();
+
+
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
         batch.draw(dukeRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(),
                 getScaleY(), getRotation());
+
+
     }
 
     @Override
@@ -75,7 +91,8 @@ public class Duke extends Actor {
         dukeVelocity.add(0, dukeAcceleration.y * delta);
         setY(getY() + dukeVelocity.y * delta);
         belowClouds();
-        dukeRectangle.setPosition(getX(), getY());
+        dukeCircle.setPosition(getX() + getWidth() / 1.5f, getY() + getHeight() / 2);
+
 
 
     }
