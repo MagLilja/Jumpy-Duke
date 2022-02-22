@@ -13,6 +13,11 @@ public class Player {
     private String userName;
     private int lastScore;
     private int highScore;
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
+
     private int rounds;
 
 

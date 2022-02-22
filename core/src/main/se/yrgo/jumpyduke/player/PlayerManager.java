@@ -63,15 +63,21 @@ public class PlayerManager {
 //        }
 
         Player user;
-        listOfPlayers.add(player);
+
         if (player.getPlayerId() == 0) {
             user = player;
         } else {
             user = listOfPlayers.stream()
                     .max(Comparator.comparingInt(Player::getPlayerId))
                     .get();
+
         }
+        Player tempUser;
+        tempUser =user;
+        tempUser.setPlayerId(tempUser.getPlayerId() + 1);
+        listOfPlayers.add(tempUser);
         System.out.println(user);
+        System.out.println(tempUser);
 
         if (Configurations.hasDatabase) {
             //       updateListOfDataToDb(newListOfPlayers);
