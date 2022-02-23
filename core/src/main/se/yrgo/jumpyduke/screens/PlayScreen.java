@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.DukeState;
-import se.yrgo.jumpyduke.actors.Bugg;
+import se.yrgo.jumpyduke.actors.Bug;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.actors.Duke;
 import se.yrgo.jumpyduke.actors.Pipe;
@@ -104,7 +104,7 @@ public class PlayScreen extends ScreenAdapter {
 
         }
         for (int i = 0; i < 6; i = i + 2) {
-            listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1), new Bugg()));
+            listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1), new Bug()));
         }
 
         listOfPipeDuos.get(0).initFirstPair();
@@ -254,7 +254,7 @@ public class PlayScreen extends ScreenAdapter {
     private void collisionWithBugg() {
         for (PipeDuo pipeDuo : listOfPipeDuos) {
          //   if (duke.getDukeRectangle().overlaps(pipeDuo.getBugg().getBuggRectangle())) {
-            if (Intersector.overlaps(duke.getDukeCircle(), pipeDuo.getBugg().getBuggRectangle())) {
+            if (Intersector.overlaps(duke.getDukeCircle(), pipeDuo.getBugg().getBugRectangle())) {
                 pipeDuo.getBugg().moveBy(0, 5000);
                 score++;
                 scoreLabel.setText(score);

@@ -17,7 +17,7 @@ public class Assets {
     public static TextureRegion pipe;
     public static BitmapFont bitmapFont;
     public static Skin skin;
-    public static TextureRegion bugg;
+    public static TextureRegion bug;
     public static TextureRegion dukeAnimatedOne;
     public static TextureRegion dukeAnimatedTwo;
     public static TextureRegion dukeAnimatedThree;
@@ -40,7 +40,7 @@ public class Assets {
         pipe = textureAtlas.findRegion("Pipe_bottom_new_140x801");
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
-        bugg = textureAtlas.findRegion("Bugg");
+        bug = textureAtlas.findRegion("Bugg");
 
         dukeAnimatedOne = textureAtlas.findRegion("DukeOne");
         dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
