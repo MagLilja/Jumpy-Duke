@@ -55,6 +55,7 @@ public class PlayScreen extends ScreenAdapter {
     private Label gameMode;
     Sound bugSound; // bug sound
     Sound jumpSound; // jumpy sound
+    Sound collisonSound;//
 
 
 
@@ -84,6 +85,11 @@ public class PlayScreen extends ScreenAdapter {
         addActors();
 
 
+
+    }
+    private void collisonSound() { // sound for collison with pipe
+        collisonSound = Gdx.audio.newSound(Gdx.files.internal("collisonsound.mp3"));
+        collisonSound.play(0.4f);
 
     }
 
@@ -254,6 +260,7 @@ public class PlayScreen extends ScreenAdapter {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    collisonSound();
                 }
             }
         }
@@ -287,6 +294,7 @@ public class PlayScreen extends ScreenAdapter {
     public void dispose() {
         bugSound.dispose(); // bug sound
         jumpSound.dispose(); // jump sound
+        collisonSound.dispose(); // collison sound
         Assets.dispose();
     }
 
