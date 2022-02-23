@@ -23,7 +23,12 @@ public class Player {
         rounds = 0;
     }
 
-
+    public Player(String userName, int lastScore, int highScore, int rounds) {
+        this.userName = userName;
+        this.lastScore = lastScore;
+        this.highScore = highScore;
+        this.rounds = rounds;
+    }
 
     public String getUserName() {
         return userName;
@@ -60,4 +65,13 @@ public class Player {
         rounds++;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Player{" +
+//                "userName='" + userName + '\'' +
+//                ", lastScore=" + lastScore +
+//                ", highScore=" + highScore +
+//                ", rounds=" + rounds +
+//                '}';
+//    }
 }

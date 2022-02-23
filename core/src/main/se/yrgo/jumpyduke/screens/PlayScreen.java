@@ -189,12 +189,13 @@ public class PlayScreen extends ScreenAdapter {
 
         collisionWithPipe();
         collisionWithBugg();
+        checkIfBelowClouds();
         restartOptionIfDead();
 
         playTime += deltaTime;
         playStage.act();
         playStage.draw();
-        loggingToSystemOut();
+//        loggingToSystemOut();
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
@@ -215,6 +216,19 @@ public class PlayScreen extends ScreenAdapter {
 
         );
 
+    }
+
+    private void checkIfBelowClouds() {
+        if (duke.isBelowClouds()) {
+            if (deadTime == 0) {
+                deadTime = playTime;
+                try {
+                    ScoreDataManager.updateDataFile(player);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 

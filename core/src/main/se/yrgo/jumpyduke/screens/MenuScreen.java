@@ -94,9 +94,9 @@ public class MenuScreen extends ScreenAdapter {
 
     private void initHighScoreLabel() {
         String top3String = ScoreDataManager.getListOfPLayers().stream()
-                .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
+                .sorted(Comparator.comparingInt(Player::getLastScore).reversed())
                 .limit(Configurations.SHOW_HIGH_SCORE_LIMIT)
-                .map(player -> String.format("%s - %d", player.getUserName(), player.getHighScore()))
+                .map(player -> String.format("%s - %d", player.getUserName(), player.getLastScore()))
                 .collect(Collectors.joining("\n"));
         highScoreLabel = new Label(Configurations.highScoreLabel + "\n -------- \n" + top3String, Assets.skin);
         highScoreLabel.setAlignment(Align.center);

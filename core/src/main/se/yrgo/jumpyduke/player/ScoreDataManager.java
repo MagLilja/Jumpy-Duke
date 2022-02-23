@@ -58,7 +58,9 @@ public class ScoreDataManager {
     }
 
     public static void updateDataFile(Player player) throws IOException {
-        listOfPLayers.add(player);
+        Player newPlayer = new Player(player.getUserName(),
+                player.getLastScore(), player.getHighScore(), player.getRounds());
+        listOfPLayers.add(newPlayer);
         List<Player> sortedLimitedListOfPlayers = listOfPLayers.stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
                 .limit(Configurations.LIMIT_OUTPUT_LIST_TO)
@@ -66,7 +68,7 @@ public class ScoreDataManager {
         try (Writer writer = new FileWriter("players.json")) {
             new Gson().toJson(sortedLimitedListOfPlayers, writer);
         }
-
+        System.out.println(sortedLimitedListOfPlayers);
     }
 
     public static Player getPlayer() {
