@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -52,6 +53,8 @@ public class PlayScreen extends ScreenAdapter {
     private Player player;
     private int score;
     private Label gameMode;
+    Sound bugSound; // bug sound
+    Sound jumpSound; // jumpy sound
 
 
 
@@ -68,6 +71,7 @@ public class PlayScreen extends ScreenAdapter {
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
 
 
+
         gameMode = new Label(MenuScreen.currentGameMode.toString(),Assets.skin);
         gameMode.setPosition(Configurations.GAME_WIDTH * 0.05f,Configurations.GAME_HEIGHT * 0.93f);
         Configurations.setGameModeConfigurations();
@@ -81,6 +85,16 @@ public class PlayScreen extends ScreenAdapter {
 
 
 
+    }
+
+    private void jumpySound() { // sound for space jumpy
+        jumpSound = Gdx.audio.newSound(Gdx.files.internal("jumpySound.mp3"));
+        jumpSound.play(0.2f);
+    }
+
+    private void bugSound() { // sound for bug
+        bugSound = Gdx.audio.newSound(Gdx.files.internal("bugSound.mp3"));
+        bugSound.play();
     }
 
     private void initLabels(Player player) {
@@ -154,6 +168,7 @@ public class PlayScreen extends ScreenAdapter {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 if (button == Input.Buttons.LEFT) {
                     ifAliveJump();
+
                 }
                 return true;
             }
@@ -162,6 +177,12 @@ public class PlayScreen extends ScreenAdapter {
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.ALIVE) {
                     ifAliveJump();
+                    jumpySound();
+
+
+
+
+
 
                 }
                 if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.DEAD) {
@@ -198,6 +219,7 @@ public class PlayScreen extends ScreenAdapter {
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
+
         // Debug collision with pipes and bug
        // duke.debugCircle();
     }
@@ -245,6 +267,7 @@ public class PlayScreen extends ScreenAdapter {
                 score++;
                 scoreLabel.setText(score);
                 player.setLastScore(score);
+                bugSound(); // bug sound
             }
         }
     }
@@ -262,6 +285,8 @@ public class PlayScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        bugSound.dispose(); // bug sound
+        jumpSound.dispose(); // jump sound
         Assets.dispose();
     }
 

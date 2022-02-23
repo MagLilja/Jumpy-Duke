@@ -2,6 +2,7 @@ package se.yrgo.jumpyduke;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import se.yrgo.jumpyduke.assets.Assets;
 
 import se.yrgo.jumpyduke.player.Player;
@@ -13,6 +14,8 @@ public class DukeGame extends Game {
     private MenuScreen menuScreen;
     private Player player;
     private MenuScreenTextInputListener menuScreenTextInputListener;
+    Music music;
+
 
     @Override
     public void create() {
@@ -21,11 +24,26 @@ public class DukeGame extends Game {
         player = new Player();
         menuScreen = new MenuScreen(this, player);
         menuScreenTextInputListener = new MenuScreenTextInputListener(player);
+
+
+
+       music();// game music
+
         if (this.player.getUserName() == null) {
             Gdx.input.getTextInput(menuScreenTextInputListener, "Ange ditt namn", "", "");
         }
         Assets.loadSpriteBatch();
         setScreen(menuScreen);
+    }
+
+
+
+    public void music() { // game music
+        music =  Gdx.audio.newMusic(Gdx.files.absolute("MenuScreenMusic.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.01f);
+        music.getVolume();
+        music.play();
     }
 
     @Override

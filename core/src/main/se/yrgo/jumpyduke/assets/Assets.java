@@ -24,7 +24,6 @@ public class Assets {
     public static Animation<TextureRegion> dukeAnimated;
     public static TextureRegion[] dukeAnimatedArray;
 
-
     private Assets() {
     }
 
@@ -41,6 +40,8 @@ public class Assets {
         bitmapFont = new BitmapFont(Gdx.files.internal("font/font.fnt"), Gdx.files.internal("font/font_0.png"), false);
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
         bugg = textureAtlas.findRegion("Bugg");
+
+
 
         dukeAnimatedOne = textureAtlas.findRegion("DukeOne");
         dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
