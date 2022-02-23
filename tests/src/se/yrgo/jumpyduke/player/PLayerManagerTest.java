@@ -12,8 +12,8 @@ class PLayerManagerTest {
     @Test
     void getDataFromJsonTest() throws IOException {
         // given
-        PlayerManager.loadDataFromJson("players.json");
-        List<Player> dataFromJson = PlayerManager.getDataFromJson();
+        ScoreDataManager.loadDataFromJson("players.json");
+        List<Player> dataFromJson = ScoreDataManager.getDataFromJson("players.json");
         // when
 
         // then
