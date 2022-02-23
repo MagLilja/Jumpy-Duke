@@ -6,6 +6,10 @@ import se.yrgo.jumpyduke.screens.MenuScreen;
 
 public class Configurations {
     /**
+     * ############## String configuration ##############
+     */
+    public static CharSequence highScoreLabel = "High Score";
+    /**
      * ############## Numerical constants for configuration ##############
      */
     public static final float DUKE_GRAVITY = -900f;
