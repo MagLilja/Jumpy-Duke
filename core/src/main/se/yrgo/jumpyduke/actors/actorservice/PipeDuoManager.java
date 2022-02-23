@@ -1,17 +1,19 @@
-package se.yrgo.jumpyduke.actors;
+package se.yrgo.jumpyduke.actors.actorservice;
 
 import com.badlogic.gdx.utils.Align;
+import se.yrgo.jumpyduke.actors.Bug;
+import se.yrgo.jumpyduke.actors.Pipe;
 import se.yrgo.jumpyduke.config.Configurations;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class PipeDuo {
+public class PipeDuoManager {
     private Pipe bottomPipe;
     private Pipe topPipe;
     private double randomPipePlacement;
     private Bug bug;
 
-    public PipeDuo(Pipe bottomPipe, Pipe topPipe, Bug bug) {
+    public PipeDuoManager(Pipe bottomPipe, Pipe topPipe, Bug bug) {
         this.bottomPipe = bottomPipe;
         this.topPipe = topPipe;
         this.bug = bug;
@@ -41,15 +43,10 @@ public class PipeDuo {
     private void initializePair(float gameWidth) {
         topPipe.getPipeRegion().flip(true, true);
         topPipe.setPosition(gameWidth, (float) (randomPipePlacement +
-                        (Configurations.gap_size / 2)), Align.bottomLeft);
+                (Configurations.gap_size / 2)), Align.bottomLeft);
         bottomPipe.setPosition(gameWidth, (float) (randomPipePlacement -
-                        (Configurations.gap_size / 2)), Align.topLeft);
-        bug.setPosition(bottomPipe.getX(Align.center) + Configurations.pipe_spacing / 2, (float) getBuggRandomYDisPlacement(), Align.center);
-    }
-
-    private double getBuggRandomYDisPlacement() {
-        return ThreadLocalRandom.current().
-                nextDouble(Configurations.BUGG_BOTTOM_LEVEL, Configurations.BUGG_TOP_LEVEL);
+                (Configurations.gap_size / 2)), Align.topLeft);
+        bug.setPosition(bottomPipe.getX(Align.center) + Configurations.pipe_spacing / 2, (float) getBugRandomYDisPlacement(), Align.center);
     }
 
     public void reInitialize() {
@@ -69,7 +66,12 @@ public class PipeDuo {
         return topPipe;
     }
 
-    public Bug getBugg() {
+    public Bug getBug() {
         return bug;
+    }
+
+    private double getBugRandomYDisPlacement() {
+        return ThreadLocalRandom.current().
+                nextDouble(Configurations.BUG_BOTTOM_LEVEL, Configurations.BUG_TOP_LEVEL);
     }
 }

@@ -40,7 +40,6 @@ public class Pipe extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(pipeRegion, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
-
     }
 
     public TextureRegion getPipeRegion() {

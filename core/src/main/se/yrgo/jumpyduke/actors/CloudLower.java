@@ -19,17 +19,14 @@ public class CloudLower extends Actor {
         setWidth(cloudRegion.getRegionWidth());
     }
 
-
     @Override
     public void act(float delta) {
         setX(getX() + lowerCloudVelocity.x * delta);
         reInitialize();
         if (Duke.getDukeState() == DukeState.DEAD) {
             lowerCloudVelocity.set(Configurations.LOWER_CLOUD_VELOCITY_DEAD, 0);
-
         }
     }
-
 
     public void flip() {
         cloudRegion.flip(true, false);
@@ -45,5 +42,4 @@ public class CloudLower extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(cloudRegion, getX(), getY());
     }
-
 }

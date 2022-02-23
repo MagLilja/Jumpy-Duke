@@ -12,7 +12,6 @@ import se.yrgo.jumpyduke.config.Configurations;
 public class Bug extends Actor {
     private TextureRegion bugTextureRegion;
     private Rectangle bugRectangle;
-
     private Vector2 bugVelocity;
 
     public Bug() {

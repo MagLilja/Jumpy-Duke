@@ -18,7 +18,7 @@ import se.yrgo.jumpyduke.actors.Bug;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.actors.Duke;
 import se.yrgo.jumpyduke.actors.Pipe;
-import se.yrgo.jumpyduke.actors.PipeDuo;
+import se.yrgo.jumpyduke.actors.actorservice.PipeDuoManager;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.player.ScoreDataManager;
@@ -48,7 +48,7 @@ public class PlayScreen extends ScreenAdapter {
     private float deadTime;
 
     private List<Pipe> listOfPipes;
-    private List<PipeDuo> listOfPipeDuos;
+    private List<PipeDuoManager> listOfPipeDuoManagers;
     private Player player;
     private int score;
     private Label gameMode;
@@ -97,32 +97,32 @@ public class PlayScreen extends ScreenAdapter {
 
     private void initPipes() {
         listOfPipes = new ArrayList<>();
-        listOfPipeDuos = new ArrayList<>();
+        listOfPipeDuoManagers = new ArrayList<>();
 
         for (int i = 0; i < 6; ++i) {
             listOfPipes.add(new Pipe());
 
         }
         for (int i = 0; i < 6; i = i + 2) {
-            listOfPipeDuos.add(new PipeDuo(listOfPipes.get(i), listOfPipes.get(i + 1), new Bug()));
+            listOfPipeDuoManagers.add(new PipeDuoManager(listOfPipes.get(i), listOfPipes.get(i + 1), new Bug()));
         }
 
-        listOfPipeDuos.get(0).initFirstPair();
-        listOfPipeDuos.get(1).initSecondPair();
-        listOfPipeDuos.get(2).initThirdPair();
+        listOfPipeDuoManagers.get(0).initFirstPair();
+        listOfPipeDuoManagers.get(1).initSecondPair();
+        listOfPipeDuoManagers.get(2).initThirdPair();
     }
 
     private void addPipeActors() {
         for (int i = 0; i < 3; ++i) {
-            playStage.addActor(listOfPipeDuos.get(i).getTopPipe());
-            playStage.addActor(listOfPipeDuos.get(i).getBottomPipe());
-            playStage.addActor(listOfPipeDuos.get(i).getBugg());
+            playStage.addActor(listOfPipeDuoManagers.get(i).getTopPipe());
+            playStage.addActor(listOfPipeDuoManagers.get(i).getBottomPipe());
+            playStage.addActor(listOfPipeDuoManagers.get(i).getBug());
         }
 
     }
 
     private void reInitPipeDuosOnScreen() {
-        listOfPipeDuos.forEach(PipeDuo::reInitialize);
+        listOfPipeDuoManagers.forEach(PipeDuoManager::reInitialize);
     }
     private void initClouds() {
         cloudLower = new CloudLower();
@@ -252,10 +252,10 @@ public class PlayScreen extends ScreenAdapter {
     }
 
     private void collisionWithBugg() {
-        for (PipeDuo pipeDuo : listOfPipeDuos) {
+        for (PipeDuoManager pipeDuoManager : listOfPipeDuoManagers) {
          //   if (duke.getDukeRectangle().overlaps(pipeDuo.getBugg().getBuggRectangle())) {
-            if (Intersector.overlaps(duke.getDukeCircle(), pipeDuo.getBugg().getBugRectangle())) {
-                pipeDuo.getBugg().moveBy(0, 5000);
+            if (Intersector.overlaps(duke.getDukeCircle(), pipeDuoManager.getBug().getBugRectangle())) {
+                pipeDuoManager.getBug().moveBy(0, 5000);
                 score++;
                 scoreLabel.setText(score);
                 player.setLastScore(score);
