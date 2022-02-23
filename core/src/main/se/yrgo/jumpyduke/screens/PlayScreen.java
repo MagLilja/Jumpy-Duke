@@ -21,7 +21,7 @@ import se.yrgo.jumpyduke.actors.Pipe;
 import se.yrgo.jumpyduke.actors.PipeDuo;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
-import se.yrgo.jumpyduke.player.PlayerManager;
+import se.yrgo.jumpyduke.player.ScoreDataManager;
 import se.yrgo.jumpyduke.player.Player;
 
 import java.io.IOException;
@@ -228,7 +228,7 @@ public class PlayScreen extends ScreenAdapter {
                 if (deadTime == 0) {
                     deadTime = playTime;
                     try {
-                        PlayerManager.updateDataFile(player);
+                        ScoreDataManager.updateDataFile(player);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
