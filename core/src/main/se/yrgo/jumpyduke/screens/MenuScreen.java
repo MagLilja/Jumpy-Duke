@@ -16,7 +16,7 @@ import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.config.GameModeManager;
-import se.yrgo.jumpyduke.player.PlayerManager;
+import se.yrgo.jumpyduke.player.ScoreDataManager;
 import se.yrgo.jumpyduke.player.Player;
 
 import java.util.Comparator;
@@ -33,7 +33,7 @@ public class MenuScreen extends ScreenAdapter {
 
     private Label instructionLabel;
     private Label lastScore;
-    private Label top3Label;
+    private Label highScoreLabel;
     private Label showGameMode;
     private Label gameModeOption;
 
@@ -48,8 +48,9 @@ public class MenuScreen extends ScreenAdapter {
         this.player = player;
 
         cam = new OrthographicCamera(); //Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT
-        currentGameMode = GameModeManager.GameModeState.NORMAL;
-
+        if (player.getRounds() == 0) {
+            currentGameMode = GameModeManager.GameModeState.NORMAL;
+        }
 
 
         initStages();
@@ -77,7 +78,7 @@ public class MenuScreen extends ScreenAdapter {
     private void initLabels(Player player) {
         initInstructionLabel();
         initLastAndHighScoreLabel(player);
-        initTop3Label();
+        initHighScoreLabel();
         initGameModeLabel();
 
     }
@@ -91,15 +92,15 @@ public class MenuScreen extends ScreenAdapter {
         gameModeOption.setPosition(Configurations.GAME_WIDTH / 2,Configurations.GAME_HEIGHT * 0.45f, Align.center);
     }
 
-    private void initTop3Label() {
-        String top3String = PlayerManager.getListOfPLayers().stream()
+    private void initHighScoreLabel() {
+        String top3String = ScoreDataManager.getListOfPLayers().stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
                 .limit(Configurations.SHOW_HIGH_SCORE_LIMIT)
                 .map(player -> String.format("%s - %d", player.getUserName(), player.getHighScore()))
                 .collect(Collectors.joining("\n"));
-        top3Label = new Label("Top 3 \n -------- \n" + top3String, Assets.skin);
-        top3Label.setAlignment(Align.center);
-        top3Label.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.8f, Align.center);
+        highScoreLabel = new Label(Configurations.highScoreLabel + "\n -------- \n" + top3String, Assets.skin);
+        highScoreLabel.setAlignment(Align.center);
+        highScoreLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.8f, Align.center);
     }
 
     private void initLastAndHighScoreLabel(Player player) {
@@ -125,7 +126,7 @@ public class MenuScreen extends ScreenAdapter {
 
     private void addActorsToGuiStage(Player player) {
         guiStage.addActor(instructionLabel);
-        guiStage.addActor(top3Label);
+        guiStage.addActor(highScoreLabel);
         guiStage.addActor(showGameMode);
         guiStage.addActor(gameModeOption);
         if (player.getRounds() > 0) {
