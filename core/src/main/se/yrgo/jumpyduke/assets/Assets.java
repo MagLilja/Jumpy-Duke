@@ -3,7 +3,7 @@ package se.yrgo.jumpyduke.assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import se.yrgo.jumpyduke.player.PlayerManager;
+import se.yrgo.jumpyduke.player.ScoreDataManager;
 
 import java.io.IOException;
 
@@ -52,7 +52,7 @@ public class Assets {
 
 
         try {
-            PlayerManager.loadDataFromJson("players.json");
+            ScoreDataManager.loadDataFromJson("players.json");
         } catch (IOException e) {
             e.printStackTrace();
         }
