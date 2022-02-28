@@ -33,7 +33,7 @@ public class ScoreDataManager {
     }
 
     private static void initListOfPlayersFromEmptyTemplate() throws IOException {
-        listOfPlayers = getDataFromJson("playersTemplate.json");
+        listOfPlayers = getDataFromJson(Configurations.playersTemplateFile);
     }
 
     public static List<Player> getListOfPlayers() {

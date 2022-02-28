@@ -28,9 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PlayScreen extends ScreenAdapter {
-    private CloudLower cloudLower2;
     private DukeGame dukeGame;
     private Duke duke;
 
@@ -39,10 +37,12 @@ public class PlayScreen extends ScreenAdapter {
 
     private OrthographicCamera cam;
     private CloudLower cloudLower;
+    private CloudLower cloudLower2;
 
     private Label restartLabel;
     private Label playerNameLabel;
     private Label scoreLabel;
+    private Label gameMode;
 
     private float playTime;
     private float deadTime;
@@ -51,48 +51,44 @@ public class PlayScreen extends ScreenAdapter {
     private List<PipeDuoManager> listOfPipeDuoManagers;
     private Player player;
     private int score;
-    private Label gameMode;
-
-
-
 
     public PlayScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
         this.player = player;
         score = 0;
         player.setLastScore(0);
+        player.incrementRounds();
 
         cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
         duke = new Duke();
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
 
-
-        gameMode = new Label(MenuScreen.currentGameMode.toString(),Assets.skin);
-        gameMode.setPosition(Configurations.GAME_WIDTH * 0.05f,Configurations.GAME_HEIGHT * 0.93f);
         Configurations.setGameModeConfigurations();
-
 
         initLabels(player);
         initClouds();
         initPipes();
-
         addActors();
-
-
 
     }
 
     private void initLabels(Player player) {
         playerNameLabel = new Label(player.getUserName(), Assets.skin);
-        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.90), Align.center);
+        playerNameLabel.setPosition(Configurations.GAME_WIDTH / 2,
+                (Configurations.GAME_HEIGHT * 0.90f), Align.center);
 
         scoreLabel = new Label(String.valueOf(score), Assets.skin);
-        scoreLabel.setPosition(Configurations.GAME_WIDTH / 2, (float) (Configurations.GAME_HEIGHT * 0.95), Align.center);
+        scoreLabel.setPosition(Configurations.GAME_WIDTH / 2,
+                (Configurations.GAME_HEIGHT * 0.95f), Align.center);
 
         restartLabel = new Label(Configurations.RESTART_TEXT_STRING, Assets.skin);
-        restartLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2, Align.center);
-        player.incrementRounds();
+        restartLabel.setPosition(Configurations.GAME_WIDTH / 2,
+                Configurations.GAME_HEIGHT / 2, Align.center);
+
+        gameMode = new Label(MenuScreen.currentGameMode.toString(), Assets.skin);
+        gameMode.setPosition(Configurations.GAME_WIDTH * 0.05f,
+                Configurations.GAME_HEIGHT * 0.93f);
     }
 
     private void initPipes() {
@@ -101,10 +97,11 @@ public class PlayScreen extends ScreenAdapter {
 
         for (int i = 0; i < 6; ++i) {
             listOfPipes.add(new Pipe());
-
         }
+
         for (int i = 0; i < 6; i = i + 2) {
-            listOfPipeDuoManagers.add(new PipeDuoManager(listOfPipes.get(i), listOfPipes.get(i + 1), new Bug()));
+            listOfPipeDuoManagers.add(new PipeDuoManager(listOfPipes.get(i),
+                    listOfPipes.get(i + 1), new Bug()));
         }
 
         listOfPipeDuoManagers.get(0).initFirstPair();
@@ -118,12 +115,12 @@ public class PlayScreen extends ScreenAdapter {
             playStage.addActor(listOfPipeDuoManagers.get(i).getBottomPipe());
             playStage.addActor(listOfPipeDuoManagers.get(i).getBug());
         }
-
     }
 
     private void reInitPipeDuosOnScreen() {
         listOfPipeDuoManagers.forEach(PipeDuoManager::reInitialize);
     }
+
     private void initClouds() {
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
@@ -141,7 +138,6 @@ public class PlayScreen extends ScreenAdapter {
         playStage.addActor(cloudLower2);
         playStage.addActor(cloudLower);
     }
-
 
     @Override
     public void show() {
@@ -162,49 +158,41 @@ public class PlayScreen extends ScreenAdapter {
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.ALIVE) {
                     ifAliveJump();
-
                 }
                 if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.DEAD) {
-
                     if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD)
                         dukeGame.setScreen(new MenuScreen(dukeGame, player));
                 }
                 return true;
             }
         });
-
     }
 
     private void ifAliveJump() {
         if (Duke.getDukeState() == DukeState.ALIVE) {
             duke.setDukeJump();
-
         }
     }
-
 
     @Override
     public void render(float deltaTime) {
         ScreenUtils.clear(1, 0, 0, 1);
 
         collisionWithPipe();
-        collisionWithBugg();
+        collisionWithBug();
         checkIfBelowClouds();
         restartOptionIfDead();
 
         playTime += deltaTime;
         playStage.act();
         playStage.draw();
-//        loggingToSystemOut();
+
         guiStage.act();
         guiStage.draw();
         reInitPipeDuosOnScreen();
-        // Debug collision with pipes and bug
-       // duke.debugCircle();
     }
 
     private void loggingToSystemOut() {
-
         System.out.println("" +
                 " Play time: " + playTime +
                 " Player name: " + player.getUserName() +
@@ -213,9 +201,7 @@ public class PlayScreen extends ScreenAdapter {
                 " High score: " + player.getHighScore() +
                 " State: " + Duke.getDukeState()
                 + " Dead time: " + deadTime
-
         );
-
     }
 
     private void checkIfBelowClouds() {
@@ -231,14 +217,11 @@ public class PlayScreen extends ScreenAdapter {
         }
     }
 
-
     private void collisionWithPipe() {
         for (Pipe pipe : listOfPipes) {
-         //   if (duke.getDukeRectangle().overlaps(pipe.getPipeRectangle())) {
             if (Intersector.overlaps(duke.getDukeCircle(), pipe.getPipeRectangle())) {
                 Duke.setDukeState(DukeState.DEAD);
-                duke.setOrigin(Align.center);
-                duke.rotateBy(5f);
+                rotateDukeWhenDead();
                 if (deadTime == 0) {
                     deadTime = playTime;
                     try {
@@ -251,23 +234,28 @@ public class PlayScreen extends ScreenAdapter {
         }
     }
 
-    private void collisionWithBugg() {
+    private void rotateDukeWhenDead() {
+        duke.setOrigin(Align.center);
+        duke.rotateBy(5f);
+    }
+
+    private void collisionWithBug() {
         for (PipeDuoManager pipeDuoManager : listOfPipeDuoManagers) {
-         //   if (duke.getDukeRectangle().overlaps(pipeDuo.getBugg().getBuggRectangle())) {
             if (Intersector.overlaps(duke.getDukeCircle(), pipeDuoManager.getBug().getBugRectangle())) {
                 pipeDuoManager.getBug().moveBy(0, 5000);
-                score++;
-                scoreLabel.setText(score);
-                player.setLastScore(score);
+                incrementAndSetScore();
             }
         }
     }
 
+    private void incrementAndSetScore() {
+        score++;
+        scoreLabel.setText(score);
+        player.setLastScore(score);
+    }
 
     private void restartOptionIfDead() {
         if (Duke.getDukeState() == DukeState.DEAD) {
-
-
             if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD) {
                 playStage.addActor(restartLabel);
             }

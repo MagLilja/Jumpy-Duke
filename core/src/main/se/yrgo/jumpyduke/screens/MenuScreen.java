@@ -37,21 +37,18 @@ public class MenuScreen extends ScreenAdapter {
     private Label showGameMode;
     private Label gameModeOption;
 
-
     private Player player;
 
     public static GameModeManager.GameModeState currentGameMode;
-
 
     public MenuScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
         this.player = player;
 
-        cam = new OrthographicCamera(); //Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT
+        cam = new OrthographicCamera();
         if (player.getRounds() == 0) {
             currentGameMode = GameModeManager.GameModeState.NORMAL;
         }
-
 
         initStages();
         initLabels(player);
@@ -61,12 +58,12 @@ public class MenuScreen extends ScreenAdapter {
         addActorsToGuiStage(player);
     }
 
-
     private void initStages() {
-        menuStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
-        guiStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
+        menuStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH,
+                Configurations.GAME_HEIGHT, cam));
+        guiStage = new Stage(new ExtendViewport(Configurations.GAME_WIDTH,
+                Configurations.GAME_HEIGHT, cam));
     }
-
 
     private void initClouds() {
         cloudLower = new CloudLower();
@@ -80,16 +77,18 @@ public class MenuScreen extends ScreenAdapter {
         initLastAndHighScoreLabel(player);
         initHighScoreLabel();
         initGameModeLabel();
-
     }
 
     private void initGameModeLabel() {
-        showGameMode = new Label("Game Mode\n" + currentGameMode.toString(), Assets.skin);
+        showGameMode = new Label(Configurations.activeGameModeTitle + "\n"
+                + currentGameMode.toString(), Assets.skin);
         showGameMode.setAlignment(Align.center);
-        showGameMode.setPosition(Configurations.GAME_WIDTH / 2,Configurations.GAME_HEIGHT * 0.55f, Align.center);
+        showGameMode.setPosition(Configurations.GAME_WIDTH / 2,
+                Configurations.GAME_HEIGHT * 0.55f, Align.center);
 
-        gameModeOption = new Label("(1) EASY (2) NORMAL (3) HARD ", Assets.skin);
-        gameModeOption.setPosition(Configurations.GAME_WIDTH / 2,Configurations.GAME_HEIGHT * 0.45f, Align.center);
+        gameModeOption = new Label(Configurations.gameModeText, Assets.skin);
+        gameModeOption.setPosition(Configurations.GAME_WIDTH / 2,
+                Configurations.GAME_HEIGHT * 0.45f, Align.center);
     }
 
     private void initHighScoreLabel() {
@@ -98,24 +97,28 @@ public class MenuScreen extends ScreenAdapter {
                 .limit(Configurations.SHOW_HIGH_SCORE_LIMIT)
                 .map(player -> String.format("%s - %d", player.getUserName(), player.getLastScore()))
                 .collect(Collectors.joining("\n"));
-        highScoreLabel = new Label(Configurations.HIGH_SCORE_LABEL + "\n -------- \n" + top3String, Assets.skin);
+        highScoreLabel = new Label(Configurations.HIGH_SCORE_LABEL + "\n -------- \n"
+                + top3String, Assets.skin);
         highScoreLabel.setAlignment(Align.center);
-        highScoreLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.8f, Align.center);
+        highScoreLabel.setPosition(Configurations.GAME_WIDTH / 2,
+                Configurations.GAME_HEIGHT * 0.8f, Align.center);
     }
 
     private void initLastAndHighScoreLabel(Player player) {
         lastScore = new Label(
-                "Rounds - " + player.getRounds() +
-                        "\n Last score - " + player.getLastScore() +
-                        "\n High score - " + player.getHighScore(),
+                Configurations.roundText + " - " + player.getRounds() +
+                        "\n" + Configurations.lastScoreText + " - " + player.getLastScore() +
+                        "\n" + Configurations.highScoreText + " - " + player.getHighScore(),
                 Assets.skin);
         lastScore.setAlignment(Align.center);
-        lastScore.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.3f, Align.center);
+        lastScore.setPosition(Configurations.GAME_WIDTH / 2,
+                Configurations.GAME_HEIGHT * 0.3f, Align.center);
     }
 
     private void initInstructionLabel() {
-        instructionLabel = new Label("Jumpy Duke - Press Space To Play!", Assets.skin);
-        instructionLabel.setPosition(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT * 0.4f, Align.center);
+        instructionLabel = new Label(Configurations.instructionLabelText, Assets.skin);
+        instructionLabel.setPosition(Configurations.GAME_WIDTH / 2,
+                Configurations.GAME_HEIGHT * 0.4f, Align.center);
     }
 
     private void addActorsToMenuStage() {
@@ -139,8 +142,9 @@ public class MenuScreen extends ScreenAdapter {
         inputlistener(this.dukeGame);
     }
 
-    public void changeGameModeLabel(){
-        showGameMode.setText("Game Mode\n" + currentGameMode.toString());
+    public void changeGameModeLabel() {
+        showGameMode.setText(Configurations.activeGameModeTitle + "\n"
+                + currentGameMode.toString());
     }
 
     private void inputlistener(DukeGame dukeGame) {
@@ -151,7 +155,6 @@ public class MenuScreen extends ScreenAdapter {
                 if (keycode == Input.Keys.SPACE) {
                     playScreen = new PlayScreen(dukeGame, player);
                     MenuScreen.this.dukeGame.setScreen(playScreen);
-                    System.out.println("Start!");
                 }
                 if (keycode == Input.Keys.NUM_1) {
                     currentGameMode = GameModeManager.GameModeState.EASY;
@@ -168,9 +171,7 @@ public class MenuScreen extends ScreenAdapter {
                 return true;
             }
         });
-
     }
-
 
     @Override
     public void render(float deltaTime) {
