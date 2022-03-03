@@ -97,7 +97,7 @@ public class MenuScreen extends ScreenAdapter {
                 .limit(Configurations.SHOW_HIGH_SCORE_LIMIT)
                 .map(player -> String.format("%s - %d", player.getUserName(), player.getLastScore()))
                 .collect(Collectors.joining("\n"));
-        highScoreLabel = new Label(Configurations.HIGH_SCORE_LABEL + "\n -------- \n"
+        highScoreLabel = new Label(Configurations.highScoreLabel + "\n -------- \n"
                 + top3String, Assets.skin);
         highScoreLabel.setAlignment(Align.center);
         highScoreLabel.setPosition(Configurations.GAME_WIDTH / 2,
