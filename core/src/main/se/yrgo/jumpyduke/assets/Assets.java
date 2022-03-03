@@ -1,6 +1,8 @@
 package se.yrgo.jumpyduke.assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +28,10 @@ public class Assets {
     public static SpriteBatch batch;
     public static Skin skin;
     public static Animation<TextureRegion> dukeAnimated;
+    public static Sound bugSound;
+    public static Sound collisionSound;
+    public static Sound jumpSound;
+    public static Music backgroundMusic;
 
     public static void loadAssets() {
         textureAtlas = new TextureAtlas("pack.atlas");
@@ -42,6 +48,11 @@ public class Assets {
         dukeAnimatedArray = new TextureRegion[]{dukeAnimatedOne, dukeAnimatedTwo, dukeAnimatedThree};
         dukeAnimated = new Animation(0.20f, dukeAnimatedArray);
         dukeAnimated.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+
+        bugSound = Gdx.audio.newSound(Gdx.files.internal("sound/bugSound.mp3"));
+        collisionSound = Gdx.audio.newSound(Gdx.files.internal("sound/collisionSound.mp3"));
+        jumpSound = Gdx.audio.newSound(Gdx.files.internal("sound/jumpySound.mp3"));
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/backgroundMusic.mp3"));
 
         try {
             ScoreDataManager.loadDataFromJson("players.json");

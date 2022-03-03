@@ -23,6 +23,7 @@ import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.player.ScoreDataManager;
 import se.yrgo.jumpyduke.player.Player;
+import se.yrgo.jumpyduke.sound.SoundManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class PlayScreen extends ScreenAdapter {
         scoreLabel.setPosition(Configurations.GAME_WIDTH / 2,
                 (Configurations.GAME_HEIGHT * 0.95f), Align.center);
 
-        restartLabel = new Label(Configurations.RESTART_TEXT_STRING, Assets.skin);
+        restartLabel = new Label(Configurations.restartTextString, Assets.skin);
         restartLabel.setPosition(Configurations.GAME_WIDTH / 2,
                 Configurations.GAME_HEIGHT / 2, Align.center);
 
@@ -171,6 +172,7 @@ public class PlayScreen extends ScreenAdapter {
     private void ifAliveJump() {
         if (Duke.getDukeState() == DukeState.ALIVE) {
             duke.setDukeJump();
+            SoundManager.playJumpSound();
         }
     }
 
@@ -224,6 +226,7 @@ public class PlayScreen extends ScreenAdapter {
                 rotateDukeWhenDead();
                 if (deadTime == 0) {
                     deadTime = playTime;
+                    SoundManager.playCollisionSound();
                     try {
                         ScoreDataManager.updateDataFile(player);
                     } catch (IOException e) {
@@ -244,6 +247,7 @@ public class PlayScreen extends ScreenAdapter {
             if (Intersector.overlaps(duke.getDukeCircle(), pipeDuoManager.getBug().getBugRectangle())) {
                 pipeDuoManager.getBug().moveBy(0, 5000);
                 incrementAndSetScore();
+                SoundManager.playBugSound();
             }
         }
     }

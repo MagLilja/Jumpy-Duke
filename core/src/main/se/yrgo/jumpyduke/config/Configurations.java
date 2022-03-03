@@ -6,20 +6,6 @@ import se.yrgo.jumpyduke.screens.MenuScreen;
 
 public class Configurations {
     /**
-     * ############## Screen text labels and strings ##############
-     */
-    public static final String RESTART_TEXT_STRING = "Press space To Play Again!";
-    public static final CharSequence HIGH_SCORE_LABEL = "High Score";
-    public static String playersTemplateFile = "playersTemplate.json";
-    public static CharSequence gameModeText = "(1) EASY (2) NORMAL (3) HARD";
-    public static CharSequence activeGameModeTitle = "Game Mode";
-    public static String roundText = "Rounds";
-    public static String lastScoreText = "Last score";
-    public static String highScoreText = "High score";
-    public static String instructionLabelText = "Jumpy Duke - Press Space To Play!";
-    public static String playerNameInputText = "Enter your name";
-
-    /**
      * ############## Numerical constants for configuration ##############
      */
     public static final float DUKE_GRAVITY = -900f;
@@ -36,6 +22,24 @@ public class Configurations {
     public static final float RESTART_WAIT_TIME_AFTER_DEAD = 3;
     public static final long SHOW_HIGH_SCORE_LIMIT = 5;
     public static final long LIMIT_OUTPUT_LIST_TO = 100;
+    public static final float SOUND_BUG_VOLUME = 1.0f;
+    public static final float SOUND_JUMP_VOLUME = 0.3f;
+    public static final float SOUND_COLLISION_VOLUME = 0.5f;
+    public static final float SOUND_MUSIC_VOLUME = 0.1f;
+
+    /**
+     * ############## Screen text labels and strings ##############
+     */
+    public static String restartTextString = "Press space To Play Again!";
+    public static CharSequence highScoreLabel = "High Score";
+    public static String playersTemplateFile = "playersTemplate.json";
+    public static CharSequence gameModeText = "(1) EASY (2) NORMAL (3) HARD";
+    public static CharSequence activeGameModeTitle = "Game Mode";
+    public static String roundText = "Rounds";
+    public static String lastScoreText = "Last score";
+    public static String highScoreText = "High score";
+    public static String instructionLabelText = "Jumpy Duke - Press Space To Play!";
+    public static String playerNameInputText = "Enter your name";
 
     public static float pipe_velocity_alive;
     public static int gap_size;
