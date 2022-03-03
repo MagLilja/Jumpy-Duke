@@ -1,5 +1,6 @@
 package se.yrgo.jumpyduke.player;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PLayerManagerTest {
 
     @Test
+    @Disabled
     void getDataFromJsonTest() throws IOException {
         // given
         ScoreDataManager.loadDataFromJson("players.json");
