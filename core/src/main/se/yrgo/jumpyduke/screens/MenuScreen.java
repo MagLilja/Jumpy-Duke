@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -15,12 +17,15 @@ import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
-import se.yrgo.jumpyduke.config.GameModeManager;
-import se.yrgo.jumpyduke.player.ScoreDataManager;
+import se.yrgo.jumpyduke.utils.GameModeState;
+import se.yrgo.jumpyduke.utils.ScoreDataManager;
 import se.yrgo.jumpyduke.player.Player;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
+
+import static se.yrgo.jumpyduke.DukeGame.menuScreenTextInputListener;
+import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class MenuScreen extends ScreenAdapter {
     private CloudLower cloudLower2;
@@ -39,7 +44,7 @@ public class MenuScreen extends ScreenAdapter {
 
     private Player player;
 
-    public static GameModeManager.GameModeState currentGameMode;
+    public static GameModeState currentGameMode;
 
     public MenuScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
@@ -47,8 +52,9 @@ public class MenuScreen extends ScreenAdapter {
 
         cam = new OrthographicCamera();
         if (player.getRounds() == 0) {
-            currentGameMode = GameModeManager.GameModeState.NORMAL;
+            currentGameMode = GameModeState.NORMAL;
         }
+        updatePlayerGameModeState();
 
         initStages();
         initLabels(player);
@@ -56,6 +62,11 @@ public class MenuScreen extends ScreenAdapter {
 
         addActorsToMenuStage();
         addActorsToGuiStage(player);
+    }
+
+    private void updatePlayerGameModeState() {
+        player.setGameModeState(currentGameMode);
+        logger.info("Game mode set to: " + currentGameMode);
     }
 
     private void initStages() {
@@ -73,6 +84,7 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void initLabels(Player player) {
+
         initInstructionLabel();
         initLastAndHighScoreLabel(player);
         initHighScoreLabel();
@@ -89,6 +101,7 @@ public class MenuScreen extends ScreenAdapter {
         gameModeOption = new Label(Configurations.gameModeText, Assets.skin);
         gameModeOption.setPosition(Configurations.GAME_WIDTH / 2,
                 Configurations.GAME_HEIGHT * 0.45f, Align.center);
+
     }
 
     private void initHighScoreLabel() {
@@ -116,7 +129,9 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void initInstructionLabel() {
+
         instructionLabel = new Label(Configurations.instructionLabelText, Assets.skin);
+        instructionLabel.setAlignment(Align.center);
         instructionLabel.setPosition(Configurations.GAME_WIDTH / 2,
                 Configurations.GAME_HEIGHT * 0.4f, Align.center);
     }
@@ -128,6 +143,7 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void addActorsToGuiStage(Player player) {
+
         guiStage.addActor(instructionLabel);
         guiStage.addActor(highScoreLabel);
         guiStage.addActor(showGameMode);
@@ -157,17 +173,26 @@ public class MenuScreen extends ScreenAdapter {
                     MenuScreen.this.dukeGame.setScreen(playScreen);
                 }
                 if (keycode == Input.Keys.NUM_1) {
-                    currentGameMode = GameModeManager.GameModeState.EASY;
+                    currentGameMode = GameModeState.EASY;
                     changeGameModeLabel();
+                    updatePlayerGameModeState();
                 }
                 if (keycode == Input.Keys.NUM_2) {
-                    currentGameMode = GameModeManager.GameModeState.NORMAL;
+                    currentGameMode = GameModeState.NORMAL;
                     changeGameModeLabel();
+                    updatePlayerGameModeState();
                 }
                 if (keycode == Input.Keys.NUM_3) {
-                    currentGameMode = GameModeManager.GameModeState.HARD;
+                    currentGameMode = GameModeState.HARD;
                     changeGameModeLabel();
+                    updatePlayerGameModeState();
                 }
+
+                if (keycode == Input.Keys.F2) {
+                    Gdx.input.getTextInput(menuScreenTextInputListener,
+                            Configurations.playerNameInputText, "", "");
+                }
+
                 return true;
             }
         });
@@ -180,6 +205,7 @@ public class MenuScreen extends ScreenAdapter {
         guiStage.act();
         menuStage.draw();
         guiStage.draw();
+
     }
 
     @Override

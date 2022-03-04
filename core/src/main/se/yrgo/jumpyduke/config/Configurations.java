@@ -9,7 +9,7 @@ public class Configurations {
      * ############## Numerical constants for configuration ##############
      */
     public static final float DUKE_GRAVITY = -900f;
-    public static final float DUKE_JUMP_VELOCITY = 300f;
+    public static final float DUKE_JUMP_VELOCITY = 400f;
     public static final float LOWER_CLOUD_VELOCITY_ALIVE = -120f;
     public static final float LOWER_CLOUD_VELOCITY_DEAD = -20f;
     public static final int GAME_WIDTH = 600;
@@ -26,13 +26,16 @@ public class Configurations {
     public static final float SOUND_JUMP_VOLUME = 0.3f;
     public static final float SOUND_COLLISION_VOLUME = 0.5f;
     public static final float SOUND_MUSIC_VOLUME = 0.1f;
+    public static final float FONT_SIZE = 0.8f;
+    public static float pipe_velocity_alive;
+    public static int gap_size;
+    public static int pipe_spacing;
 
     /**
      * ############## Screen text labels and strings ##############
      */
     public static String restartTextString = "Press space To Play Again!";
     public static CharSequence highScoreLabel = "High Score";
-    public static String playersTemplateFile = "playersTemplate.json";
     public static CharSequence gameModeText = "(1) EASY (2) NORMAL (3) HARD";
     public static CharSequence activeGameModeTitle = "Game Mode";
     public static String roundText = "Rounds";
@@ -41,9 +44,10 @@ public class Configurations {
     public static String instructionLabelText = "Jumpy Duke - Press Space To Play!";
     public static String playerNameInputText = "Enter your name";
 
-    public static float pipe_velocity_alive;
-    public static int gap_size;
-    public static int pipe_spacing;
+
+
+
+
 
     public static void setGameModeConfigurations() {
         switch (MenuScreen.currentGameMode) {

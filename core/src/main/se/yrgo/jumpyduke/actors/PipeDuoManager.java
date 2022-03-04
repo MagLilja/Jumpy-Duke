@@ -1,4 +1,4 @@
-package se.yrgo.jumpyduke.actors.actorservice;
+package se.yrgo.jumpyduke.actors;
 
 import com.badlogic.gdx.utils.Align;
 import se.yrgo.jumpyduke.actors.Bug;

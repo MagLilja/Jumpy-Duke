@@ -3,35 +3,42 @@ package se.yrgo.jumpyduke.assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import se.yrgo.jumpyduke.player.ScoreDataManager;
+import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.utils.ScoreDataManager;
 
 import java.io.IOException;
+
+import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class Assets {
     public static TextureAtlas textureAtlas;
     public static TextureRegion background;
-    public static TextureRegion duke;/// The duke
+    public static TextureRegion duke;
     public static TextureRegion cloudLower;
     public static TextureRegion pipe;
     public static TextureRegion bug;
     public static TextureRegion dukeAnimatedOne;
-    public static TextureRegion dukeAnimatedTwo;
-    public static TextureRegion dukeAnimatedThree;
-    public static TextureRegion[] dukeAnimatedArray;
+    private static TextureRegion dukeAnimatedTwo;
+    private static TextureRegion dukeAnimatedThree;
+    private static TextureRegion[] dukeAnimatedArray;
 
     public static SpriteBatch batch;
     public static Skin skin;
     public static Animation<TextureRegion> dukeAnimated;
+
     public static Sound bugSound;
     public static Sound collisionSound;
     public static Sound jumpSound;
     public static Music backgroundMusic;
+
+    public static String playersTemplateFile;
+    public static String playerScores;
 
     public static void loadAssets() {
         textureAtlas = new TextureAtlas("pack.atlas");
@@ -40,7 +47,9 @@ public class Assets {
         bug = textureAtlas.findRegion("Bug");
         pipe = textureAtlas.findRegion("Pipe_bottom_new_140x801");
         cloudLower = textureAtlas.findRegion("Clouds_lower_600x181");
+
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
+        setFontSize();
 
         dukeAnimatedOne = textureAtlas.findRegion("DukeOne");
         dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
@@ -54,12 +63,20 @@ public class Assets {
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("sound/jumpySound.mp3"));
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/backgroundMusic.mp3"));
 
+        playersTemplateFile = "playersTemplate.json";
+        playerScores = "playerScores.json";
+
         try {
-            ScoreDataManager.loadDataFromJson("players.json");
+            ScoreDataManager.loadDataFromJson(playerScores);
         } catch (IOException e) {
             System.err.println("IOException from player.json");
             e.printStackTrace();
         }
+        logger.info("Assets initialized");
+    }
+
+    private static void setFontSize() {
+        skin.getFont("font").getData().setScale(Configurations.FONT_SIZE);
     }
 
     public static Animation<TextureRegion> getDukeAnimated() {

@@ -2,18 +2,22 @@ package se.yrgo.jumpyduke;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Logger;
 import se.yrgo.jumpyduke.assets.Assets;
 
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.player.Player;
 import se.yrgo.jumpyduke.screens.MenuScreen;
 import se.yrgo.jumpyduke.screens.MenuScreenTextInputListener;
-import se.yrgo.jumpyduke.sound.SoundManager;
+import se.yrgo.jumpyduke.utils.SoundManager;
+
+import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class DukeGame extends Game {
     private MenuScreen menuScreen;
     private Player player;
-    private MenuScreenTextInputListener menuScreenTextInputListener;
+    public static MenuScreenTextInputListener menuScreenTextInputListener;
+
 
     @Override
     public void create() {
@@ -29,6 +33,7 @@ public class DukeGame extends Game {
         }
         Assets.loadSpriteBatch();
         setScreen(menuScreen);
+        logger.info("Changing to MenuScreen");
     }
 
     @Override

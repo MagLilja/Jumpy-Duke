@@ -18,12 +18,12 @@ import se.yrgo.jumpyduke.actors.Bug;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.actors.Duke;
 import se.yrgo.jumpyduke.actors.Pipe;
-import se.yrgo.jumpyduke.actors.actorservice.PipeDuoManager;
+import se.yrgo.jumpyduke.actors.PipeDuoManager;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
-import se.yrgo.jumpyduke.player.ScoreDataManager;
+import se.yrgo.jumpyduke.utils.ScoreDataManager;
 import se.yrgo.jumpyduke.player.Player;
-import se.yrgo.jumpyduke.sound.SoundManager;
+import se.yrgo.jumpyduke.utils.SoundManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -184,6 +184,7 @@ public class PlayScreen extends ScreenAdapter {
         collisionWithBug();
         checkIfBelowClouds();
         restartOptionIfDead();
+//        loggingToSystemOut();
 
         playTime += deltaTime;
         playStage.act();
@@ -201,7 +202,8 @@ public class PlayScreen extends ScreenAdapter {
                 " Rounds: " + player.getRounds() +
                 " Score: " + player.getLastScore() +
                 " High score: " + player.getHighScore() +
-                " State: " + Duke.getDukeState()
+                " State: " + Duke.getDukeState() +
+                " Game Mode: " + player.getGameModeState()
                 + " Dead time: " + deadTime
         );
     }

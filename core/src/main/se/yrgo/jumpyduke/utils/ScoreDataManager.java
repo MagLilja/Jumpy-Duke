@@ -1,10 +1,12 @@
-package se.yrgo.jumpyduke.player;
+package se.yrgo.jumpyduke.utils;
 
 import com.google.common.io.Resources;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
+import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.player.Player;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class ScoreDataManager {
     private static List<Player> listOfPlayers;
@@ -33,7 +37,8 @@ public class ScoreDataManager {
     }
 
     private static void initListOfPlayersFromEmptyTemplate() throws IOException {
-        listOfPlayers = getDataFromJson(Configurations.playersTemplateFile);
+        listOfPlayers = getDataFromJson(Assets.playersTemplateFile);
+        logger.info("No playerScores.json file, will create new from template.");
     }
 
     public static List<Player> getListOfPlayers() {
@@ -49,15 +54,22 @@ public class ScoreDataManager {
     }
 
     public static void updateDataFile(Player player) throws IOException {
-        Player newPlayer = new Player(player.getUserName(),
-                player.getLastScore(), player.getHighScore(), player.getRounds());
-        listOfPlayers.add(newPlayer);
+
+        Player lastRoundPlayer = new Player(player.getUserName(),
+                player.getLastScore(), player.getHighScore(), player.getRounds(), player.getGameModeState());
+        listOfPlayers.add(lastRoundPlayer);
+
+        try (Writer writer = new FileWriter("playerScores.json")) {
+            new Gson().toJson(getSortedLimitedListOfPlayers(), writer);
+        }
+        logger.info("updated playerScores.json file, will create new from template.");
+    }
+
+    private static List<Player> getSortedLimitedListOfPlayers() {
         List<Player> sortedLimitedListOfPlayers = listOfPlayers.stream()
                 .sorted(Comparator.comparingInt(Player::getHighScore).reversed())
                 .limit(Configurations.LIMIT_OUTPUT_LIST_TO)
                 .collect(Collectors.toList());
-        try (Writer writer = new FileWriter("players.json")) {
-            new Gson().toJson(sortedLimitedListOfPlayers, writer);
-        }
+        return sortedLimitedListOfPlayers;
     }
 }
