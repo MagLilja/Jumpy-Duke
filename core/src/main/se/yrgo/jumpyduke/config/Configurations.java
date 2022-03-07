@@ -35,7 +35,7 @@ public class Configurations {
      * ############## Screen text labels and strings ##############
      */
     public static String restartTextString = "Press space To Play Again!";
-    public static CharSequence highScoreLabel = "High Score";
+    public static CharSequence highScoreLabel = "High Score for ";
     public static CharSequence gameModeText = "(1) EASY (2) NORMAL (3) HARD";
     public static CharSequence activeGameModeTitle = "Game Mode";
     public static String roundText = "Rounds";
