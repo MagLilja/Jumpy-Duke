@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -105,16 +103,21 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void initHighScoreLabel() {
-        String top3String = ScoreDataManager.getListOfPlayers().stream()
+        highScoreLabel = new Label(Configurations.highScoreLabel + currentGameMode.toString().toLowerCase() + "\n -------- \n"
+                + getHighScoreListString(), Assets.skin);
+        highScoreLabel.setAlignment(Align.center);
+        highScoreLabel.setPosition(Configurations.GAME_WIDTH / 2,
+                Configurations.GAME_HEIGHT * 0.8f, Align.center);
+    }
+
+    private String getHighScoreListString() {
+        return ScoreDataManager.getListOfPlayers().stream()
+                .filter(player -> player.getGameModeState() == currentGameMode)
                 .sorted(Comparator.comparingInt(Player::getLastScore).reversed())
                 .limit(Configurations.SHOW_HIGH_SCORE_LIMIT)
                 .map(player -> String.format("%s - %d", player.getUserName(), player.getLastScore()))
                 .collect(Collectors.joining("\n"));
-        highScoreLabel = new Label(Configurations.highScoreLabel + "\n -------- \n"
-                + top3String, Assets.skin);
-        highScoreLabel.setAlignment(Align.center);
-        highScoreLabel.setPosition(Configurations.GAME_WIDTH / 2,
-                Configurations.GAME_HEIGHT * 0.8f, Align.center);
+
     }
 
     private void initLastAndHighScoreLabel(Player player) {
@@ -163,6 +166,17 @@ public class MenuScreen extends ScreenAdapter {
                 + currentGameMode.toString());
     }
 
+    private void changeHighScoreList() {
+        highScoreLabel.setText(Configurations.highScoreLabel + currentGameMode.toString().toLowerCase() + "\n -------- \n"
+                + getHighScoreListString());
+    }
+
+    private void gameModeChanges() {
+        changeGameModeLabel();
+        changeHighScoreList();
+        updatePlayerGameModeState();
+    }
+
     private void inputlistener(DukeGame dukeGame) {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -174,18 +188,15 @@ public class MenuScreen extends ScreenAdapter {
                 }
                 if (keycode == Input.Keys.NUM_1) {
                     currentGameMode = GameModeState.EASY;
-                    changeGameModeLabel();
-                    updatePlayerGameModeState();
+                    gameModeChanges();
                 }
                 if (keycode == Input.Keys.NUM_2) {
                     currentGameMode = GameModeState.NORMAL;
-                    changeGameModeLabel();
-                    updatePlayerGameModeState();
+                    gameModeChanges();
                 }
                 if (keycode == Input.Keys.NUM_3) {
                     currentGameMode = GameModeState.HARD;
-                    changeGameModeLabel();
-                    updatePlayerGameModeState();
+                    gameModeChanges();
                 }
 
                 if (keycode == Input.Keys.F2) {
@@ -197,6 +208,8 @@ public class MenuScreen extends ScreenAdapter {
             }
         });
     }
+
+
 
     @Override
     public void render(float deltaTime) {
