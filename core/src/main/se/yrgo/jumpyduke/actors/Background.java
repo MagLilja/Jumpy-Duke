@@ -3,38 +3,38 @@ package se.yrgo.jumpyduke.actors;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
+import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.screens.MenuScreen;
 import se.yrgo.jumpyduke.utils.GameModeState;
 
-import java.awt.*;
-
-import static se.yrgo.jumpyduke.assets.Assets.batch;
 import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class Background extends Actor {
     private TextureRegion backgroundRegion;
-//    private Vector2 lowerCloudVelocity;
+    private Vector2 backgroundVelocity;
 
     public Background() {
         backgroundRegion = new TextureRegion(Assets.background);
-//        lowerCloudVelocity = new Vector2(Configurations.LOWER_CLOUD_VELOCITY_ALIVE, 0);
-//        setPosition(Configurations.cloudLowerPosition.x, Configurations.cloudLowerPosition.y);
-//        setWidth(cloudRegion.getRegionWidth());
+        backgroundVelocity = new Vector2(Configurations.BACKGROUND_VELOCITY, 0);
+        setPosition(Configurations.cloudLowerPosition.x, Configurations.cloudLowerPosition.y);
+        setWidth(backgroundRegion.getRegionWidth());
     }
 
-/*    @Override
+    @Override
     public void act(float delta) {
-        setX(getX() + lowerCloudVelocity.x * delta);
+        setX(getX() + backgroundVelocity.x * delta);
         reInitialize();
         if (Duke.getDukeState() == DukeState.DEAD) {
-            lowerCloudVelocity.set(Configurations.LOWER_CLOUD_VELOCITY_DEAD, 0);
+            backgroundVelocity.set(0, 0);
         }
     }
 
     public void flip() {
-        cloudRegion.flip(true, false);
+        backgroundRegion.flip(true, false);
     }
 
     private void reInitialize() {
@@ -43,19 +43,18 @@ public class Background extends Actor {
         }
     }
 
- */
+
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
        // batch.isBlendingEnabled();
         //
-        //if (MenuScreen.currentGameMode == GameModeState.HARD)
-         //batch.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_BLEND_SRC_RGB);
+        logger.info(MenuScreen.currentGameMode.toString());
+        if (MenuScreen.currentGameMode == GameModeState.HARD)
+        batch.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_BLEND_SRC_RGB);
             // batch.setColor(255,255,255,0.88f);
 
           batch.draw(backgroundRegion, getX(), getY());
-
-
     }
 
     public TextureRegion getBackgroundRegion() {
@@ -70,7 +69,7 @@ public class Background extends Actor {
             case EASY:
                backgroundRegion.setRegion(Assets.easyBackground);
                 break;
-            default:
+            case NORMAL:
                 backgroundRegion.setRegion(Assets.background);
                 break;
 

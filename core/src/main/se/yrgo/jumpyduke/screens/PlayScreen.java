@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static se.yrgo.jumpyduke.utils.GameUtils.logger;
+
 public class PlayScreen extends ScreenAdapter {
     private DukeGame dukeGame;
     private Duke duke;

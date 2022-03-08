@@ -12,8 +12,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import se.yrgo.jumpyduke.DukeGame;
+import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.actors.Background;
 import se.yrgo.jumpyduke.actors.CloudLower;
+import se.yrgo.jumpyduke.actors.Duke;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.utils.GameModeState;
@@ -52,12 +54,16 @@ public class MenuScreen extends ScreenAdapter {
         this.player = player;
         backgroundActor = new Background();
 
+        Duke.setDukeState(DukeState.DEAD);
+        logger.info(Duke.getDukeState().toString());
+
         cam = new OrthographicCamera();
         if (player.getRounds() == 0) {
             currentGameMode = GameModeState.NORMAL;
         }
         updatePlayerGameModeState();
 
+        backgroundActor.setTexture(currentGameMode);
         initStages();
         initLabels(player);
         initClouds();
