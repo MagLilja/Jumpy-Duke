@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import se.yrgo.jumpyduke.DukeGame;
+import se.yrgo.jumpyduke.actors.Background;
 import se.yrgo.jumpyduke.actors.CloudLower;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
@@ -33,6 +34,7 @@ public class MenuScreen extends ScreenAdapter {
     private Stage guiStage;
     private OrthographicCamera cam;
     private CloudLower cloudLower;
+    private Background backgroundActor;
 
     private Label instructionLabel;
     private Label lastScore;
@@ -47,6 +49,7 @@ public class MenuScreen extends ScreenAdapter {
     public MenuScreen(DukeGame dukeGame, Player player) {
         this.dukeGame = dukeGame;
         this.player = player;
+        backgroundActor = new Background();
 
         cam = new OrthographicCamera();
         if (player.getRounds() == 0) {
@@ -139,8 +142,10 @@ public class MenuScreen extends ScreenAdapter {
                 Configurations.GAME_HEIGHT * 0.4f, Align.center);
     }
 
+
+
     private void addActorsToMenuStage() {
-        menuStage.addActor(new Image(Assets.background));
+        menuStage.addActor(backgroundActor);
         menuStage.addActor(cloudLower2);
         menuStage.addActor(cloudLower);
     }
@@ -175,6 +180,12 @@ public class MenuScreen extends ScreenAdapter {
         changeGameModeLabel();
         changeHighScoreList();
         updatePlayerGameModeState();
+        changeGameModeGraphics();
+    }
+
+    private void changeGameModeGraphics() {
+        backgroundActor.setTexture(currentGameMode);
+
     }
 
     private void inputlistener(DukeGame dukeGame) {
