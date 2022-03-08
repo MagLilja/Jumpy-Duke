@@ -10,6 +10,8 @@ import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
+import static se.yrgo.jumpyduke.assets.Assets.batch;
+
 public class Pipe extends Actor {
     private TextureRegion pipeRegion;
     private Vector2 pipeVelocity;
@@ -38,6 +40,7 @@ public class Pipe extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+
         batch.draw(pipeRegion, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }

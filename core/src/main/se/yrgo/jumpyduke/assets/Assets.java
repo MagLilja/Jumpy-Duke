@@ -19,6 +19,7 @@ import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 public class Assets {
     public static TextureAtlas textureAtlas;
     public static TextureRegion background;
+    public static TextureRegion easyBackground;
     public static TextureRegion hardBackground;
     public static TextureRegion duke;
     public static TextureRegion cloudLower;
@@ -43,8 +44,9 @@ public class Assets {
 
     public static void loadAssets() {
         textureAtlas = new TextureAtlas("pack.atlas");
-        background = textureAtlas.findRegion("Background_scale_600x800");
-        hardBackground = textureAtlas.findRegion("bg_hard");
+        background = textureAtlas.findRegion("Background_NORMAL");
+        easyBackground = textureAtlas.findRegion("Background_EASY");
+        hardBackground = textureAtlas.findRegion("Background_HARD");
         duke = textureAtlas.findRegion("Duke_scale_76x60");
         bug = textureAtlas.findRegion("Bug");
         pipe = textureAtlas.findRegion("Pipe_bottom_new_140x801");

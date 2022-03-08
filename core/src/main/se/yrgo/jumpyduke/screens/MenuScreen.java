@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import static se.yrgo.jumpyduke.DukeGame.menuScreenTextInputListener;
+import static se.yrgo.jumpyduke.assets.Assets.batch;
 import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class MenuScreen extends ScreenAdapter {
@@ -186,6 +187,7 @@ public class MenuScreen extends ScreenAdapter {
     private void changeGameModeGraphics() {
         backgroundActor.setTexture(currentGameMode);
 
+
     }
 
     private void inputlistener(DukeGame dukeGame) {
@@ -194,7 +196,7 @@ public class MenuScreen extends ScreenAdapter {
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.SPACE) {
-                    playScreen = new PlayScreen(dukeGame, player);
+                    playScreen = new PlayScreen(dukeGame, player,backgroundActor);
                     MenuScreen.this.dukeGame.setScreen(playScreen);
                 }
                 if (keycode == Input.Keys.NUM_1) {
@@ -224,7 +226,8 @@ public class MenuScreen extends ScreenAdapter {
 
     @Override
     public void render(float deltaTime) {
-        ScreenUtils.clear(1, 0, 0, 1);
+        ScreenUtils.clear(0, 0, 0, 0);
+
         menuStage.act();
         guiStage.act();
         menuStage.draw();

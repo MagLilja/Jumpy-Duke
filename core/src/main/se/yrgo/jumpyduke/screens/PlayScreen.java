@@ -14,11 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.DukeState;
-import se.yrgo.jumpyduke.actors.Bug;
-import se.yrgo.jumpyduke.actors.CloudLower;
-import se.yrgo.jumpyduke.actors.Duke;
-import se.yrgo.jumpyduke.actors.Pipe;
-import se.yrgo.jumpyduke.actors.PipeDuoManager;
+import se.yrgo.jumpyduke.actors.*;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.utils.ScoreDataManager;
@@ -35,6 +31,7 @@ public class PlayScreen extends ScreenAdapter {
 
     private Stage guiStage;
     private Stage playStage;
+    private Background backgroundActor;
 
     private OrthographicCamera cam;
     private CloudLower cloudLower;
@@ -53,9 +50,10 @@ public class PlayScreen extends ScreenAdapter {
     private Player player;
     private int score;
 
-    public PlayScreen(DukeGame dukeGame, Player player) {
+    public PlayScreen(DukeGame dukeGame, Player player, Background backgroundActor) {
         this.dukeGame = dukeGame;
         this.player = player;
+        this.backgroundActor = backgroundActor;
         score = 0;
         player.setLastScore(0);
         player.incrementRounds();
@@ -130,7 +128,7 @@ public class PlayScreen extends ScreenAdapter {
     }
 
     private void addActors() {
-        playStage.addActor(new Image(Assets.background));
+        playStage.addActor(backgroundActor);
         playStage.addActor(duke);
         addPipeActors();
         playStage.addActor(playerNameLabel);
@@ -178,7 +176,8 @@ public class PlayScreen extends ScreenAdapter {
 
     @Override
     public void render(float deltaTime) {
-        ScreenUtils.clear(1, 0, 0, 1);
+        ScreenUtils.clear(0, 0, 0, 1);
+
 
         collisionWithPipe();
         collisionWithBug();
