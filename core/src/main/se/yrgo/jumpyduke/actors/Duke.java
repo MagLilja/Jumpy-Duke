@@ -85,6 +85,10 @@ public class Duke extends Actor {
     }
 
     public void setDukeAccelerationToZero() {
-        dukeAcceleration.set(0,0);
+        dukeAcceleration.set(0, 0);
     }
+    public void resetDukeAcceleration() {
+        dukeAcceleration.set(0, Configurations.DUKE_GRAVITY);
+    }
+
 }

@@ -9,6 +9,8 @@ import se.yrgo.jumpyduke.config.Configurations;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import static se.yrgo.jumpyduke.utils.GameUtils.logger;
+
 public class Cloud extends Actor {
     private TextureRegion cloudRegion;
     private Vector2 cloudVelocity;
@@ -43,6 +45,7 @@ public class Cloud extends Actor {
             setX(getX() + getWidth() * 2);
             if (getY() != 0){
                 setY((float) randGap);
+                logger.info(String.valueOf(getY()));
             }
 
         }

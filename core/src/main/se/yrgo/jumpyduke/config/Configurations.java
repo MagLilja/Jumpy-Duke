@@ -26,12 +26,12 @@ public class Configurations {
     public static final float SOUND_JUMP_VOLUME = 0.3f;
     public static final float SOUND_COLLISION_VOLUME = 0.5f;
     public static final float SOUND_MUSIC_VOLUME = 0.1f;
-    public static final float FONT_SIZE = 1f;
+    public static final float FONT_SIZE = 0.9f;
     public static final float BACKGROUND_VELOCITY = -40f;
     public static final double BACKGROUND_RAND_GAP_LOWERBOUND = 30;
     public static final double BACKGROUND_RAND_GAP_UPPERBOUND = 60;
     public static final double UPPERCLOUD_RAND_GAP_LOWERBOUND = 180;
-    public static final double UPPERCLOUD_RAND_GAP_UPPERBOUND = 650;
+    public static final double UPPERCLOUD_RAND_GAP_UPPERBOUND = 630;
     public static final double BUG_RAND_X_VELOCITY_LOWERBOUND = -20;
     public static final double BUG_RAND_X_VELOCITY_UPPERBOUND = 20;
     public static float pipe_velocity_alive;
@@ -64,7 +64,7 @@ public class Configurations {
                 pipe_spacing = 350;
                 break;
             case HARD:
-                pipe_velocity_alive = -175f;
+                pipe_velocity_alive = -145f;
                 gap_size = 175;
                 pipe_spacing = 325;
                 break;

@@ -58,21 +58,24 @@ public class PlayScreen extends ScreenAdapter {
     private List<PipeDuoManager> listOfPipeDuoManagers;
     private Player player;
     private int score;
-    private boolean cheatMode;
+    private boolean isCheatMode;
 
-    public PlayScreen(DukeGame dukeGame, Player player, Background backgroundActor) {
+    public PlayScreen(DukeGame dukeGame, Player player, Background backgroundActor, boolean isCheatMode) {
         this.dukeGame = dukeGame;
         this.player = player;
-        cheatMode = false;
+        this.isCheatMode = isCheatMode;
+        cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
+        playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
+        guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
+        duke = new Duke();
         score = 0;
         Duke.setDukeState(DukeState.ALIVE);
         player.setLastScore(0);
         player.incrementRounds();
 
-        cam = new OrthographicCamera(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT);
-        duke = new Duke();
-        playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
-        guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
+        if (isCheatMode) {
+            duke.setDukeAccelerationToZero();
+        }
 
         Configurations.setGameModeConfigurations();
 
@@ -189,7 +192,7 @@ public class PlayScreen extends ScreenAdapter {
 
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.SPACE) {
+                if (keycode == Input.Keys.SPACE && !isCheatMode) {
                     switch (Duke.getDukeState()) {
                         case ALIVE:
                             ifAliveJump();
@@ -204,11 +207,16 @@ public class PlayScreen extends ScreenAdapter {
                     }
                 }
                 if (keycode == Input.Keys.F8) {
-                    duke.setDukeAccelerationToZero();
-                    cheatMode = true;
+                    if(isCheatMode) {
+                        isCheatMode = false;
+                        duke.resetDukeAcceleration();
+                    } else {
+                        isCheatMode = true;
+                        duke.setDukeAccelerationToZero();
+                    }
+
                 }
-//                if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.DEAD) {
-//                }
+
                 return true;
             }
 
@@ -227,11 +235,11 @@ public class PlayScreen extends ScreenAdapter {
     public void render(float deltaTime) {
         ScreenUtils.clear(0, 0, 0, 1);
 
-        if (!cheatMode) {
+        if (!isCheatMode) {
             collisionWithPipe();
+            collisionWithBug();
+            checkIfBelowClouds();
         }
-        collisionWithBug();
-        checkIfBelowClouds();
         restartOptionIfDead();
 //        loggingToSystemOut();
 

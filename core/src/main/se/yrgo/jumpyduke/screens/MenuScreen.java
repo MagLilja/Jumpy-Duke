@@ -199,7 +199,11 @@ public class MenuScreen extends ScreenAdapter {
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.SPACE) {
-                    playScreen = new PlayScreen(dukeGame, player, backgroundActor);
+                    playScreen = new PlayScreen(dukeGame, player, backgroundActor, false);
+                    MenuScreen.this.dukeGame.setScreen(playScreen);
+                }
+                if (keycode == Input.Keys.F8) {
+                    playScreen = new PlayScreen(dukeGame, player, backgroundActor, true);
                     MenuScreen.this.dukeGame.setScreen(playScreen);
                 }
                 if (keycode == Input.Keys.NUM_1) {
