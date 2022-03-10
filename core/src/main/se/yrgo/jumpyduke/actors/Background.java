@@ -19,12 +19,18 @@ import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 public class Background extends Actor {
     private TextureRegion backgroundRegion;
     private Vector2 backgroundVelocity;
+    private static double initialRandGap;
 
     public Background() {
         backgroundRegion = new TextureRegion(Assets.background);
         backgroundVelocity = new Vector2(0, 0);
         setPosition(0,0);
         setWidth(backgroundRegion.getRegionWidth());
+    }
+
+    public Background(double randGap) {
+        this();
+        initialRandGap = randGap;
     }
 
     @Override
@@ -49,7 +55,10 @@ public class Background extends Actor {
         if (getX() <= -getWidth()) {
         double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND,Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
         logger.info(String.valueOf(getX()));
-            setX((float) ((getX() + getWidth() * 2) + randGap));
+        logger.info(String.valueOf(randGap));
+        logger.info(String.valueOf(initialRandGap));
+        logger.info(String.valueOf((MenuScreen.currentGameMode == GameModeState.HARD)));
+            setX((float) ((getX() + getWidth() * 2) + randGap + initialRandGap));
         }
     }
 
@@ -57,13 +66,8 @@ public class Background extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-       // batch.isBlendingEnabled();
-        //
-
         if (MenuScreen.currentGameMode == GameModeState.HARD)
         batch.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_BLEND_SRC_RGB);
-            // batch.setColor(255,255,255,0.88f);
-
           batch.draw(backgroundRegion, getX(), getY());
     }
 

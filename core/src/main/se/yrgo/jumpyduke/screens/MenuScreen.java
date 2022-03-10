@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -14,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import se.yrgo.jumpyduke.DukeGame;
 import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.actors.Background;
-import se.yrgo.jumpyduke.actors.CloudLower;
+import se.yrgo.jumpyduke.actors.Cloud;
 import se.yrgo.jumpyduke.actors.Duke;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
@@ -23,21 +22,19 @@ import se.yrgo.jumpyduke.utils.ScoreDataManager;
 import se.yrgo.jumpyduke.player.Player;
 
 import java.util.Comparator;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import static se.yrgo.jumpyduke.DukeGame.menuScreenTextInputListener;
-import static se.yrgo.jumpyduke.assets.Assets.batch;
 import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class MenuScreen extends ScreenAdapter {
-    private CloudLower cloudLower2;
+    private Cloud cloud2;
     private DukeGame dukeGame;
     private PlayScreen playScreen;
     private Stage menuStage;
     private Stage guiStage;
     private OrthographicCamera cam;
-    private CloudLower cloudLower;
+    private Cloud cloud;
     private Background backgroundActor;
 
     private Label instructionLabel;
@@ -86,11 +83,11 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void initClouds() {
-        cloudLower = new CloudLower();
-        cloudLower2 = new CloudLower();
+        cloud = new Cloud(Assets.cloudLower, 0, 0);
+        cloud2 = new Cloud(Assets.cloudLower, 0, 0);
 
-        cloudLower2.setPosition(cloudLower2.getWidth(), 0);
-        cloudLower2.flip();
+        cloud2.setPosition(cloud2.getWidth(), 0);
+        cloud2.flip();
     }
 
     private void initLabels(Player player) {
@@ -153,8 +150,8 @@ public class MenuScreen extends ScreenAdapter {
 
     private void addActorsToMenuStage() {
         menuStage.addActor(backgroundActor);
-        menuStage.addActor(cloudLower2);
-        menuStage.addActor(cloudLower);
+        menuStage.addActor(cloud2);
+        menuStage.addActor(cloud);
     }
 
     private void addActorsToGuiStage(Player player) {

@@ -23,6 +23,7 @@ public class Assets {
     public static TextureRegion hardBackground;
     public static TextureRegion duke;
     public static TextureRegion cloudLower;
+    public static TextureRegion cloudUpper;
     public static TextureRegion pipe;
     public static TextureRegion bug;
     public static TextureRegion dukeAnimatedOne;
@@ -51,6 +52,7 @@ public class Assets {
         bug = textureAtlas.findRegion("Bug");
         pipe = textureAtlas.findRegion("Pipe_bottom_new_140x801");
         cloudLower = textureAtlas.findRegion("Clouds_lower_600x181");
+        cloudUpper = textureAtlas.findRegion("Clouds_upper-2_601x338");
 
         skin = new Skin(Gdx.files.internal("skin/mySkin.json"));
         setFontSize();

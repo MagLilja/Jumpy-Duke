@@ -7,7 +7,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -26,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static se.yrgo.jumpyduke.utils.GameUtils.logger;
-
 public class PlayScreen extends ScreenAdapter {
     private DukeGame dukeGame;
     private Duke duke;
@@ -39,8 +36,9 @@ public class PlayScreen extends ScreenAdapter {
 
 
     private OrthographicCamera cam;
-    private CloudLower cloudLower;
-    private CloudLower cloudLower2;
+    private Cloud cloud;
+    private Cloud cloud2;
+    private Cloud upperCloud;
 
     private Label restartLabel;
     private Label playerNameLabel;
@@ -58,11 +56,6 @@ public class PlayScreen extends ScreenAdapter {
     public PlayScreen(DukeGame dukeGame, Player player, Background backgroundActor) {
         this.dukeGame = dukeGame;
         this.player = player;
-        this.backgroundActor = backgroundActor;
-        backgroundActor2 = new Background();
-        double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND,Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
-        backgroundActor2.setPosition((float) (backgroundActor.getWidth()+randGap),0);
-        backgroundActor2.flip();
         score = 0;
         Duke.setDukeState(DukeState.ALIVE);
         player.setLastScore(0);
@@ -76,10 +69,19 @@ public class PlayScreen extends ScreenAdapter {
         Configurations.setGameModeConfigurations();
 
         initLabels(player);
+        initBackgrounds(backgroundActor);
         initClouds();
         initPipes();
         addActors();
 
+    }
+
+    private void initBackgrounds(Background backgroundActor) {
+        this.backgroundActor = backgroundActor;
+        double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND,Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
+        backgroundActor2 = new Background(randGap);
+        backgroundActor2.setPosition((float) (backgroundActor.getWidth()+randGap),0);
+        backgroundActor2.flip();
     }
 
     private void initLabels(Player player) {
@@ -131,10 +133,12 @@ public class PlayScreen extends ScreenAdapter {
     }
 
     private void initClouds() {
-        cloudLower = new CloudLower();
-        cloudLower2 = new CloudLower();
-        cloudLower2.setPosition(cloudLower2.getWidth(), 0);
-        cloudLower2.flip();
+        cloud = new Cloud(Assets.cloudLower, 0, 0);
+        cloud2 = new Cloud(Assets.cloudLower, 0, 0);
+        cloud2.setPosition(cloud2.getWidth(), 0);
+        cloud2.flip();
+
+        upperCloud = new Cloud(Assets.cloudUpper,0,150);
     }
 
     private void addActors() {
@@ -145,8 +149,9 @@ public class PlayScreen extends ScreenAdapter {
         playStage.addActor(playerNameLabel);
         playStage.addActor(gameMode);
         playStage.addActor(scoreLabel);
-        playStage.addActor(cloudLower2);
-        playStage.addActor(cloudLower);
+        playStage.addActor(cloud2);
+        playStage.addActor(cloud);
+        playStage.addActor(upperCloud);
     }
 
     @Override
