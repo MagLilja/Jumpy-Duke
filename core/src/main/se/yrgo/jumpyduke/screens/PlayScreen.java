@@ -34,6 +34,7 @@ public class PlayScreen extends ScreenAdapter {
     private Stage guiStage;
     private Stage playStage;
     private Background backgroundActor;
+    private Background backgroundActor2;
 
 
     private OrthographicCamera cam;
@@ -57,6 +58,9 @@ public class PlayScreen extends ScreenAdapter {
         this.dukeGame = dukeGame;
         this.player = player;
         this.backgroundActor = backgroundActor;
+        backgroundActor2 = new Background();
+        backgroundActor2.setPosition(backgroundActor.getWidth(),0);
+        backgroundActor2.flip();
         score = 0;
         Duke.setDukeState(DukeState.ALIVE);
         player.setLastScore(0);
@@ -133,6 +137,7 @@ public class PlayScreen extends ScreenAdapter {
 
     private void addActors() {
         playStage.addActor(backgroundActor);
+        playStage.addActor(backgroundActor2);
         playStage.addActor(duke);
         addPipeActors();
         playStage.addActor(playerNameLabel);

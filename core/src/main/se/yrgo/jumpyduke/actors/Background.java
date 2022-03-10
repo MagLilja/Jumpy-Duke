@@ -1,5 +1,6 @@
 package se.yrgo.jumpyduke.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,21 +20,23 @@ public class Background extends Actor {
 
     public Background() {
         backgroundRegion = new TextureRegion(Assets.background);
-        backgroundVelocity = new Vector2(Configurations.BACKGROUND_VELOCITY, 0);
+        backgroundVelocity = new Vector2(0, 0);
         setPosition(0,0);
         setWidth(backgroundRegion.getRegionWidth());
     }
 
     @Override
     public void act(float delta) {
-        setX(getX() + backgroundVelocity.x * delta);
-        logger.info(""+ getX() +"/"+ backgroundVelocity.x + Duke.getDukeState());
-        reInitialize();
-        if (Duke.getDukeState() == DukeState.DEAD) {
-            backgroundVelocity.set(0, 0);
-        } else {
+        if (Duke.getDukeState() == DukeState.ALIVE) {
             backgroundVelocity.set(Configurations.BACKGROUND_VELOCITY ,0);
+        } else if (Duke.getDukeState() == DukeState.DEAD){
+            backgroundVelocity.set(-10,0);
         }
+        else {
+            backgroundVelocity.set(0,0);
+        }
+        setX(getX() + backgroundVelocity.x * Gdx.graphics.getDeltaTime());
+        reInitialize();
     }
 
     public void flip() {

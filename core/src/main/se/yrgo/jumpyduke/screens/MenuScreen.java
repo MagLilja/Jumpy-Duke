@@ -54,8 +54,8 @@ public class MenuScreen extends ScreenAdapter {
         this.player = player;
         backgroundActor = new Background();
 
-        Duke.setDukeState(DukeState.DEAD);
-        logger.info(Duke.getDukeState().toString());
+        Duke.setDukeState(DukeState.IDLE);
+        logger.info("DukeState: " + Duke.getDukeState().toString());
 
         cam = new OrthographicCamera();
         if (player.getRounds() == 0) {
@@ -109,11 +109,10 @@ public class MenuScreen extends ScreenAdapter {
         gameModeOption = new Label(Configurations.gameModeText, Assets.skin);
         gameModeOption.setPosition(Configurations.GAME_WIDTH / 2,
                 Configurations.GAME_HEIGHT * 0.45f, Align.center);
-
     }
 
     private void initHighScoreLabel() {
-        highScoreLabel = new Label(Configurations.highScoreLabel + currentGameMode.toString().toLowerCase() + "\n -------- \n"
+        highScoreLabel = new Label(Configurations.highScoreLabel + currentGameMode.toString() + "\n -------- \n"
                 + getHighScoreListString(), Assets.skin);
         highScoreLabel.setAlignment(Align.center);
         highScoreLabel.setPosition(Configurations.GAME_WIDTH / 2,
@@ -150,7 +149,6 @@ public class MenuScreen extends ScreenAdapter {
     }
 
 
-
     private void addActorsToMenuStage() {
         menuStage.addActor(backgroundActor);
         menuStage.addActor(cloudLower2);
@@ -179,7 +177,7 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void changeHighScoreList() {
-        highScoreLabel.setText(Configurations.highScoreLabel + currentGameMode.toString().toLowerCase() + "\n -------- \n"
+        highScoreLabel.setText(Configurations.highScoreLabel + currentGameMode.toString() + "\n -------- \n"
                 + getHighScoreListString());
     }
 
@@ -202,7 +200,7 @@ public class MenuScreen extends ScreenAdapter {
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.SPACE) {
-                    playScreen = new PlayScreen(dukeGame, player,backgroundActor);
+                    playScreen = new PlayScreen(dukeGame, player, backgroundActor);
                     MenuScreen.this.dukeGame.setScreen(playScreen);
                 }
                 if (keycode == Input.Keys.NUM_1) {
@@ -227,7 +225,6 @@ public class MenuScreen extends ScreenAdapter {
             }
         });
     }
-
 
 
     @Override
