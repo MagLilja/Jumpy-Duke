@@ -83,4 +83,8 @@ public class Duke extends Actor {
         debugCircle.setAutoShapeType(true);
         debugCircle.end();
     }
+
+    public void setDukeAccelerationToZero() {
+        dukeAcceleration.set(0,0);
+    }
 }

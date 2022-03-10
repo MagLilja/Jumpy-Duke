@@ -9,6 +9,8 @@ import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Bug extends Actor {
     private TextureRegion bugTextureRegion;
     private Rectangle bugRectangle;
@@ -26,6 +28,7 @@ public class Bug extends Actor {
     public void act(float delta) {
         if (Duke.getDukeState() == DukeState.ALIVE) {
             setX(getX() + bugVelocity.x * delta);
+            setY(getY() + bugVelocity.y * delta);
             bugRectangle.setPosition(getX(), getY());
         }
     }
@@ -39,5 +42,10 @@ public class Bug extends Actor {
 
     public Rectangle getBugRectangle() {
         return bugRectangle;
+    }
+
+    public void setNewRandomXVelocity(){
+        double randXVel = ThreadLocalRandom.current().nextDouble(Configurations.BUG_RAND_X_VELOCITY_LOWERBOUND,Configurations.BUG_RAND_X_VELOCITY_UPPERBOUND);
+        bugVelocity.set(Configurations.pipe_velocity_alive, (float) randXVel);
     }
 }

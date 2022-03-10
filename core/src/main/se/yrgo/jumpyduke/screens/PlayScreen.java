@@ -36,8 +36,14 @@ public class PlayScreen extends ScreenAdapter {
 
 
     private OrthographicCamera cam;
+
     private Cloud cloud;
     private Cloud cloud2;
+
+    private Cloud cloudSlow;
+    private Cloud cloudSlow2;
+
+
     private Cloud upperCloud;
 
     private Label restartLabel;
@@ -52,10 +58,12 @@ public class PlayScreen extends ScreenAdapter {
     private List<PipeDuoManager> listOfPipeDuoManagers;
     private Player player;
     private int score;
+    private boolean cheatMode;
 
     public PlayScreen(DukeGame dukeGame, Player player, Background backgroundActor) {
         this.dukeGame = dukeGame;
         this.player = player;
+        cheatMode = false;
         score = 0;
         Duke.setDukeState(DukeState.ALIVE);
         player.setLastScore(0);
@@ -78,9 +86,9 @@ public class PlayScreen extends ScreenAdapter {
 
     private void initBackgrounds(Background backgroundActor) {
         this.backgroundActor = backgroundActor;
-        double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND,Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
+        double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND, Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
         backgroundActor2 = new Background(randGap);
-        backgroundActor2.setPosition((float) (backgroundActor.getWidth()+randGap),0);
+        backgroundActor2.setPosition((float) (backgroundActor.getWidth() + randGap), 0);
         backgroundActor2.flip();
     }
 
@@ -138,20 +146,30 @@ public class PlayScreen extends ScreenAdapter {
         cloud2.setPosition(cloud2.getWidth(), 0);
         cloud2.flip();
 
-        upperCloud = new Cloud(Assets.cloudUpper,0,150);
+//        cloudSlow = new Cloud(Assets.cloudLower, 0, 0);
+//        cloudSlow2 = new Cloud(Assets.cloudLower, 0, 0);
+//        cloudSlow2.setPosition(cloudSlow2.getWidth(), 0);
+//        cloudSlow2.flip();
+//        cloudSlow.setCloudXVelocity(-40);
+//        cloudSlow2.setCloudXVelocity(-40);
+
+
+        upperCloud = new Cloud(Assets.cloudUpper, Configurations.GAME_WIDTH, 150);
     }
 
     private void addActors() {
         playStage.addActor(backgroundActor);
         playStage.addActor(backgroundActor2);
+        playStage.addActor(upperCloud);
         playStage.addActor(duke);
         addPipeActors();
         playStage.addActor(playerNameLabel);
         playStage.addActor(gameMode);
         playStage.addActor(scoreLabel);
+//        playStage.addActor(cloudSlow);
+//        playStage.addActor(cloudSlow2);
         playStage.addActor(cloud2);
         playStage.addActor(cloud);
-        playStage.addActor(upperCloud);
     }
 
     @Override
@@ -171,15 +189,30 @@ public class PlayScreen extends ScreenAdapter {
 
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.ALIVE) {
-                    ifAliveJump();
+                if (keycode == Input.Keys.SPACE) {
+                    switch (Duke.getDukeState()) {
+                        case ALIVE:
+                            ifAliveJump();
+                            break;
+                        case DEAD:
+                            if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD)
+                                dukeGame.setScreen(new MenuScreen(dukeGame, player));
+                            break;
+                        case IDLE:
+                            break;
+
+                    }
                 }
-                if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.DEAD) {
-                    if (playTime >= deadTime + Configurations.RESTART_WAIT_TIME_AFTER_DEAD)
-                        dukeGame.setScreen(new MenuScreen(dukeGame, player));
+                if (keycode == Input.Keys.F8) {
+                    duke.setDukeAccelerationToZero();
+                    cheatMode = true;
                 }
+//                if (keycode == Input.Keys.SPACE && Duke.getDukeState() == DukeState.DEAD) {
+//                }
                 return true;
             }
+
+
         });
     }
 
@@ -194,8 +227,9 @@ public class PlayScreen extends ScreenAdapter {
     public void render(float deltaTime) {
         ScreenUtils.clear(0, 0, 0, 1);
 
-
-        collisionWithPipe();
+        if (!cheatMode) {
+            collisionWithPipe();
+        }
         collisionWithBug();
         checkIfBelowClouds();
         restartOptionIfDead();

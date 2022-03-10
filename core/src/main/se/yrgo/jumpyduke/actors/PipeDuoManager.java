@@ -55,6 +55,7 @@ public class PipeDuoManager {
             randomPipePlacement = ThreadLocalRandom.current().
                     nextDouble(Configurations.PIPE_GAP_BOTTOM_LEVEL, Configurations.PIPE_GAP_TOP_LEVEL);
             initializePair((int) (Configurations.pipe_spacing * 3 + topPipe.getX()));
+        bug.setNewRandomXVelocity();
         }
     }
 
