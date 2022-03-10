@@ -12,6 +12,8 @@ import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.screens.MenuScreen;
 import se.yrgo.jumpyduke.utils.GameModeState;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class Background extends Actor {
@@ -28,9 +30,9 @@ public class Background extends Actor {
     @Override
     public void act(float delta) {
         if (Duke.getDukeState() == DukeState.ALIVE) {
-            backgroundVelocity.set(Configurations.BACKGROUND_VELOCITY ,0);
+            backgroundVelocity.set(Configurations.BACKGROUND_VELOCITY,0);
         } else if (Duke.getDukeState() == DukeState.DEAD){
-            backgroundVelocity.set(-10,0);
+            backgroundVelocity.set(0,0);
         }
         else {
             backgroundVelocity.set(0,0);
@@ -45,7 +47,9 @@ public class Background extends Actor {
 
     private void reInitialize() {
         if (getX() <= -getWidth()) {
-            setX(getX() + getWidth() * 2);
+        double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND,Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
+        logger.info(String.valueOf(getX()));
+            setX((float) ((getX() + getWidth() * 2) + randGap));
         }
     }
 

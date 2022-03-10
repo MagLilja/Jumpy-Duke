@@ -23,6 +23,7 @@ import se.yrgo.jumpyduke.utils.ScoreDataManager;
 import se.yrgo.jumpyduke.player.Player;
 
 import java.util.Comparator;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import static se.yrgo.jumpyduke.DukeGame.menuScreenTextInputListener;
@@ -87,6 +88,7 @@ public class MenuScreen extends ScreenAdapter {
     private void initClouds() {
         cloudLower = new CloudLower();
         cloudLower2 = new CloudLower();
+
         cloudLower2.setPosition(cloudLower2.getWidth(), 0);
         cloudLower2.flip();
     }

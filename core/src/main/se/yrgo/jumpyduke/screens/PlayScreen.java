@@ -24,6 +24,7 @@ import se.yrgo.jumpyduke.utils.SoundManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
@@ -59,7 +60,8 @@ public class PlayScreen extends ScreenAdapter {
         this.player = player;
         this.backgroundActor = backgroundActor;
         backgroundActor2 = new Background();
-        backgroundActor2.setPosition(backgroundActor.getWidth(),0);
+        double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND,Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
+        backgroundActor2.setPosition((float) (backgroundActor.getWidth()+randGap),0);
         backgroundActor2.flip();
         score = 0;
         Duke.setDukeState(DukeState.ALIVE);
