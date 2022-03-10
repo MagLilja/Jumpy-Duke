@@ -8,6 +8,8 @@ import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
+import static se.yrgo.jumpyduke.utils.GameUtils.logger;
+
 public class CloudLower extends Actor {
     private TextureRegion cloudRegion;
     private Vector2 lowerCloudVelocity;
@@ -22,6 +24,7 @@ public class CloudLower extends Actor {
     @Override
     public void act(float delta) {
         setX(getX() + lowerCloudVelocity.x * delta);
+        logger.info(""+ getX() +"/"+ lowerCloudVelocity.x);
         reInitialize();
         if (Duke.getDukeState() == DukeState.DEAD) {
             lowerCloudVelocity.set(Configurations.LOWER_CLOUD_VELOCITY_DEAD, 0);

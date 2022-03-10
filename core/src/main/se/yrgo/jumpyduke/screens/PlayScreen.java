@@ -35,6 +35,7 @@ public class PlayScreen extends ScreenAdapter {
     private Stage playStage;
     private Background backgroundActor;
 
+
     private OrthographicCamera cam;
     private CloudLower cloudLower;
     private CloudLower cloudLower2;
@@ -57,6 +58,7 @@ public class PlayScreen extends ScreenAdapter {
         this.player = player;
         this.backgroundActor = backgroundActor;
         score = 0;
+        Duke.setDukeState(DukeState.ALIVE);
         player.setLastScore(0);
         player.incrementRounds();
 

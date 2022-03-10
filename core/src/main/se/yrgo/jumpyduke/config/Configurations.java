@@ -27,7 +27,7 @@ public class Configurations {
     public static final float SOUND_COLLISION_VOLUME = 0.5f;
     public static final float SOUND_MUSIC_VOLUME = 0.1f;
     public static final float FONT_SIZE = 0.8f;
-    public static final float BACKGROUND_VELOCITY = -80;
+    public static final float BACKGROUND_VELOCITY = -80f;
     public static float pipe_velocity_alive;
     public static int gap_size;
     public static int pipe_spacing;
