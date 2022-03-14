@@ -2,9 +2,13 @@ package se.yrgo.jumpyduke.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
@@ -22,6 +26,11 @@ public class Bug extends Actor {
         setHeight(bugTextureRegion.getRegionHeight());
         bugVelocity = new Vector2(Configurations.pipe_velocity_alive, 0);
         bugRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
+
+        MoveByAction a1 = Actions.moveBy(0, 10f, 1f, Interpolation.sine);
+        MoveByAction a2 = Actions.moveBy(0, -10f, 1f, Interpolation.sine);
+        SequenceAction sa = Actions.sequence(a1, a2);
+        addAction(Actions.forever(sa));
     }
 
     @Override
@@ -44,8 +53,8 @@ public class Bug extends Actor {
         return bugRectangle;
     }
 
-    public void setNewRandomXVelocity(){
-        double randXVel = ThreadLocalRandom.current().nextDouble(Configurations.BUG_RAND_X_VELOCITY_LOWERBOUND,Configurations.BUG_RAND_X_VELOCITY_UPPERBOUND);
+    public void setNewRandomXVelocity() {
+        double randXVel = ThreadLocalRandom.current().nextDouble(Configurations.BUG_RAND_X_VELOCITY_LOWERBOUND, Configurations.BUG_RAND_X_VELOCITY_UPPERBOUND);
         bugVelocity.set(Configurations.pipe_velocity_alive, (float) randXVel);
     }
 }

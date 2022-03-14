@@ -7,8 +7,8 @@ import se.yrgo.jumpyduke.screens.PlayScreen;
 
 @RunWith(GdxTestRunner.class)
 public class DukeGameTest {
-    PlayScreen menuScreen;
-    DukeGame dukeGame = new DukeGame();
+//    PlayScreen menuScreen;
+//    DukeGame dukeGame = new DukeGame();
 
     @Test
     @Ignore

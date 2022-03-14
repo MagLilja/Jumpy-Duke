@@ -1,4 +1,4 @@
-package se.yrgo.jumpyduke.utils;
+package se.yrgo.jumpyduke.sound;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;

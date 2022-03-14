@@ -2,14 +2,13 @@ package se.yrgo.jumpyduke;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Logger;
 import se.yrgo.jumpyduke.assets.Assets;
 
 import se.yrgo.jumpyduke.config.Configurations;
 import se.yrgo.jumpyduke.player.Player;
 import se.yrgo.jumpyduke.screens.MenuScreen;
 import se.yrgo.jumpyduke.screens.MenuScreenTextInputListener;
-import se.yrgo.jumpyduke.utils.SoundManager;
+import se.yrgo.jumpyduke.sound.SoundManager;
 
 import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 

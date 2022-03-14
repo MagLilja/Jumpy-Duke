@@ -17,14 +17,14 @@ import java.util.concurrent.ThreadLocalRandom;
 import static se.yrgo.jumpyduke.utils.GameUtils.logger;
 
 public class Background extends Actor {
-    private TextureRegion backgroundRegion;
-    private Vector2 backgroundVelocity;
+    private final TextureRegion backgroundRegion;
+    private final Vector2 backgroundVelocity;
     private static double initialRandGap;
 
     public Background() {
         backgroundRegion = new TextureRegion(Assets.background);
         backgroundVelocity = new Vector2(0, 0);
-        setPosition(0,0);
+        setPosition(0, 0);
         setWidth(backgroundRegion.getRegionWidth());
     }
 
@@ -36,12 +36,11 @@ public class Background extends Actor {
     @Override
     public void act(float delta) {
         if (Duke.getDukeState() == DukeState.ALIVE) {
-            backgroundVelocity.set(Configurations.BACKGROUND_VELOCITY,0);
-        } else if (Duke.getDukeState() == DukeState.DEAD){
-            backgroundVelocity.set(0,0);
-        }
-        else {
-            backgroundVelocity.set(0,0);
+            backgroundVelocity.set(Configurations.BACKGROUND_VELOCITY, 0);
+        } else if (Duke.getDukeState() == DukeState.DEAD) {
+            backgroundVelocity.set(0, 0);
+        } else {
+            backgroundVelocity.set(0, 0);
         }
         setX(getX() + backgroundVelocity.x * Gdx.graphics.getDeltaTime());
         reInitialize();
@@ -53,35 +52,26 @@ public class Background extends Actor {
 
     private void reInitialize() {
         if (getX() <= -getWidth()) {
-        double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND,Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
-        logger.info(String.valueOf(getX()));
-        logger.info(String.valueOf(randGap));
-        logger.info(String.valueOf(initialRandGap));
-        logger.info(String.valueOf((MenuScreen.currentGameMode == GameModeState.HARD)));
+            double randGap = ThreadLocalRandom.current().nextDouble(Configurations.BACKGROUND_RAND_GAP_LOWERBOUND, Configurations.BACKGROUND_RAND_GAP_UPPERBOUND);
             setX((float) ((getX() + getWidth() * 2) + randGap + initialRandGap));
         }
     }
 
-
-
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (MenuScreen.currentGameMode == GameModeState.HARD)
-        batch.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_BLEND_SRC_RGB);
-          batch.draw(backgroundRegion, getX(), getY());
-    }
-
-    public TextureRegion getBackgroundRegion() {
-        return backgroundRegion;
+        if (MenuScreen.currentGameMode == GameModeState.HARD) {
+            batch.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_BLEND_SRC_RGB);
+        }
+        batch.draw(backgroundRegion, getX(), getY());
     }
 
     public void setTexture(GameModeState currentGameMode) {
-        switch (currentGameMode){
+        switch (currentGameMode) {
             case HARD:
                 backgroundRegion.setRegion(Assets.hardBackground);
                 break;
             case EASY:
-               backgroundRegion.setRegion(Assets.easyBackground);
+                backgroundRegion.setRegion(Assets.easyBackground);
                 break;
             case NORMAL:
                 backgroundRegion.setRegion(Assets.background);

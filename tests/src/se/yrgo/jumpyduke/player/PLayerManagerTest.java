@@ -11,15 +11,5 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PLayerManagerTest {
 
-    @Test
-    @Disabled
-    void getDataFromJsonTest() throws IOException {
-        // given
-        ScoreDataManager.loadDataFromJson("players.json");
-        List<Player> dataFromJson = ScoreDataManager.getDataFromJson("players.json");
-        // when
 
-        // then
-        assertDoesNotThrow(() -> dataFromJson.size());
-    }
 }

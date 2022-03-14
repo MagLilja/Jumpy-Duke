@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -115,6 +117,7 @@ public class MenuScreen extends ScreenAdapter {
                 + getHighScoreListString(), Assets.skin);
         highScoreLabel.setAlignment(Align.center);
         highScoreLabel.setPosition(Configurations.GAME_WIDTH / 2,
+
                 Configurations.GAME_HEIGHT * 0.8f, Align.center);
     }
 

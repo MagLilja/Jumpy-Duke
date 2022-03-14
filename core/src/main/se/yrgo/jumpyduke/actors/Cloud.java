@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.config.Configurations;
 
@@ -20,10 +21,15 @@ public class Cloud extends Actor {
         cloudVelocity = new Vector2(Configurations.LOWER_CLOUD_VELOCITY_ALIVE, 0);
 
         setPosition(x, y);
-        if (getY() != 0){
+        setUpperCloudVelocity();
+        setWidth(cloudRegion.getRegionWidth());
+    }
+
+    private void setUpperCloudVelocity() {
+        if (getY() != 0) {
             cloudVelocity.set(-100, 0);
         }
-        setWidth(cloudRegion.getRegionWidth());
+
     }
 
     @Override
@@ -41,9 +47,9 @@ public class Cloud extends Actor {
 
     private void reInitialize() {
         if (getX() <= -getWidth()) {
-            double randGap = ThreadLocalRandom.current().nextDouble(Configurations.UPPERCLOUD_RAND_GAP_LOWERBOUND,Configurations.UPPERCLOUD_RAND_GAP_UPPERBOUND);
+            double randGap = ThreadLocalRandom.current().nextDouble(Configurations.UPPERCLOUD_RAND_GAP_LOWERBOUND, Configurations.UPPERCLOUD_RAND_GAP_UPPERBOUND);
             setX(getX() + getWidth() * 2);
-            if (getY() != 0){
+            if (getY() != 0) {
                 setY((float) randGap);
                 logger.info(String.valueOf(getY()));
             }
@@ -57,6 +63,6 @@ public class Cloud extends Actor {
     }
 
     public void setCloudXVelocity(float velocity) {
-        cloudVelocity.set(velocity,0);
+        cloudVelocity.set(velocity, 0);
     }
 }

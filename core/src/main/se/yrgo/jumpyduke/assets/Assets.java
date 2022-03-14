@@ -3,7 +3,6 @@ package se.yrgo.jumpyduke.assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -41,7 +40,7 @@ public class Assets {
     public static Music backgroundMusic;
 
     public static String playersTemplateFile;
-    public static String playerScores;
+    public static String playerScoresFile;
 
     public static void loadAssets() {
         textureAtlas = new TextureAtlas("pack.atlas");
@@ -70,10 +69,10 @@ public class Assets {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/backgroundMusic.mp3"));
 
         playersTemplateFile = "playersTemplate.json";
-        playerScores = "playerScores.json";
+        playerScoresFile = "playerScores.json";
 
         try {
-            ScoreDataManager.loadDataFromJson(playerScores);
+            ScoreDataManager.loadDataFromJson(playerScoresFile);
         } catch (IOException e) {
             System.err.println("IOException from player.json");
             e.printStackTrace();

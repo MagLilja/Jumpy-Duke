@@ -7,11 +7,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction;
 import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
 
 public class Duke extends Actor {
+    public static Vector2 dukeStartingPostition;
     private static DukeState dukeState;
     private TextureRegion dukeRegion = new TextureRegion(Assets.dukeAnimatedOne);
     private Circle dukeCircle;
@@ -29,6 +33,7 @@ public class Duke extends Actor {
         dukeVelocity = new Vector2();
         dukeAcceleration = new Vector2(0, Configurations.DUKE_GRAVITY);
         debugCircle = new ShapeRenderer();
+
     }
 
     public Circle getDukeCircle() {
@@ -52,7 +57,10 @@ public class Duke extends Actor {
     }
 
     private void setDukeStartingPosition() {
-        setPosition(Configurations.dukeStartingPostition.x, Configurations.dukeStartingPostition.y);
+        dukeStartingPostition = new Vector2(
+                Configurations.GAME_WIDTH / 2.0f - Assets.duke.getRegionWidth() / 2.0f,
+                Configurations.GAME_HEIGHT / 2.0f);
+        setPosition(dukeStartingPostition.x, dukeStartingPostition.y);
     }
 
     @Override
@@ -76,6 +84,7 @@ public class Duke extends Actor {
         Duke.dukeState = dukeState;
     }
 
+    // This function is kept for future debugging
     public void debugCircle() {
         debugCircle.begin(ShapeRenderer.ShapeType.Line);
         debugCircle.setColor(Color.RED);
@@ -87,6 +96,7 @@ public class Duke extends Actor {
     public void setDukeAccelerationToZero() {
         dukeAcceleration.set(0, 0);
     }
+
     public void resetDukeAcceleration() {
         dukeAcceleration.set(0, Configurations.DUKE_GRAVITY);
     }

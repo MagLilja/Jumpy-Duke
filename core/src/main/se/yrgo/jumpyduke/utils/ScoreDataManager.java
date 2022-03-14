@@ -45,7 +45,7 @@ public class ScoreDataManager {
         return listOfPlayers;
     }
 
-    public static List<Player> getDataFromJson(String jsonFile) throws IOException {
+    private static List<Player> getDataFromJson(String jsonFile) throws IOException {
         InputStream inputStream = Resources.getResource(jsonFile).openStream();
         String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         Type listType = new TypeToken<ArrayList<Player>>() {
@@ -59,7 +59,7 @@ public class ScoreDataManager {
                 player.getLastScore(), player.getHighScore(), player.getRounds(), player.getGameModeState());
         listOfPlayers.add(lastRoundPlayer);
 
-        try (Writer writer = new FileWriter("playerScores.json")) {
+        try (Writer writer = new FileWriter(Assets.playerScoresFile)) {
             new Gson().toJson(getSortedLimitedListOfPlayers(), writer);
         }
         logger.info("updated playerScores.json file, will create new from template.");
