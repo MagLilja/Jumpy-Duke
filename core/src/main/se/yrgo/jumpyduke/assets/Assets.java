@@ -27,6 +27,7 @@ public class Assets {
     public static TextureRegion bug;
     public static TextureRegion dukeAnimatedOne;
     public static TextureRegion horizonBackground;
+    public static String api_URI;
     private static TextureRegion dukeAnimatedTwo;
     private static TextureRegion dukeAnimatedThree;
     private static TextureRegion[] dukeAnimatedArray;
@@ -76,6 +77,8 @@ public class Assets {
 
         playersTemplateFile = "playersTemplate.json";
         playerScoresFile = "playerScores.json";
+
+        api_URI = "https://jumpyduke.com/node-test/";
 
         try {
             ScoreDataManager.loadDataFromJson(playerScoresFile);

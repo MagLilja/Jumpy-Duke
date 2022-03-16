@@ -41,7 +41,7 @@ public class PipeDuoManager {
     }
 
     private void initializePair(float gameWidth) {
-        topPipe.setTopPipe(true);
+        topPipe.getPipeRegion().flip(true,true);
         topPipe.setPosition(gameWidth, (float) (randomPipePlacement +
                 (Configurations.gap_size / 2)), Align.bottomLeft);
         bottomPipe.setPosition(gameWidth, (float) (randomPipePlacement -

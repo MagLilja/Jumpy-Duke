@@ -31,8 +31,9 @@ public class Pipe extends Actor {
         setOrigin(Align.center);
     }
 
-    public void setTopPipe(boolean topPipe) {
-        isTopPipe = topPipe;
+    public void setTopPipe(boolean isTopPipe) {
+        this.isTopPipe = isTopPipe;
+        
     }
 
     @Override
@@ -46,8 +47,8 @@ public class Pipe extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-//        batch.draw(pipeRegion, getX(), getY(), getOriginX(), getOriginY(),
-//                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+        batch.draw(pipeRegion, getX(), getY(), getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 //
 //
 //        604, 220
@@ -59,8 +60,8 @@ public class Pipe extends Actor {
 //            flipX = true;
 //            flipy = true;
 //        }
-        batch.draw(pipeRegion.getTexture(), getX(), getY(), getOriginX(), getOriginY(),
-                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation(), 604, 220, 140, 801, isTopPipe, isTopPipe);
+//        batch.draw(pipeRegion.getTexture(), getX(), getY(), getOriginX(), getOriginY(),
+//                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation(), 604, 220, 140, 801, isTopPipe, isTopPipe);
     }
 
     public TextureRegion getPipeRegion() {
