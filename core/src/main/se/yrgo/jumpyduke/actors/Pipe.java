@@ -16,6 +16,7 @@ public class Pipe extends Actor {
     private TextureRegion pipeRegion;
     private Vector2 pipeVelocity;
     private Rectangle pipeRectangle;
+    private boolean isTopPipe = false;
 
     public Rectangle getPipeRectangle() {
         return pipeRectangle;
@@ -30,6 +31,10 @@ public class Pipe extends Actor {
         setOrigin(Align.center);
     }
 
+    public void setTopPipe(boolean topPipe) {
+        isTopPipe = topPipe;
+    }
+
     @Override
     public void act(float delta) {
         if (Duke.getDukeState() == DukeState.ALIVE) {
@@ -41,8 +46,21 @@ public class Pipe extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        batch.draw(pipeRegion, getX(), getY(), getOriginX(), getOriginY(),
-                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+//        batch.draw(pipeRegion, getX(), getY(), getOriginX(), getOriginY(),
+//                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+//
+//
+//        604, 220
+//        size: 140, 801
+
+//        boolean flipX = false;
+//        boolean flipy = false;
+//        if (isTopPipe) {
+//            flipX = true;
+//            flipy = true;
+//        }
+        batch.draw(pipeRegion.getTexture(), getX(), getY(), getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation(), 604, 220, 140, 801, isTopPipe, isTopPipe);
     }
 
     public TextureRegion getPipeRegion() {

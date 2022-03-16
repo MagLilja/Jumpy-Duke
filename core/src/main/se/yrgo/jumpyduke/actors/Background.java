@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import se.yrgo.jumpyduke.DukeState;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
@@ -26,6 +27,7 @@ public class Background extends Actor {
         backgroundVelocity = new Vector2(0, 0);
         setPosition(0, 0);
         setWidth(backgroundRegion.getRegionWidth());
+
     }
 
     public Background(double randGap) {
