@@ -137,7 +137,7 @@ public class ScoreDataManager {
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
-        httpPost.setHeader("user-agent", "jumpy-duke");
+        httpPost.setHeader("User-Agent", "jumpy-duke");
         CloseableHttpResponse response = null;
         try {
             response = client.execute(httpPost);
