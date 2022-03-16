@@ -26,6 +26,7 @@ public class Assets {
     public static TextureRegion pipe;
     public static TextureRegion bug;
     public static TextureRegion dukeAnimatedOne;
+    public static TextureRegion horizonBackground;
     private static TextureRegion dukeAnimatedTwo;
     private static TextureRegion dukeAnimatedThree;
     private static TextureRegion[] dukeAnimatedArray;
@@ -47,6 +48,7 @@ public class Assets {
         background = textureAtlas.findRegion("Background_NORMAL");
         easyBackground = textureAtlas.findRegion("Background_EASY");
         hardBackground = textureAtlas.findRegion("Background_HARD");
+        horizonBackground = textureAtlas.findRegion("Background_horizon");
         duke = textureAtlas.findRegion("Duke_scale_76x60");
         bug = textureAtlas.findRegion("Bug");
         pipe = textureAtlas.findRegion("Pipe_bottom_new_140x801");

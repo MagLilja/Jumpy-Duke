@@ -6,11 +6,13 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -40,6 +42,7 @@ public class PlayScreen extends ScreenAdapter {
     private Stage playStage;
     private Background backgroundActor;
     private Background backgroundActor2;
+    private TextureRegion horizonBackground;
 
     private OrthographicCamera cam;
 
@@ -71,6 +74,7 @@ public class PlayScreen extends ScreenAdapter {
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
         duke = new Duke();
         score = 0;
+        horizonBackground = Assets.horizonBackground;
         Duke.setDukeState(DukeState.ALIVE);
 
         ScaleByAction scaleByAction = new ScaleByAction();
@@ -179,8 +183,11 @@ public class PlayScreen extends ScreenAdapter {
     }
 
     private void addActors() {
+        Image actor2 = new Image(horizonBackground);
+        playStage.addActor(actor2);
         playStage.addActor(backgroundActor);
         playStage.addActor(backgroundActor2);
+
         playStage.addActor(upperCloud);
         playStage.addActor(duke);
         addPipeActors();
