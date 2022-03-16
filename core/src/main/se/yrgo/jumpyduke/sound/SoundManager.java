@@ -35,4 +35,12 @@ public class SoundManager {
         backgroundMusic.setVolume(Configurations.SOUND_MUSIC_VOLUME);
         backgroundMusic.play();
     }
+
+    public static void pauseMusic() {
+        backgroundMusic.pause();
+    }
+
+    public static void playMusic() {
+        backgroundMusic.play();
+    }
 }

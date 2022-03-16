@@ -19,6 +19,7 @@ import se.yrgo.jumpyduke.actors.Cloud;
 import se.yrgo.jumpyduke.actors.Duke;
 import se.yrgo.jumpyduke.assets.Assets;
 import se.yrgo.jumpyduke.config.Configurations;
+import se.yrgo.jumpyduke.sound.SoundManager;
 import se.yrgo.jumpyduke.utils.GameModeState;
 import se.yrgo.jumpyduke.utils.ScoreDataManager;
 import se.yrgo.jumpyduke.player.Player;
@@ -227,6 +228,13 @@ public class MenuScreen extends ScreenAdapter {
                             Configurations.playerNameInputText, "", "");
                 }
 
+                if (keycode == Input.Keys.F4) {
+                    SoundManager.pauseMusic();
+                }
+
+                if (keycode == Input.Keys.F5) {
+                    SoundManager.playMusic();
+                }
                 return true;
             }
         });
