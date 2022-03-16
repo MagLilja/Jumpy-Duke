@@ -16,6 +16,7 @@ public class Pipe extends Actor {
     private TextureRegion pipeRegion;
     private Vector2 pipeVelocity;
     private Rectangle pipeRectangle;
+    private boolean isTopPipe = false;
 
     public Rectangle getPipeRectangle() {
         return pipeRectangle;
@@ -28,6 +29,11 @@ public class Pipe extends Actor {
         pipeRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
         pipeVelocity = new Vector2(Configurations.pipe_velocity_alive, 0);
         setOrigin(Align.center);
+    }
+
+    public void setTopPipe(boolean isTopPipe) {
+        this.isTopPipe = isTopPipe;
+        
     }
 
     @Override
@@ -43,6 +49,19 @@ public class Pipe extends Actor {
 
         batch.draw(pipeRegion, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+//
+//
+//        604, 220
+//        size: 140, 801
+
+//        boolean flipX = false;
+//        boolean flipy = false;
+//        if (isTopPipe) {
+//            flipX = true;
+//            flipy = true;
+//        }
+//        batch.draw(pipeRegion.getTexture(), getX(), getY(), getOriginX(), getOriginY(),
+//                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation(), 604, 220, 140, 801, isTopPipe, isTopPipe);
     }
 
     public TextureRegion getPipeRegion() {

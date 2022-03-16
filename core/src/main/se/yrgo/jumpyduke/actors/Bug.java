@@ -27,10 +27,7 @@ public class Bug extends Actor {
         bugVelocity = new Vector2(Configurations.pipe_velocity_alive, 0);
         bugRectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
 
-        MoveByAction a1 = Actions.moveBy(0, 10f, 1f, Interpolation.sine);
-        MoveByAction a2 = Actions.moveBy(0, -10f, 1f, Interpolation.sine);
-        SequenceAction sa = Actions.sequence(a1, a2);
-        addAction(Actions.forever(sa));
+
     }
 
     @Override
@@ -39,13 +36,18 @@ public class Bug extends Actor {
             setX(getX() + bugVelocity.x * delta);
             setY(getY() + bugVelocity.y * delta);
             bugRectangle.setPosition(getX(), getY());
+
+
         }
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(bugTextureRegion, getX(), getY(), getOriginX(), getOriginY(),
-                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+//        batch.draw(bugTextureRegion, getX(), getY(), getOriginX(), getOriginY(),
+//                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+
+        batch.draw(bugTextureRegion.getTexture(), getX(), getY(), getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation(), 0, 0, 32, 34, false, false);
 
     }
 

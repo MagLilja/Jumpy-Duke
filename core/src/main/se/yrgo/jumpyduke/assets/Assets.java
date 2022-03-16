@@ -27,6 +27,7 @@ public class Assets {
     public static TextureRegion bug;
     public static TextureRegion dukeAnimatedOne;
     public static TextureRegion horizonBackground;
+    public static String api_URI;
     private static TextureRegion dukeAnimatedTwo;
     private static TextureRegion dukeAnimatedThree;
     private static TextureRegion[] dukeAnimatedArray;
@@ -42,6 +43,10 @@ public class Assets {
 
     public static String playersTemplateFile;
     public static String playerScoresFile;
+
+    public static TextureRegion[] getDukeAnimatedArray() {
+        return dukeAnimatedArray;
+    }
 
     public static void loadAssets() {
         textureAtlas = new TextureAtlas("pack.atlas");
@@ -62,8 +67,8 @@ public class Assets {
         dukeAnimatedTwo = textureAtlas.findRegion("DukeTwo");
         dukeAnimatedThree = textureAtlas.findRegion("DukeThree");
         dukeAnimatedArray = new TextureRegion[]{dukeAnimatedOne, dukeAnimatedTwo, dukeAnimatedThree};
-        dukeAnimated = new Animation(0.20f, dukeAnimatedArray);
-        dukeAnimated.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+//        dukeAnimated = new Animation(0.20f, dukeAnimatedArray);
+//        dukeAnimated.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
         bugSound = Gdx.audio.newSound(Gdx.files.internal("sound/bugSound.mp3"));
         collisionSound = Gdx.audio.newSound(Gdx.files.internal("sound/collisionSound.mp3"));
@@ -72,6 +77,8 @@ public class Assets {
 
         playersTemplateFile = "playersTemplate.json";
         playerScoresFile = "playerScores.json";
+
+        api_URI = "https://jumpyduke.com/node-test/";
 
         try {
             ScoreDataManager.loadDataFromJson(playerScoresFile);

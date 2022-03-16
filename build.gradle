@@ -76,6 +76,10 @@ project(":core") {
         implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
         implementation 'com.google.guava:guava:31.0.1-jre'
         implementation 'commons-io:commons-io:2.11.0'
+        // https://mvnrepository.com/artifact/org.json/json
+        implementation 'org.json:json:20211205'
+        // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+        implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 
 
 
