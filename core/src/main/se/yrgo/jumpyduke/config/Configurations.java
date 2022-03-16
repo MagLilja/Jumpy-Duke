@@ -37,8 +37,8 @@ public class Configurations {
     // ------------ Bug configuration ------------
     public static final double BUG_TOP_LEVEL = GAME_HEIGHT * 0.65f;
     public static final double BUG_BOTTOM_LEVEL = GAME_HEIGHT * 0.35f;
-    public static final double BUG_RAND_X_VELOCITY_LOWERBOUND = -20;
-    public static final double BUG_RAND_X_VELOCITY_UPPERBOUND = 20;
+    public static final double BUG_RAND_X_VELOCITY_LOWERBOUND = -40;
+    public static final double BUG_RAND_X_VELOCITY_UPPERBOUND = 40;
 
     // ------------ Background configuration ------------
     public static final float BACKGROUND_VELOCITY = -40f;

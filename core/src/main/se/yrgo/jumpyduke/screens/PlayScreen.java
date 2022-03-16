@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
@@ -29,8 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static com.badlogic.gdx.graphics.Color.BLACK;
 import static com.badlogic.gdx.graphics.Color.BLUE;
+import static com.badlogic.gdx.graphics.Color.GREEN;
+import static com.badlogic.gdx.graphics.Color.ORANGE;
 import static com.badlogic.gdx.graphics.Color.RED;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.addAction;
 
 public class PlayScreen extends ScreenAdapter {
     private DukeGame dukeGame;
@@ -70,12 +75,9 @@ public class PlayScreen extends ScreenAdapter {
         playStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT, cam));
         guiStage = new Stage(new StretchViewport(Configurations.GAME_WIDTH, Configurations.GAME_HEIGHT));
         duke = new Duke();
+
         score = 0;
         Duke.setDukeState(DukeState.ALIVE);
-
-        ScaleByAction scaleByAction = new ScaleByAction();
-        scaleByAction.setAmount(0.5F);
-
 
         player.setLastScore(0);
         player.incrementRounds();
@@ -242,7 +244,7 @@ public class PlayScreen extends ScreenAdapter {
         if (Duke.getDukeState() == DukeState.ALIVE) {
             duke.setDukeJump();
             SoundManager.playJumpSound();
-
+            duke.addAction(Actions.moveTo(100,100));
         }
     }
 
@@ -317,6 +319,7 @@ public class PlayScreen extends ScreenAdapter {
                     scoreLabel.addAction(Actions.moveToAligned(Configurations.GAME_WIDTH / 2, Configurations.GAME_HEIGHT / 2 + 30, Align.bottom, .75f, Interpolation.sine));
                     scoreLabel.addAction(Actions.color(Color.GREEN));
                     scoreLabel.addAction(Actions.scaleBy(500, 500));
+                    listOfPipes.forEach(p -> p.addAction(Actions.color(ORANGE)));
                 }
             }
         }
