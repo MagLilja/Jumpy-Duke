@@ -1,7 +1,4 @@
-defaultTasks 'test', 'run'
-
 buildscript {
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -10,13 +7,18 @@ buildscript {
         google()
     }
     dependencies {
-
-
     }
+
 }
+plugins {
+    id "org.beryx.jlink" version "2.24.1" apply false
+}
+//defaultTasks 'test', 'run'
+
 
 allprojects {
     apply plugin: "eclipse"
+//    apply plugin: "org.beryx.jlink"
 
     version = '1.0'
     ext {
@@ -36,7 +38,21 @@ allprojects {
         gradlePluginPortal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://artifactory.nimblygames.com/artifactory/ng-public-release/" }
     }
+//
+//
+//
+//    jlink {
+//        mergedModule {
+//            requires 'java.naming'
+//            requires 'java.xml'
+//        }
+//        launcher{
+//            name = 'hello'
+//            jvmArgs = ['-Dlogback.configurationFile=./logback.xml']
+//        }
+//    }
 
 
 }
@@ -48,6 +64,7 @@ project(":desktop") {
     dependencies {
         implementation project(":core")
 
+        implementation("com.badlogicgames.packr:packr:3.0.3")
 
 //        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
@@ -80,7 +97,6 @@ project(":core") {
         implementation 'org.json:json:20211205'
         // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
         implementation 'org.apache.httpcomponents:httpclient:4.5.13'
-
 
 
     }
@@ -133,8 +149,6 @@ project(":tests") {
         testCompile 'org.junit.vintage:junit-vintage-engine:5.8.2'
 
         testCompile 'org.mockito:mockito-all:1.10.19'
-
-
 
 
         testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"

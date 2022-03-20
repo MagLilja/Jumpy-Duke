@@ -38,6 +38,17 @@ An in-depth paragraph about your project and overview of use.
 * How/where to download your program
 * Any modifications needed to be made to files/folders
 
+#### Creating exe installer
+
+- With JPackage
+- Install WIX
+- Put jar file in a folder 
+- Run the following command on the same folder 
+```
+$ jpackage --input . --dest output --name jumpyDuke --main-jar desktop-1.0.jar --main-class se.yrgo.jumpyduke.desktop.DesktopLauncher --type exe 
+```
+
+
 ### Executing program
 
 * How to run the program
