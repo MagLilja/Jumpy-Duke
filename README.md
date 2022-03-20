@@ -40,6 +40,7 @@ An in-depth paragraph about your project and overview of use.
 
 #### Creating exe installer with JPackage
 
+- Activate .Net Framework 3.5
 - Install [WiX Toolset](https://wixtoolset.org/)
 - Put jar file in a folder 
 - Run the following command on the same folder 
