@@ -38,10 +38,9 @@ An in-depth paragraph about your project and overview of use.
 * How/where to download your program
 * Any modifications needed to be made to files/folders
 
-#### Creating exe installer
+#### Creating exe installer with JPackage
 
-- With JPackage
-- Install WIX
+- Install [WiX Toolset](https://wixtoolset.org/)
 - Put jar file in a folder 
 - Run the following command on the same folder 
 ```
