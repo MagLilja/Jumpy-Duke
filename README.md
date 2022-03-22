@@ -3,17 +3,49 @@ Jag har några saker och frågor som jag tycker är viktigt att det kommer med o
 
 - Vad är det för projekt?
     - Förklara spelet.
+      - An interactive platform game inspired by Flappy Bird.
+      - Where you fly around with Java's own Duke and try to catch bugs and avoid obstacles.
+      - Simple but elegant. The space key is almost the only one you need to keep an eye on.
     - Strukturen?
         - Spelet, hemsidan, databasen etc.
+          - The game is written in Java 11.
+          - In the game you get points, which are saved online by the game sending / posting the points to an api.
+          - The API then saves the points in a database on the same server.
+          - The website retrieves / gets the points from the apie, which in turn retrieves it from the database.
+          - (The API is Restful-Node-Express and the database is MySQL)
         - Klasser, konfiguration, etc?
+          - Vi använder Libgdx med vad som kallas screens.
+          - Vi har även actors som ligger i ett actor pack.
+              - Se bild och komplettera med diagrams.draw
+              - Googla generate diagram plugin för intellij
+              - Markera projektet och tryck ctrl+shift+alt+u för att få diagram
+          
 - Varför har vi gjort projektet?
+  - We have taken a course in Agila project methods.
+  - In the course we were given the task of creating a game in the style of Flappy Bird and
+  - work based on the Scrum method.
+  - To practice planning, structure and cooperation.
+  - To hopefully get a taste of what it is like in working life.
+
 - Vad har vi använt för verktyg etc?
     - Vilket ramverk är spelet byggt i? Varför?
+      - Libgdx, which is a more modern tool than swing and more adapted for the purpose.
     - Vilket byggverktyg har vi? Varför?
+      - Gradel, because Libgdx project generator creates the project with Gradel.
     - Vilka direkta dependencies har vi i applikationen? Varför? Vad används dom till?
+      - We have used Git and GitHub for version control.
+      - As our IDE, we have used Intellij because it's just soo good!
+      - Jenkins for continuous construction and testing.
+  
 - Hur bygger man projektet?
+  - To build the project run ./gradlew build.
+  
 - Hur kör man spelet
     - Vilka alternativ finns?
+      - Download an .exe or .jar file via jumpyduke.com.
+      - Alternatively, download the source code and run it directly via your IDE.
+      - Clone the repo and run.
+      - To run the program run ./gradlew run.
 
 
 ![](assets_to_be_packed/DukeThree.png)
