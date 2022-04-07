@@ -71,7 +71,6 @@ Clone this repository and build with the Gradle Wrapper
 $ jpackage --input . --dest output --name jumpyDuke --main-jar desktop-1.0.jar --main-class se.yrgo.jumpyduke.desktop.DesktopLauncher --type exe 
 ```
 
-
 ## Screenshots
 
 ### Game
@@ -98,7 +97,7 @@ $ jpackage --input . --dest output --name jumpyDuke --main-jar desktop-1.0.jar -
 
 Contributors names and contact info
 
-Magnus 
-Wilhelm 
-Rayan
+Magnus Lilja
+Wilhelm Junger
+Rayan Sabah
 
