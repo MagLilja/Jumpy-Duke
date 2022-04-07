@@ -1,27 +1,3 @@
-
-Jag har några saker och frågor som jag tycker är viktigt att det kommer med och vi svarar på i vår ReadMe:
-
-- Vad är det för projekt?
-    - Förklara spelet.
-
-    - Strukturen?
-        - Spelet, hemsidan, databasen etc.
-
-        - Klasser, konfiguration, etc?
-          - Vi använder Libgdx med vad som kallas screens.
-          - Vi har även actors som ligger i ett actor pack.
-              - Se bild och komplettera med diagrams.draw
-              - Googla generate diagram plugin för intellij
-              - Markera projektet och tryck ctrl+shift+alt+u för att få diagram
-          
-- Varför har vi gjort projektet?
-
-
-
-
-
-
-
 # Jumpy Duke The Game!
 ![](assets_to_be_packed/DukeThree.png)
 
@@ -114,32 +90,15 @@ $ jpackage --input . --dest output --name jumpyDuke --main-jar desktop-1.0.jar -
 - Jenkins for CD
 - GIT/GITHUB for CI
 
+## Class diagram
+
+![img.png](Storyboard/diagram.png)
 
 ## Authors
 
 Contributors names and contact info
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+Magnus 
+Wilhelm 
+Rayan
 
