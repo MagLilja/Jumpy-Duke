@@ -3,16 +3,10 @@ Jag har några saker och frågor som jag tycker är viktigt att det kommer med o
 
 - Vad är det för projekt?
     - Förklara spelet.
-      - An interactive platform game inspired by Flappy Bird.
-      - Where you fly around with Java's own Duke and try to catch bugs and avoid obstacles.
-      - Simple but elegant. The space key is almost the only one you need to keep an eye on.
+
     - Strukturen?
         - Spelet, hemsidan, databasen etc.
-          - The game is written in Java 11.
-          - In the game you get points, which are saved online by the game sending / posting the points to an api.
-          - The API then saves the points in a database on the same server.
-          - The website retrieves / gets the points from the apie, which in turn retrieves it from the database.
-          - (The API is Restful-Node-Express and the database is MySQL)
+
         - Klasser, konfiguration, etc?
           - Vi använder Libgdx med vad som kallas screens.
           - Vi har även actors som ligger i ett actor pack.
@@ -21,56 +15,77 @@ Jag har några saker och frågor som jag tycker är viktigt att det kommer med o
               - Markera projektet och tryck ctrl+shift+alt+u för att få diagram
           
 - Varför har vi gjort projektet?
-  - We have taken a course in Agila project methods.
-  - In the course we were given the task of creating a game in the style of Flappy Bird and
-  - work based on the Scrum method.
-  - To practice planning, structure and cooperation.
-  - To hopefully get a taste of what it is like in working life.
-
-- Vad har vi använt för verktyg etc?
-    - Vilket ramverk är spelet byggt i? Varför?
-      - Libgdx, which is a more modern tool than swing and more adapted for the purpose.
-    - Vilket byggverktyg har vi? Varför?
-      - Gradel, because Libgdx project generator creates the project with Gradel.
-    - Vilka direkta dependencies har vi i applikationen? Varför? Vad används dom till?
-      - We have used Git and GitHub for version control.
-      - As our IDE, we have used Intellij because it's just soo good!
-      - Jenkins for continuous construction and testing.
-  
-- Hur bygger man projektet?
-  - To build the project run ./gradlew build.
-  
-- Hur kör man spelet
-    - Vilka alternativ finns?
-      - Download an .exe or .jar file via jumpyduke.com.
-      - Alternatively, download the source code and run it directly via your IDE.
-      - Clone the repo and run.
-      - To run the program run ./gradlew run.
 
 
+
+
+
+
+
+# Jumpy Duke The Game!
 ![](assets_to_be_packed/DukeThree.png)
-
-# Project Title
-
-Simple overview of use/purpose.
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+### What?
 
-## Getting Started
+An interactive platform game inspired by Flappy Bird.
+You fly around with Java's own Duke and try to catch bugs and avoid obstacles.
+Simple but elegant. The space key is almost the only one you need to keep an eye on.
 
-### Dependencies
+In the game you get points, which are saved online in a MySQL database connected to the game and the website
+through a NodeJS-Express routing application.
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+The application and the website can be found at this repository:
 
-### Installing
+https://github.com/MagLilja/Jumpy-Duke-Website
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+### Why?
 
-#### Creating exe installer with JPackage
+This project was made as an assignment for a course in Agile Software Development.
+
+We were given the task of creating a game in the style of Flappy Bird and work according to Scrum methods.
+
+The goal was to practice planning, structure and cooperation and to 
+hopefully get a taste of what it's like in a real commercial project.
+
+## Dependencies and Components
+
+The game is written in Java 11 with the OpenGL (ES) game development framework [LibGDX](https://libgdx.com/). 
+
+The build tool used is Gradle. 
+
+## Building and running with Gradle
+
+If you do not have gradle installed on your system you can clone 
+this repository and build with the Gradle Wrapper. 
+```
+./gradlew build.
+```
+
+To run the program run the following command:
+
+Clone this repository and build with the Gradle Wrapper
+```
+./gradlew build.
+```
+
+## Building a distribution jar
+
+To build a runnable jar file run the following command:
+
+Clone this repository and build with the Gradle Wrapper
+```
+./gradle dist
+```
+
+## Installing
+
+### Windows/exe
+
+* The game can be downloaded as an installable exe-file on the [website](https://jumpyduke.com/download.html)
+
+### Creating exe installer with JPackage
 
 - Activate .Net Framework 3.5
 - Install [WiX Toolset](https://wixtoolset.org/)
@@ -81,20 +96,22 @@ $ jpackage --input . --dest output --name jumpyDuke --main-jar desktop-1.0.jar -
 ```
 
 
-### Executing program
+## Screenshots
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+### Game
+![img.png](Storyboard/img.png)
+![img_1.png](Storyboard/img_1.png)
+![img_2.png](Storyboard/img_2.png)
+![img_3.png](Storyboard/img_3.png)
+### Website
 
-## Help
+## Other tools and acknowledgments 
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+- IntelliJ for being an awsome IDE.
+- Insomnia for doing our http requests. 
+- Jenkins for CD
+- GIT/GITHUB for CI
+
 
 ## Authors
 
