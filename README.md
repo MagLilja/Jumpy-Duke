@@ -1,4 +1,4 @@
-# Jumpy Duke The Game!Cancel changes
+# Jumpy Duke The Game!
 ![](assets_to_be_packed/DukeThree.png)                                                                                              
 https://jumpyduke.com/
 
